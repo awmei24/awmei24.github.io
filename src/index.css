@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
+
+@theme {
+  --color-cream:        #FAF9F7;
+  --color-parchment:    #F2EFEA;
+  --color-ink:          #1F1F1F;
+  --color-stone:        #4B4B4B;
+  --color-sage-light:   #BAC8B1;
+  --color-sage:         #93A985;
+  --color-night:        #141412;
+  --color-night-raised: #1e1d1a;
+
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+}
+
+/* ─── Dark Mode ──────────────────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: var(--color-night);
+    color: var(--color-cream);
+  }
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: var(--color-sage-light);
+  color: var(--color-ink);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-sage-light);
+  border-radius: 2px;
+}
+
+/* ─── Utilities ──────────────────────────────────────────────────────────── */
+
+/* Spring-physics lift for cards */
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-4px) rotate(0.5deg);
+  box-shadow: 0 16px 40px -8px rgba(31, 31, 31, 0.10);
+}
+
+/* Sage animated underline for links */
+.link-sage {
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-sage), var(--color-sage));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1.5px;
+  transition: background-size 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.link-sage:hover {
+  background-size: 100% 1.5px;
+}
