@@ -6,7 +6,7 @@ interface TagProps {
 export function Tag({ children, className = "" }: TagProps) {
   return (
     <span
-      className={`inline-block text-xs px-2.5 py-1 rounded-full border border-[var(--color-sage-light)] text-[var(--color-stone)] font-medium tracking-wide ${className}`}
+      className={`inline-block font-mono text-[11px] px-2.5 py-1 rounded-full border border-sage-light text-stone dark:text-sage-light tracking-wide ${className}`}
     >
       {children}
     </span>

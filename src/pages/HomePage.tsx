@@ -3,52 +3,37 @@ import { Link } from "react-router-dom";
 import { Container } from "../components/layout/Container";
 import { FadeIn, StaggerGroup } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
-import { Tag } from "../components/ui/Tag";
-import { LeafSprig, Sprout, TinyMushroom, SmallLeaf, FloralDivider } from "../components/decorative/Botanical";
+import { LeafSprig, Sprout, TinyMushroom } from "../components/decorative/Botanical";
+import { Sway } from "../components/garden/Sway";
+import { FloretBadge } from "../components/garden/FloretBadge";
+import { WaterThePlant } from "../components/garden/WaterThePlant";
+import { MarginNote } from "../components/garden/MarginNote";
+import { usePageTitle } from "../hooks/usePageTitle";
 import { bio, projects, chapters } from "../lib/content";
 import { fadeUp, springPop, staggerContainer, slideLeft } from "../lib/motion";
-import selfPortrait from "../assets/self (1).png";
+import selfPortrait from "../assets/self-portrait.webp";
 
-/* ── Chapter card on homepage ─────────────────────────────────────────────── */
-function ChapterCard({ chapter }: { chapter: typeof chapters[number] }) {
+/* ── Almanac chapter index row ────────────────────────────────────────────── */
+function ChapterRow({ chapter }: { chapter: typeof chapters[number] }) {
   return (
-    <motion.div variants={springPop}>
+    <motion.div variants={fadeUp}>
       <Link
         to={chapter.path}
-        className="hover-lift group flex flex-col justify-between h-full p-6 rounded-2xl border border-[var(--color-parchment)] bg-[var(--color-cream)] dark:bg-[var(--color-night)] dark:border-[var(--color-night-raised)] relative overflow-hidden min-h-[160px]"
+        className="group grid grid-cols-[40px_1fr_30px] sm:grid-cols-[64px_200px_1fr_30px] items-baseline gap-2 px-2 py-5 border-b border-hairline dark:border-night-raised transition-colors duration-200 hover:bg-parchment dark:hover:bg-night-raised"
       >
-        {/* Index number */}
-        <span className="text-xs font-mono text-[var(--color-sage-light)] tracking-widest">
-          {chapter.index}
+        <span className="font-mono text-[13px] text-clay">{chapter.index}</span>
+        <span className="font-serif text-[19px] md:text-2xl text-ink dark:text-cream group-hover:text-sage transition-colors duration-200">
+          {chapter.label}
         </span>
-
-        {/* Label + description */}
-        <div>
-          <h3 className="text-lg font-medium text-[var(--color-ink)] dark:text-[var(--color-cream)] mb-1.5 group-hover:text-[var(--color-sage)] transition-colors duration-200">
-            {chapter.label}
-          </h3>
-          <p className="text-sm text-[var(--color-stone)] font-light leading-snug">
-            {chapter.description}
-          </p>
-        </div>
-
-        {/* Arrow that slides in on hover */}
-        <motion.span
-          className="absolute bottom-5 right-5 text-[var(--color-sage)] text-base opacity-0 group-hover:opacity-100"
-          initial={{ x: -6 }}
-          whileHover={{ x: 0 }}
-          transition={{ duration: 0.2 }}
+        <span className="hidden sm:block text-sm text-stone font-light leading-snug">
+          {chapter.description}
+        </span>
+        <span
+          aria-hidden="true"
+          className="text-sage justify-self-end transition-transform duration-200 group-hover:translate-x-1"
         >
           →
-        </motion.span>
-
-        {/* Bottom border grow */}
-        <motion.div
-          className="absolute bottom-0 left-0 h-0.5 bg-[var(--color-sage)] rounded-full"
-          initial={{ width: 0 }}
-          whileHover={{ width: "100%" }}
-          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        />
+        </span>
       </Link>
     </motion.div>
   );
@@ -59,36 +44,34 @@ function FeaturedCard({ project }: { project: typeof projects[number] }) {
   return (
     <motion.div variants={springPop}>
       <Link
-        to={`/work`}
-        className="hover-lift group flex flex-col justify-between h-full p-8 rounded-2xl border border-[var(--color-parchment)] bg-[var(--color-cream)] dark:bg-[var(--color-night)] dark:border-[var(--color-night-raised)] relative overflow-hidden"
+        to="/work"
+        className="hover-lift group flex flex-col justify-between h-full p-8 rounded-[18px] border border-hairline dark:border-night-raised bg-parchment dark:bg-night-raised relative overflow-hidden"
       >
-        <motion.div
-          className="absolute top-5 right-5 text-[var(--color-sage-light)] opacity-0 group-hover:opacity-100"
-          initial={{ rotate: -20, scale: 0.6 }}
-          whileHover={{ rotate: 0, scale: 1 }}
-          transition={{ type: "spring", stiffness: 300, damping: 18 }}
-        >
-          <SmallLeaf size={20} color="var(--color-sage)" />
-        </motion.div>
-
         <div>
-          <span className="text-xs font-mono text-[var(--color-sage)] tracking-widest uppercase">
+          <span className="font-mono text-xs text-clay tracking-widest uppercase">
             {project.year}
           </span>
-          <h3 className="text-xl font-medium text-[var(--color-ink)] dark:text-[var(--color-cream)] mt-3 mb-2 leading-snug group-hover:text-[var(--color-sage)] transition-colors duration-200">
+          <h3 className="font-serif text-[26px] font-normal text-ink dark:text-cream mt-3 mb-2 leading-snug group-hover:text-sage transition-colors duration-200">
             {project.title}
           </h3>
-          <p className="text-sm italic text-[var(--color-stone)] font-light mb-4">
+          <p className="font-serif italic text-base text-stone font-light mb-5">
             {project.tagline}
           </p>
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="font-mono text-[11px] px-2.5 py-1 rounded-full border border-sage-light text-stone dark:text-sage-light"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
 
         <motion.div
-          className="absolute bottom-0 left-0 h-0.5 bg-[var(--color-sage)] rounded-full"
+          className="absolute bottom-0 left-0 h-0.5 bg-sage rounded-full"
           initial={{ width: 0 }}
           whileHover={{ width: "100%" }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
@@ -101,164 +84,186 @@ function FeaturedCard({ project }: { project: typeof projects[number] }) {
 /* ── HomePage ─────────────────────────────────────────────────────────────── */
 export function HomePage() {
   const featuredProjects = projects.filter((p) => p.featured);
+  usePageTitle();
+
+  const nameWords = bio.name.split(" ");
+  const firstName = nameWords[0];
+  const middleNames = nameWords.slice(1, -1).join(" ");
+  const lastName = nameWords[nameWords.length - 1];
 
   return (
     <PageTransition>
       {/* ── Hero ── */}
       <section className="min-h-[92dvh] flex flex-col justify-center relative overflow-hidden pt-24 pb-16">
-        {/* Ambient botanicals */}
+        {/* Ambient botanicals — swaying in the breeze (egg #4) */}
         <motion.div
-          className="absolute top-16 right-8 md:right-20 text-[var(--color-sage-light)] opacity-50"
+          className="absolute top-16 right-8 md:right-20 text-sage-light opacity-50"
           initial={{ opacity: 0, rotate: -10 }}
           animate={{ opacity: 0.5, rotate: 0 }}
           transition={{ delay: 1, duration: 0.8 }}
         >
-          <LeafSprig size={72} />
+          <Sway duration={5}>
+            <LeafSprig size={72} />
+          </Sway>
         </motion.div>
         <motion.div
-          className="absolute bottom-28 right-14 md:right-36 text-[var(--color-sage)] opacity-35"
+          className="absolute bottom-28 right-14 md:right-36 text-sage opacity-35"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 0.35, y: 0 }}
           transition={{ delay: 1.4, duration: 0.7 }}
         >
-          <TinyMushroom size={48} />
+          <Sway duration={6.5}>
+            <TinyMushroom size={48} />
+          </Sway>
         </motion.div>
         <motion.div
-          className="absolute top-1/3 left-4 md:left-8 text-[var(--color-sage-light)] opacity-25"
+          className="absolute top-1/3 left-4 md:left-8 text-sage-light opacity-25"
           initial={{ opacity: 0, x: -8 }}
           animate={{ opacity: 0.25, x: 0 }}
           transition={{ delay: 1.7, duration: 0.7 }}
         >
-          <Sprout size={52} />
+          <Sway duration={4.2}>
+            <Sprout size={52} />
+          </Sway>
         </motion.div>
 
         <Container>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-            {/* Text column */}
+          <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-y-10 md:gap-14 items-center">
+            {/* Eyebrow + name + tagline */}
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
-              className="md:col-span-7 max-w-xl"
+              className="md:col-start-1 md:row-start-1 md:self-end"
             >
-              <motion.p variants={slideLeft} className="text-sm font-medium tracking-widest uppercase text-[var(--color-sage)] mb-8">
+              <motion.p
+                variants={slideLeft}
+                className="font-mono text-xs font-normal tracking-[0.22em] uppercase text-sage mb-8"
+              >
                 {bio.location}  ✦  open to opportunities
               </motion.p>
 
               <motion.h1
                 variants={fadeUp}
-                className="text-6xl md:text-8xl font-light tracking-tight text-[var(--color-ink)] dark:text-[var(--color-cream)] leading-[0.92] mb-8"
+                className="font-serif font-light text-[52px] md:text-[88px] tracking-[-0.02em] text-ink dark:text-cream leading-[0.92] mb-7"
               >
-                {bio.name}
+                {firstName}
+                <br />
+                {middleNames} <span className="italic text-clay">{lastName}</span>
               </motion.h1>
 
               <motion.p
                 variants={fadeUp}
-                className="text-xl md:text-2xl font-light italic text-[var(--color-stone)] leading-relaxed mb-12"
+                className="font-serif italic font-light text-[18px] md:text-[27px] text-stone leading-relaxed"
               >
                 {bio.tagline}
               </motion.p>
-
-              <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-6">
-                <Link to="/work" className="link-sage text-[var(--color-ink)] dark:text-[var(--color-cream)] font-medium text-sm tracking-wide">
-                  view work ↓
-                </Link>
-                <span className="text-[var(--color-sage-light)]">·</span>
-                <Link to="/about" className="link-sage text-[var(--color-stone)] font-medium text-sm tracking-wide">
-                  about me
-                </Link>
-                <span className="text-[var(--color-sage-light)]">·</span>
-                <Link to="/contact" className="link-sage text-[var(--color-stone)] font-medium text-sm tracking-wide">
-                  say hello
-                </Link>
-              </motion.div>
             </motion.div>
 
-            {/* Portrait column */}
+            {/* Arched portrait (egg #1 lives at its base) */}
             <motion.div
-              className="md:col-span-5 flex justify-center md:justify-end"
-              initial={{ opacity: 0, scale: 0.95 }}
+              className="md:col-start-2 md:row-start-1 md:row-span-2 flex flex-col items-center md:items-end"
+              initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="relative">
-                <div className="w-64 h-64 md:w-80 md:h-80 rounded-3xl overflow-hidden border-2 border-[var(--color-sage-light)]/40">
+              <div className="relative w-full max-w-[340px] md:max-w-[380px]">
+                <div className="aspect-[4/5] overflow-hidden rounded-[24px] md:rounded-[180px_180px_20px_20px] border-[1.5px] border-sage-light/60 shadow-[0_30px_60px_-24px_rgba(31,31,31,0.28)] bg-parchment dark:bg-night-raised">
                   <img
                     src={selfPortrait}
                     alt="portrait of amanda"
+                    width={800}
+                    height={800}
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {/* Small floating decoration */}
-                <motion.div
-                  className="absolute -bottom-4 -left-4 text-[var(--color-sage)]"
-                  animate={{ rotate: [0, 8, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <LeafSprig size={40} />
-                </motion.div>
+                <FloretBadge className="absolute -bottom-3 -left-3" />
+                <WaterThePlant className="absolute -bottom-6 left-12" />
               </div>
+              <MarginNote className="mt-10 md:mt-12 md:mr-2 self-center md:self-end" />
+            </motion.div>
+
+            {/* Intro + actions (follows the portrait on mobile) */}
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+              className="md:col-start-1 md:row-start-2 md:self-start"
+            >
+              <motion.p
+                variants={fadeUp}
+                className="text-[15px] leading-[1.75] text-stone font-light max-w-[440px] mb-9"
+              >
+                {bio.intro}
+              </motion.p>
+
+              <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-6">
+                <Link
+                  to="/work"
+                  className="inline-block px-5 py-2.5 rounded-full bg-ink text-cream dark:bg-cream dark:text-ink font-mono text-[13px] tracking-wide hover:bg-stone dark:hover:bg-parchment transition-colors duration-200"
+                >
+                  view work ↓
+                </Link>
+                <Link to="/about" className="link-sage font-mono text-[13px] text-stone dark:text-sage-light">
+                  about me
+                </Link>
+                <Link to="/contact" className="link-sage font-mono text-[13px] text-stone dark:text-sage-light">
+                  say hello
+                </Link>
+              </motion.div>
             </motion.div>
           </div>
 
           {/* Scroll hint */}
           <motion.div
-            className="absolute bottom-10 left-6 md:left-16 flex items-center gap-3"
+            className="absolute bottom-10 left-6 md:left-16 hidden md:flex items-center gap-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2, duration: 0.6 }}
           >
             <motion.div
-              className="w-px h-10 bg-[var(--color-sage-light)] origin-top"
+              className="w-px h-10 bg-sage-light origin-top"
               initial={{ scaleY: 0 }}
               animate={{ scaleY: 1 }}
               transition={{ delay: 2, duration: 0.6 }}
             />
-            <span className="text-[10px] tracking-widest uppercase text-[var(--color-sage)]">scroll</span>
+            <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-sage">scroll</span>
           </motion.div>
         </Container>
       </section>
 
-      {/* ── Chapter index ── */}
-      <section className="py-24 bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)]">
+      {/* ── Chapter index (the almanac) ── */}
+      <section className="py-20 md:py-24">
         <Container>
           <FadeIn>
-            <div className="flex items-center gap-6 mb-12">
-              <p className="text-xs font-medium tracking-widest uppercase text-[var(--color-sage)]">
-                explore
-              </p>
-              <FloralDivider color="var(--color-sage-light)" />
+            <div className="flex items-baseline justify-between mb-8">
+              <h2 className="font-serif font-light text-3xl md:text-4xl text-ink dark:text-cream tracking-tight">
+                a few places <span className="italic text-stone">to wander.</span>
+              </h2>
+              <span className="font-mono text-xs tracking-[0.22em] uppercase text-sage" aria-hidden="true">
+                index
+              </span>
             </div>
           </FadeIn>
 
-          <FadeIn delay={0.05}>
-            <h2 className="text-3xl md:text-4xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)] tracking-tight mb-12">
-              a few places<br />
-              <span className="italic text-[var(--color-stone)]">to wander.</span>
-            </h2>
-          </FadeIn>
-
-          <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {chapters.map((chapter) => (
-              <ChapterCard key={chapter.id} chapter={chapter} />
-            ))}
+          <StaggerGroup>
+            <div className="border-t border-ink dark:border-cream">
+              {chapters.map((chapter) => (
+                <ChapterRow key={chapter.id} chapter={chapter} />
+              ))}
+            </div>
           </StaggerGroup>
         </Container>
       </section>
 
       {/* ── Selected work ── */}
-      <section className="py-24">
+      <section className="pb-24">
         <Container>
           <FadeIn>
-            <p className="text-xs font-medium tracking-widest uppercase text-[var(--color-sage)] mb-4">
+            <p className="font-mono text-xs font-normal tracking-[0.22em] uppercase text-sage mb-10">
               selected work
             </p>
-          </FadeIn>
-          <FadeIn delay={0.05}>
-            <h2 className="text-3xl md:text-4xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)] tracking-tight mb-12">
-              things i've made<br />
-              <span className="italic text-[var(--color-stone)]">and tended to.</span>
-            </h2>
           </FadeIn>
 
           <StaggerGroup className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -269,8 +274,8 @@ export function HomePage() {
 
           <FadeIn delay={0.2}>
             <div className="mt-10 flex items-center gap-4">
-              <div className="flex-1 h-px bg-[var(--color-parchment)]" />
-              <Link to="/work" className="link-sage text-sm text-[var(--color-stone)] font-medium whitespace-nowrap">
+              <div className="flex-1 h-px bg-hairline dark:bg-night-raised" />
+              <Link to="/work" className="link-sage font-mono text-xs text-stone dark:text-sage-light whitespace-nowrap">
                 all projects →
               </Link>
             </div>

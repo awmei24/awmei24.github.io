@@ -59,6 +59,8 @@ export interface HobbyCategory {
 export const bio = {
   name: "amanda wang mei",
   tagline: "quietly building thoughtful things.",
+  intro:
+    "designer & engineer turning raw data into things people actually understand — with ceramics, writing, and code on the side.",
   about: [
     "i graduated from mit in 2024 after studying biological engineering and education, earning my teaching license along the way, which deeply influenced how i think about people, empathy, and clarity. learning to teach reinforced the importance of meeting people where they are and designing with intention.‍",
     "i currently work in a mixed role as a data scientist, data engineer, and software engineer, building systems that transform raw information into something usable and meaningful for non-technical audiences. drawing on my engineering and research background, i approach product design through the lens of solving problems. this blend of design, engineering, and research helps me create intuitive, seamless experiences that truly resonate with users.",
@@ -176,6 +178,16 @@ export const hobbies: HobbyCategory[] = [
       },
     ],
   },
+];
+
+/* Rotating almanac marginalia — one is shown per visit (easter egg #11).
+   TODO(amanda): replace/extend with your own short notes. */
+export const marginNotes = [
+  "on the wheel: a tea bowl.",
+  "the garden grows slowly, and that's fine.",
+  "currently reading: (add your book here)",
+  "note to self: water the plants.",
+  "half-formed thoughts welcome.",
 ];
 
 /* Chapter index — used on homepage to link to each section page */

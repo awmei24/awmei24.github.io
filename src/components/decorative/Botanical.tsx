@@ -113,6 +113,49 @@ export function FloralDivider({ className, color = "currentColor" }: { className
   );
 }
 
+export function Fern({ className, size = 36, color = "currentColor" }: BotanicalProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 36 36"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M18 32 C18 24 17 12 20 4" stroke={color} strokeWidth="1.1" strokeLinecap="round" fill="none" />
+      <path d="M18.6 26 C14 25 11 22 10 18" stroke={color} strokeWidth="0.9" strokeLinecap="round" />
+      <path d="M18.2 21 C14.5 20 12.5 17.5 12 14" stroke={color} strokeWidth="0.9" strokeLinecap="round" />
+      <path d="M18.4 16 C15.5 15 14 13 13.8 10.5" stroke={color} strokeWidth="0.9" strokeLinecap="round" />
+      <path d="M18.8 25 C23 24 25.5 21.5 26.5 18" stroke={color} strokeWidth="0.9" strokeLinecap="round" />
+      <path d="M19 20 C22.5 19 24.5 16.5 25 13.5" stroke={color} strokeWidth="0.9" strokeLinecap="round" />
+      <path d="M19.2 15 C22 14 23.5 12 23.8 9.5" stroke={color} strokeWidth="0.9" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function WildFlower({ className, size = 36, color = "currentColor" }: BotanicalProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 36 36"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M18 32 L18 16" stroke={color} strokeWidth="1.1" strokeLinecap="round" />
+      <path d="M18 24 C18 24 13.5 22.5 12 18.5" stroke={color} strokeWidth="0.9" strokeLinecap="round" />
+      <circle cx="18" cy="10" r="2.2" stroke={color} strokeWidth="1" fill="none" />
+      <circle cx="18" cy="4.6" r="1.8" stroke={color} strokeWidth="0.9" fill="none" />
+      <circle cx="13" cy="8" r="1.8" stroke={color} strokeWidth="0.9" fill="none" />
+      <circle cx="23" cy="8" r="1.8" stroke={color} strokeWidth="0.9" fill="none" />
+      <circle cx="14.6" cy="13.4" r="1.8" stroke={color} strokeWidth="0.9" fill="none" />
+      <circle cx="21.4" cy="13.4" r="1.8" stroke={color} strokeWidth="0.9" fill="none" />
+    </svg>
+  );
+}
+
 export function SmallLeaf({ className, size = 20, color = "currentColor" }: BotanicalProps) {
   return (
     <svg

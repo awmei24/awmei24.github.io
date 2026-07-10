@@ -22,11 +22,11 @@ interface SectionLabelProps {
   className?: string;
 }
 
-/* Small numbered/labeled section markers — editorial style */
+/* Small mono eyebrow labels — almanac style */
 export function SectionLabel({ children, className = "" }: SectionLabelProps) {
   return (
     <p
-      className={`text-xs font-medium tracking-widest uppercase text-[var(--color-sage)] mb-8 ${className}`}
+      className={`font-mono text-xs font-normal tracking-[0.22em] uppercase text-sage mb-8 ${className}`}
     >
       {children}
     </p>

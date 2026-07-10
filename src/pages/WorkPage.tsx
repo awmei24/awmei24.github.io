@@ -1,39 +1,32 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Container } from "../components/layout/Container";
-import { Section, SectionLabel } from "../components/layout/Section";
-import { FadeIn, StaggerGroup } from "../components/motion/FadeIn";
+import { Section } from "../components/layout/Section";
+import { StaggerGroup } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
 import { Tag } from "../components/ui/Tag";
-import { SmallLeaf, LeafSprig } from "../components/decorative/Botanical";
+import { SmallLeaf } from "../components/decorative/Botanical";
+import { PageHero } from "../components/layout/PageHero";
+import { usePageTitle } from "../hooks/usePageTitle";
 import { projects } from "../lib/content";
 import { springPop } from "../lib/motion";
 
 export function WorkPage() {
+  usePageTitle("work");
+
   return (
     <PageTransition>
-      {/* ── Header ── */}
-      <section className="pt-36 pb-20 bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)] relative overflow-hidden">
-        <div className="absolute top-12 right-8 md:right-20 text-[var(--color-sage-light)] opacity-40">
-          <LeafSprig size={80} />
-        </div>
-        <Container>
-          <FadeIn>
-            <SectionLabel>work</SectionLabel>
-          </FadeIn>
-          <FadeIn delay={0.06}>
-            <h1 className="text-5xl md:text-7xl font-light tracking-tight text-[var(--color-ink)] dark:text-[var(--color-cream)] leading-[0.95] mt-4 max-w-lg">
-              things i've made<br />
-              <span className="italic text-[var(--color-stone)]">and tended to.</span>
-            </h1>
-          </FadeIn>
-          <FadeIn delay={0.12}>
-            <p className="text-base text-[var(--color-stone)] font-light mt-6 max-w-md leading-relaxed">
-              product and engineering case studies — built with care and curiosity.
-            </p>
-          </FadeIn>
-        </Container>
-      </section>
+      <PageHero
+        label="work"
+        title={
+          <>
+            things i've made<br />
+            <span className="italic text-stone">and tended to.</span>
+          </>
+        }
+        titleClassName="max-w-lg"
+        description="product and engineering case studies — built with care and curiosity."
+      />
 
       {/* ── Projects ── */}
       <Section>
@@ -43,7 +36,7 @@ export function WorkPage() {
               <motion.article
                 key={project.id}
                 variants={springPop}
-                className={`group relative bg-[var(--color-cream)] dark:bg-[var(--color-night)] border border-[var(--color-parchment)] dark:border-[var(--color-night-raised)] rounded-2xl overflow-hidden ${
+                className={`group relative bg-parchment dark:bg-night-raised border border-hairline dark:border-night-raised rounded-[18px] overflow-hidden ${
                   i === 0 ? "md:col-span-7" : i === 1 ? "md:col-span-5" : "md:col-span-12"
                 }`}
               >
@@ -58,23 +51,23 @@ export function WorkPage() {
                   </motion.div>
 
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-xs font-mono text-[var(--color-sage)] tracking-widest uppercase">
+                    <span className="font-mono text-xs text-clay tracking-widest uppercase">
                       {project.year} — {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
 
-                  <h3 className="text-xl md:text-2xl font-medium text-[var(--color-ink)] dark:text-[var(--color-cream)] leading-snug mb-2">
+                  <h3 className="font-serif text-2xl md:text-[26px] font-normal text-ink dark:text-cream leading-snug mb-2">
                     {project.title}
                   </h3>
-                  <p className="text-sm italic text-[var(--color-sage)] mb-4 font-light">{project.tagline}</p>
-                  <p className="text-sm text-[var(--color-stone)] leading-relaxed mb-6 font-light">{project.description}</p>
+                  <p className="font-serif italic text-base text-stone mb-4 font-light">{project.tagline}</p>
+                  <p className="text-sm text-stone leading-relaxed mb-6 font-light">{project.description}</p>
 
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
                   </div>
 
                   <motion.div
-                    className="absolute bottom-0 left-0 h-0.5 bg-[var(--color-sage)] rounded-full"
+                    className="absolute bottom-0 left-0 h-0.5 bg-sage rounded-full"
                     initial={{ width: 0 }}
                     whileHover={{ width: "100%" }}
                     transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
