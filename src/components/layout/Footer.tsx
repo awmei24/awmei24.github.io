@@ -6,6 +6,7 @@ const footerLinks = [
   { label: "linkedin", href: "https://www.linkedin.com/in/amandawangmei/" },
   { label: "github", href: "https://github.com/awmei24/" },
   { label: "instagram", href: "https://www.instagram.com/amand.amei/" },
+  { label: "bluesky", href: "https://bsky.app/profile/amandawangmei.bsky.social" },
   { label: "substack", href: "https://amandawangmei.substack.com" },
 ];
 

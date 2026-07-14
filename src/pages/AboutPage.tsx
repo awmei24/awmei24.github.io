@@ -46,7 +46,7 @@ export function AboutPage() {
               <div className="mt-10 flex flex-col gap-4">
                 <FloralDivider color="var(--color-sage-light)" />
                 <p className="font-serif italic text-sm text-stone tracking-wide leading-relaxed">
-                  "tending ideas<br />like a garden —<br />slowly, with care."
+                  "growth requires just a little tlc."
                 </p>
                 <div className="flex items-center gap-2 mt-2">
                   <span className="w-2 h-2 rounded-full bg-sage animate-pulse" />

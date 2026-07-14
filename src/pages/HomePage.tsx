@@ -6,7 +6,7 @@ import { PageTransition } from "../components/motion/PageTransition";
 import { LeafSprig, Sprout, TinyMushroom } from "../components/decorative/Botanical";
 import { Sway } from "../components/garden/Sway";
 import { FloretBadge } from "../components/garden/FloretBadge";
-import { WaterThePlant } from "../components/garden/WaterThePlant";
+import { WaterGardenProvider, GardenPlant, GardenWateringCan } from "../components/garden/WaterThePlant";
 import { MarginNote } from "../components/garden/MarginNote";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { bio, projects, chapters } from "../lib/content";
@@ -19,7 +19,7 @@ function ChapterRow({ chapter }: { chapter: typeof chapters[number] }) {
     <motion.div variants={fadeUp}>
       <Link
         to={chapter.path}
-        className="group grid grid-cols-[40px_1fr_30px] sm:grid-cols-[64px_200px_1fr_30px] items-baseline gap-2 px-2 py-5 border-b border-hairline dark:border-night-raised transition-colors duration-200 hover:bg-parchment dark:hover:bg-night-raised"
+        className="group grid grid-cols-[40px_1fr_30px] sm:grid-cols-[64px_200px_1fr_30px] items-baseline gap-2 px-2 py-5 border-b border-hairline dark:border-night transition-colors duration-200 hover:bg-cream dark:hover:bg-night"
       >
         <span className="font-mono text-[13px] text-clay">{chapter.index}</span>
         <span className="font-serif text-[19px] md:text-2xl text-ink dark:text-cream group-hover:text-sage transition-colors duration-200">
@@ -128,6 +128,7 @@ export function HomePage() {
         </motion.div>
 
         <Container>
+          <WaterGardenProvider>
           <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-y-10 md:gap-14 items-center">
             {/* Eyebrow + name + tagline */}
             <motion.div
@@ -179,7 +180,9 @@ export function HomePage() {
                   />
                 </div>
                 <FloretBadge className="absolute -bottom-3 -left-3" />
-                <WaterThePlant className="absolute -bottom-6 left-12" />
+                {/* Egg #1 — the watering can frames the portrait; drag it down
+                    to the sprout by the copy to grow it */}
+                <GardenWateringCan className="absolute -bottom-4 -right-3 z-20" />
               </div>
               <MarginNote className="mt-10 md:mt-12 md:mr-2 self-center md:self-end" />
             </motion.div>
@@ -212,8 +215,14 @@ export function HomePage() {
                   say hello
                 </Link>
               </motion.div>
+
+              {/* Egg #1 — the sprout waits here for the watering can up on the portrait */}
+              <motion.div variants={fadeUp} className="mt-12">
+                <GardenPlant />
+              </motion.div>
             </motion.div>
           </div>
+          </WaterGardenProvider>
 
           {/* Scroll hint */}
           <motion.div
@@ -233,8 +242,8 @@ export function HomePage() {
         </Container>
       </section>
 
-      {/* ── Chapter index (the almanac) ── */}
-      <section className="py-20 md:py-24">
+      {/* ── Chapter index (the almanac) — tinted band to set it apart ── */}
+      <section className="py-20 md:py-24 bg-parchment dark:bg-night-raised">
         <Container>
           <FadeIn>
             <div className="flex items-baseline justify-between mb-8">
@@ -258,7 +267,7 @@ export function HomePage() {
       </section>
 
       {/* ── Selected work ── */}
-      <section className="pb-24">
+      <section className="pt-24 md:pt-32 pb-24">
         <Container>
           <FadeIn>
             <p className="font-mono text-xs font-normal tracking-[0.22em] uppercase text-sage mb-10">

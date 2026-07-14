@@ -1,9 +1,12 @@
-import { useRef, useState } from "react";
+import { createContext, useContext, useRef, useState, type ReactNode } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const STORAGE_KEY = "awm:garden:watered";
-/* drag events accumulated over the sprout before each growth step */
-const POUR_PER_STAGE = 22;
+/* drag events accumulated over the sprout before each growth step —
+   higher = slower, more gradual growth toward 50% and 100% */
+const POUR_PER_STAGE = 512;
+/* total watering from bare seedling to full bloom */
+const TOTAL_POUR = POUR_PER_STAGE * 2;
 
 type Stage = 0 | 1 | 2; // seedling → sprout → bloom
 
@@ -42,11 +45,20 @@ function WateringCanIcon({ pouring }: { pouring: boolean }) {
   );
 }
 
-function PlantIcon({ stage }: { stage: Stage }) {
+/* `growth` is a continuous 0→1 value so the plant swells in real time while
+   it's being watered — the discrete stages just gate when new parts appear. */
+function PlantIcon({ stage, growth }: { stage: Stage; growth: number }) {
   return (
     <svg width="52" height="56" viewBox="0 0 52 56" fill="none" aria-hidden="true">
       {/* soil mound */}
       <path d="M14 52 Q26 46 38 52" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none" />
+      {/* everything above the soil grows smoothly as water accumulates */}
+      <motion.g
+        initial={false}
+        animate={{ scaleY: 0.68 + growth * 0.32, scaleX: 0.8 + growth * 0.2 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        style={{ transformOrigin: "26px 52px" }}
+      >
       {/* stage 0 — seedling nub */}
       <motion.g
         initial={false}
@@ -59,10 +71,10 @@ function PlantIcon({ stage }: { stage: Stage }) {
       <AnimatePresence>
         {stage >= 1 && (
           <motion.g
-            initial={{ opacity: 0, scale: 0.4 }}
+            initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.4 }}
-            transition={{ type: "spring", stiffness: 220, damping: 14 }}
+            exit={{ opacity: 0, scale: 0.85 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             style={{ transformOrigin: "26px 50px" }}
           >
             <path d="M26 44 L26 28" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
@@ -75,10 +87,10 @@ function PlantIcon({ stage }: { stage: Stage }) {
       <AnimatePresence>
         {stage >= 2 && (
           <motion.g
-            initial={{ opacity: 0, scale: 0.3, rotate: -12 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0, scale: 0.3 }}
-            transition={{ type: "spring", stiffness: 200, damping: 12 }}
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.85 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             style={{ transformOrigin: "26px 28px" }}
           >
             <path d="M26 28 L26 18" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
@@ -91,38 +103,72 @@ function PlantIcon({ stage }: { stage: Stage }) {
           </motion.g>
         )}
       </AnimatePresence>
+      </motion.g>
     </svg>
   );
 }
 
-/* Egg #1 — drag the watering can over the sprout to grow it (click also works). */
-export function WaterThePlant({ className = "" }: { className?: string }) {
-  const reduce = useReducedMotion();
-  const [stage, setStage] = useState<Stage>(() =>
-    localStorage.getItem(STORAGE_KEY) === "true" ? 2 : 0
-  );
+/* ── Shared state ────────────────────────────────────────────────────────────
+   Egg #1 — the watering can and the sprout can now live in different spots on
+   the page (the can frames the portrait, the sprout sits by the copy). Drag the
+   can all the way over to the sprout to grow it; tap / Enter also waters. */
+interface WaterGarden {
+  stage: Stage;
+  growth: number;
+  pouring: boolean;
+  message: string;
+  reduce: boolean;
+  plantRef: React.RefObject<HTMLButtonElement | null>;
+  water: (amount: number) => void;
+  resetPlant: () => void;
+  handleDrag: (e: unknown, info: { point: { x: number; y: number } }) => void;
+  endPour: () => void;
+}
+
+const WaterGardenContext = createContext<WaterGarden | null>(null);
+
+function useWaterGarden() {
+  const ctx = useContext(WaterGardenContext);
+  if (!ctx) throw new Error("Garden pieces must be rendered inside <WaterGardenProvider>");
+  return ctx;
+}
+
+export function WaterGardenProvider({ children }: { children: ReactNode }) {
+  const reduce = useReducedMotion() ?? false;
+  const alreadyBloomed = localStorage.getItem(STORAGE_KEY) === "true";
+  const [stage, setStage] = useState<Stage>(alreadyBloomed ? 2 : 0);
+  const [growth, setGrowth] = useState(alreadyBloomed ? 1 : 0);
   const [pouring, setPouring] = useState(false);
   const [message, setMessage] = useState("");
-  const pourProgress = useRef(0);
+  /* total water poured so far (0 → TOTAL_POUR); drives continuous growth */
+  const poured = useRef(alreadyBloomed ? TOTAL_POUR : 0);
   const plantRef = useRef<HTMLButtonElement>(null);
 
-  function grow() {
+  /* Add `amount` water and let the plant grow smoothly toward the next stage. */
+  function water(amount: number) {
+    if (stage === 2) return;
+    poured.current = Math.min(TOTAL_POUR, poured.current + amount);
+    const g = poured.current / TOTAL_POUR;
+    setGrowth(g);
+    const nextStage: Stage = g >= 1 ? 2 : g >= 0.5 ? 1 : 0;
     setStage((s) => {
-      const next = Math.min(2, s + 1) as Stage;
-      if (next === 2) {
-        localStorage.setItem(STORAGE_KEY, "true");
-        setMessage("🌿 thanks for tending");
-      } else if (next > s) {
-        setMessage("the sprout is growing…");
+      if (nextStage > s) {
+        if (nextStage === 2) {
+          localStorage.setItem(STORAGE_KEY, "true");
+          setMessage("🌿 thanks for tending");
+        } else {
+          setMessage("the sprout is growing…");
+        }
       }
-      return next;
+      return nextStage > s ? nextStage : s;
     });
   }
 
   function resetPlant() {
     if (stage !== 2) return;
     localStorage.removeItem(STORAGE_KEY);
-    pourProgress.current = 0;
+    poured.current = 0;
+    setGrowth(0);
     setStage(0);
     setMessage("replanted — water it again sometime");
   }
@@ -131,23 +177,35 @@ export function WaterThePlant({ className = "" }: { className?: string }) {
     const plant = plantRef.current?.getBoundingClientRect();
     if (!plant || stage === 2) return;
     const over =
-      info.point.x > plant.left - 14 &&
-      info.point.x < plant.right + 14 &&
+      info.point.x > plant.left - 24 &&
+      info.point.x < plant.right + 24 &&
       info.point.y > plant.top - 40 &&
-      info.point.y < plant.bottom + 10;
+      info.point.y < plant.bottom + 20;
     setPouring(over);
-    if (over) {
-      pourProgress.current += 1;
-      if (pourProgress.current >= POUR_PER_STAGE) {
-        pourProgress.current = 0;
-        grow();
-      }
-    }
+    /* water a little on every frame the can hovers the sprout, so the plant
+       visibly swells while you're pouring — not only when you stop */
+    if (over) water(1);
   }
 
   return (
-    <div className={`flex items-end gap-1 ${className}`}>
-      {/* the plant — clicking a full bloom replants it */}
+    <WaterGardenContext.Provider
+      value={{
+        stage, growth, pouring, message, reduce, plantRef,
+        water, resetPlant, handleDrag,
+        endPour: () => setPouring(false),
+      }}
+    >
+      {children}
+    </WaterGardenContext.Provider>
+  );
+}
+
+/* The sprout / flower — lives near the copy; clicking a full bloom replants it. */
+export function GardenPlant({ className = "" }: { className?: string }) {
+  const { stage, growth, pouring, message, reduce, plantRef, resetPlant } = useWaterGarden();
+
+  return (
+    <div className={`flex items-end gap-2 ${className}`}>
       <motion.button
         ref={plantRef}
         type="button"
@@ -161,53 +219,53 @@ export function WaterThePlant({ className = "" }: { className?: string }) {
         animate={pouring && !reduce ? { rotate: [-3, 3, -3] } : { rotate: 0 }}
         transition={{ duration: 0.4, repeat: pouring ? Infinity : 0 }}
       >
-        <PlantIcon stage={stage} />
+        <PlantIcon stage={stage} growth={growth} />
       </motion.button>
 
-      {/* the watering can — draggable; tap/Enter also waters */}
-      {stage < 2 && (
-        <motion.div
-          role="button"
-          tabIndex={0}
-          aria-label="watering can — drag it over the sprout (or press enter) to water"
-          className="text-stone/70 dark:text-sage-light/70 cursor-grab active:cursor-grabbing touch-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
-          drag={!reduce}
-          dragSnapToOrigin
-          dragMomentum={false}
-          onDrag={handleDrag}
-          onDragEnd={() => setPouring(false)}
-          onTap={grow}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              grow();
-            }
-          }}
-          whileDrag={{ rotate: -28, scale: 1.05 }}
-        >
-          <WateringCanIcon pouring={pouring} />
-        </motion.div>
-      )}
-
-      {/* bloom feedback */}
-      <AnimatePresence>
-        {message === "🌿 thanks for tending" && (
-          <motion.span
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="font-serif italic text-xs text-sage whitespace-nowrap mb-2"
-          >
-            {message}
-          </motion.span>
-        )}
-      </AnimatePresence>
+      {/* hint — points you to the can, then thanks you once it's fully bloomed */}
+      <span
+        className={`font-serif italic text-xs whitespace-nowrap mb-1 select-none transition-colors duration-300 ${
+          stage === 2 ? "text-sage" : "text-stone/70 dark:text-sage-light/70"
+        }`}
+      >
+        {stage === 2 ? "thanks for tending :)" : "psst—water me!"}
+      </span>
 
       {/* polite announcements for screen readers */}
       <span aria-live="polite" className="sr-only">
         {message}
       </span>
     </div>
+  );
+}
+
+/* The watering can — sits as a framing accent on the portrait. Drag it over the
+   sprout to water; tap / Enter waters too (accessible fallback). */
+export function GardenWateringCan({ className = "" }: { className?: string }) {
+  const { pouring, reduce, water, handleDrag, endPour } = useWaterGarden();
+
+  return (
+    <motion.div
+      role="button"
+      tabIndex={0}
+      aria-label="watering can — drag it over the sprout (or press enter) to water"
+      className={`text-stone/70 dark:text-sage-light/70 cursor-grab active:cursor-grabbing touch-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded ${className}`}
+      drag={!reduce}
+      dragSnapToOrigin
+      dragMomentum={false}
+      onDrag={handleDrag}
+      onDragEnd={endPour}
+      onTap={() => water(POUR_PER_STAGE)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          water(POUR_PER_STAGE);
+        }
+      }}
+      whileHover={{ rotate: -8 }}
+      whileDrag={{ rotate: -28, scale: 1.05, zIndex: 50 }}
+    >
+      <WateringCanIcon pouring={pouring} />
+    </motion.div>
   );
 }

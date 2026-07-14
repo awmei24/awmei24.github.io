@@ -37,7 +37,7 @@ export function MarginNote({ className = "" }: { className?: string }) {
           transition={{ duration: 0.6 }}
           className="font-serif italic text-xs text-stone/80 dark:text-sage-light/70 tracking-wide"
         >
-          ✎ {marginNotes[index]}
+          {marginNotes[index]}
         </motion.p>
       </AnimatePresence>
     </div>

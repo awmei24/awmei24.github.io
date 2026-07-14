@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 const IDLE_MS = 40_000;
 /* minimum gap between appearances so the snail stays rare and charming */
 const MIN_GAP_MS = 90_000;
-const CRAWL_S = 14;
+const CRAWL_S = 28;
 
 function Snail() {
   return (

@@ -66,7 +66,7 @@ export const bio = {
     "i currently work in a mixed role as a data scientist, data engineer, and software engineer, building systems that transform raw information into something usable and meaningful for non-technical audiences. drawing on my engineering and research background, i approach product design through the lens of solving problems. this blend of design, engineering, and research helps me create intuitive, seamless experiences that truly resonate with users.",
     "outside of work, i explore design and creativity through a variety of mediums—writing, drawing, ceramics, code. for me, it’s a privilege to build things in any form, and i’m endlessly curious about how people interpret, feel, and connect with what’s been created.",
   ],
-  location: "los angeles, ca",
+  location: "new york, ny",
   available: true,
 };
 
@@ -94,6 +94,22 @@ export const projects: Project[] = [
 ];
 
 export const posts: Post[] = [
+  {
+    id: "may-jun-2026",
+    title: "may + jun 2026",
+    date: "jul 2026",
+    readTime: "5 min",
+    excerpt: "easily the best months of 2026 so far",
+    link: "https://amandawangmei.substack.com/p/may-jun-2026",
+  },
+  {
+    id: "goodbye-la",
+    title: "what i'm going to miss about los angeles",
+    date: "jun 2026",
+    readTime: "5 min",
+    excerpt: "no time for goodbyes ... see you soon !",
+    link: "https://amandawangmei.substack.com/p/what-im-going-to-miss-about-los-angeles",
+  },
   {
     id: "mar-apr-2026",
     title: "mar + apr 2026",
@@ -127,7 +143,7 @@ export const experience: Role[] = [
     company: "massachusetts institute of technology",
     title: "b.s. biological engineering",
     period: "2020 – 2024",
-    notes: ["minor in computer science, education",],
+    notes: ["minors in computer science, education, asian diaspora studies",],
   },
 ];
 
@@ -161,33 +177,24 @@ export const hobbies: HobbyCategory[] = [
     description: "essays, updates, and half-formed thoughts—published on substack.",
     path: "/writing",
     layout: "post",
-    items: [
-      {
-        id: "s-mar-apr-2026",
-        title: "mar + apr 2026",
-        subtitle: "thrown a bit off balance",
-        date: "may 2026",
-        link: "https://amandawangmei.substack.com/p/mar-apr-2026",
-      },
-      {
-        id: "s-jan-feb-2026",
-        title: "jan + feb 2026",
-        subtitle: "making life upgrades this year :))",
-        date: "march 2026",
-        link: "https://amandawangmei.substack.com/p/jan-feb-2026",
-      },
-    ],
+    /* the two most recent posts, kept in sync with `posts` above */
+    items: posts.slice(0, 2).map((post) => ({
+      id: `s-${post.id}`,
+      title: post.title,
+      subtitle: post.excerpt,
+      date: post.date,
+      link: post.link,
+    })),
   },
 ];
 
-/* Rotating almanac marginalia — one is shown per visit (easter egg #11).
-   TODO(amanda): replace/extend with your own short notes. */
+/* Rotating almanac marginalia — one is shown per visit (easter egg #11).*/
 export const marginNotes = [
-  "on the wheel: a tea bowl.",
-  "the garden grows slowly, and that's fine.",
-  "currently reading: (add your book here)",
-  "note to self: water the plants.",
-  "half-formed thoughts welcome.",
+  "on the pottery shelf: getting a membership @ a nearby studio!",
+  "the garden grows slowly, and that's okay!",
+  "currently reading: the seven husbands of evelyn hugo by taylor jenkins reid.",
+  "note to self: remember to water the plants.",
+  "lots of half-formed thoughts included—more welcome!",
 ];
 
 /* Chapter index — used on homepage to link to each section page */
