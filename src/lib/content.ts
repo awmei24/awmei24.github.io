@@ -190,7 +190,7 @@ export const hobbies: HobbyCategory[] = [
 
 /* Rotating almanac marginalia — one is shown per visit (easter egg #11).*/
 export const marginNotes = [
-  "on the pottery shelf: getting a membership @ a nearby studio!",
+  "on the pottery shelf right now: getting a membership @ a nearby studio!",
   "the garden grows slowly, and that's okay!",
   "currently reading: the seven husbands of evelyn hugo by taylor jenkins reid.",
   "note to self: remember to water the plants.",

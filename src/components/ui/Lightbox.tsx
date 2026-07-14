@@ -100,7 +100,7 @@ function LightboxPanel({
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute -top-2 -right-2 z-10 w-8 h-8 rounded-full bg-cream text-ink text-sm flex items-center justify-center shadow-md hover:bg-parchment transition-colors"
+          className="absolute -top-2 -right-2 z-10 w-8 h-8 rounded-full bg-cream text-ink text-sm font-bold flex items-center justify-center shadow-md hover:bg-parchment transition-colors"
           aria-label="close"
         >
           ✕
@@ -126,14 +126,14 @@ function LightboxPanel({
             <>
               <button
                 onClick={prev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-cream/80 text-ink text-xs flex items-center justify-center shadow hover:bg-cream transition-colors"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-cream/80 text-ink text-xs font-bold flex items-center justify-center shadow hover:bg-cream transition-colors"
                 aria-label="previous"
               >
                 ←
               </button>
               <button
                 onClick={next}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-cream/80 text-ink text-xs flex items-center justify-center shadow hover:bg-cream transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-cream/80 text-ink text-xs font-bold flex items-center justify-center shadow hover:bg-cream transition-colors"
                 aria-label="next"
               >
                 →

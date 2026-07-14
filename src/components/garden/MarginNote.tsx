@@ -35,7 +35,7 @@ export function MarginNote({ className = "" }: { className?: string }) {
           animate={{ opacity: 1, y: 0 }}
           exit={reduce ? undefined : { opacity: 0, y: -4 }}
           transition={{ duration: 0.6 }}
-          className="font-serif italic text-xs text-stone/80 dark:text-sage-light/70 tracking-wide"
+          className="font-serif italic text-xs text-stone/70 dark:text-sage-light/60 tracking-wide"
         >
           {marginNotes[index]}
         </motion.p>

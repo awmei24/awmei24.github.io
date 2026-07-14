@@ -31,16 +31,14 @@ export function WorkPage() {
       {/* ── Projects ── */}
       <Section>
         <Container>
-          <StaggerGroup className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <StaggerGroup className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project, i) => (
               <motion.article
                 key={project.id}
                 variants={springPop}
-                className={`group relative bg-parchment dark:bg-night-raised border border-hairline dark:border-night-raised rounded-[18px] overflow-hidden ${
-                  i === 0 ? "md:col-span-7" : i === 1 ? "md:col-span-5" : "md:col-span-12"
-                }`}
+                className="hover-lift group relative bg-parchment dark:bg-night-raised border border-hairline dark:border-night-raised rounded-[18px] overflow-hidden"
               >
-                <Link to={`/work/${project.id}`} className="block p-8 hover-lift">
+                <Link to={`/work/${project.id}`} className="block p-8">
                   <motion.div
                     className="absolute top-5 right-5 opacity-0 group-hover:opacity-100"
                     initial={{ rotate: -20, scale: 0.6 }}
@@ -56,7 +54,7 @@ export function WorkPage() {
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-2xl md:text-[26px] font-normal text-ink dark:text-cream leading-snug mb-2">
+                  <h3 className="font-serif text-2xl md:text-[26px] font-medium text-ink dark:text-cream leading-snug mb-2">
                     {project.title}
                   </h3>
                   <p className="font-serif italic text-base text-stone mb-4 font-light">{project.tagline}</p>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="print">
+  <style>
+    doc-page:not(:defined) { visibility: hidden; }
+    @media print {
+      a { color: inherit !important; text-decoration: none !important; }
+    }
+  </style>
+</helmet>
+
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="letter" margin="0.85in" hint-size="100%,1100px">
+
+  <div slot="header" style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #9a9a94; display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px solid #e6e3dc;">
+    <span>Design Audit — awmei24.github.io</span>
+    <span>amanda wang mei — personal site</span>
+  </div>
+  <div slot="footer" style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9px; color: #b3b0a8; text-align: center; padding-top: 6px; border-top: 1px solid #e6e3dc;">
+    Confidential design review — July 2026
+  </div>
+
+  <div style="font-family: Georgia, 'Times New Roman', serif; color: #1f1f1c;">
+
+    <!-- ── Cover block ───────────────────────────────────────────── -->
+    <div style="margin-bottom: 40px; margin-top: 20px;">
+      <p style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #8a9a7e; margin: 0 0 14px;">Design Audit Report</p>
+      <h1 style="font-size: 40px; font-weight: 400; line-height: 1.08; margin: 0 0 10px; letter-spacing: -0.01em;">Visual design review of<br><em>awmei24.github.io</em></h1>
+      <p style="font-family: system-ui, sans-serif; font-size: 14px; color: #55534c; margin: 0; line-height: 1.6;">
+        Scope: scale, visual hierarchy, balance, contrast, and Gestalt/grouping issues across the homepage, about, work, hobbies, and contact pages.
+        Review is grounded in the site's live source (React/Tailwind components, content data, and imagery).
+      </p>
+    </div>
+
+    <!-- ── Executive summary ───────────────────────────────────────── -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 32px 0 14px;">Executive summary</h2>
+    <p style="font-family: system-ui, sans-serif; font-size: 14px; line-height: 1.75; color: #33322e; margin: 0 0 12px;">
+      The site has a genuinely distinctive concept — a "garden almanac" personal site with a coherent type system (serif display / mono labels), a warm cream-and-sage palette, and a nice set of custom botanical line-art motifs. The systemic bones are good. The issues below are concentrated in three places: <strong>the homepage hero, which tries to do too much at once</strong>; <strong>small/light text that undercuts readability</strong>; and <strong>a handful of scale mismatches</strong> (the logo, the featured-work grid) that weaken hierarchy. None of this requires a re-theme — it's tuning, not a rebuild.
+    </p>
+    <div style="font-family: system-ui, sans-serif; font-size: 13px; display: flex; gap: 10px; margin-top: 16px;">
+      <div style="flex: 1; border: 1px solid #e6e3dc; border-radius: 8px; padding: 12px 14px;">
+        <div style="font-family: 'Space Mono', monospace; font-size: 20px; color: #b5543a;">4</div>
+        <div style="color: #55534c;">High-priority fixes</div>
+      </div>
+      <div style="flex: 1; border: 1px solid #e6e3dc; border-radius: 8px; padding: 12px 14px;">
+        <div style="font-family: 'Space Mono', monospace; font-size: 20px; color: #c8973a;">5</div>
+        <div style="color: #55534c;">Medium-priority fixes</div>
+      </div>
+      <div style="flex: 1; border: 1px solid #e6e3dc; border-radius: 8px; padding: 12px 14px;">
+        <div style="font-family: 'Space Mono', monospace; font-size: 20px; color: #7d9166;">3</div>
+        <div style="color: #55534c;">Polish / low-priority</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ SCALE ══════════════════ -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 36px 0 6px;">1 · Scale</h2>
+    <p style="font-family: system-ui, sans-serif; font-size: 13px; color: #7a7870; margin: 0 0 18px;">Are elements sized in proportion to their importance and to each other?</p>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #b5543a; color: white; padding: 2px 7px; border-radius: 10px;">HIGH</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">1.1 — The monogram logo is illegible at its rendered size</h3>
+      </div>
+      <div style="display: flex; gap: 16px; font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e;">
+        <img src="src/assets/logo.png" alt="AWM monogram logo, full size" style="width: 84px; height: 84px; border: 1px solid #e6e3dc; border-radius: 8px; flex-shrink: 0;">
+        <div>
+          <p style="margin: 0 0 8px;"><strong>Problem:</strong> the "A / W / M" monogram (shown at full size, left) is a genuinely clever ligature mark, but the nav bar renders it at 26×26px. At that size the letterforms collapse into an abstract sage-green blob — none of the ligature detail survives.</p>
+          <p style="margin: 0;"><strong>Fix:</strong> render the nav mark at 36–40px minimum, and simplify a second, "favicon-scale" version of the mark (fewer strokes, thicker weight) for anywhere it appears below ~32px. Don't rely on one drawing to work at every size.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #c8973a; color: white; padding: 2px 7px; border-radius: 10px;">MEDIUM</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">1.2 — Hero type scale jumps from 12px to 88px in one column</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> the homepage hero stacks a 12px mono eyebrow → an 88px serif name → a 27px italic tagline → a 15px intro paragraph, four distinct sizes in one vertical read with no intermediate step. It reads as impactful on a large desktop, but on the 52px mobile size the same ratio compresses awkwardly and the eyebrow/intro text (12–15px, font-light) nearly disappears next to the name.
+        <strong>Fix:</strong> add one intermediate step (e.g. an 18–20px un-italicized lead line) so the scale steps down gradually, and bump mobile body/eyebrow text to a 13px floor — see §4.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #c8973a; color: white; padding: 2px 7px; border-radius: 10px;">MEDIUM</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">1.3 — Featured-work cards are sized by grid slot, not content</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> the Work page assigns fixed spans (7/12, 5/12, 12/12 cols) to project cards by index rather than by content length. With only two projects live today, one gets meaningfully more width than the other for no content reason — the wider card ("social energy tracker") just has more empty lower padding.
+        <strong>Fix:</strong> with ≤2 projects, use an even 6/6 split (or stack full-width) until there's enough content variety to justify an asymmetric editorial grid.
+      </p>
+    </div>
+
+    <!-- ══════════════════ HIERARCHY ══════════════════ -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 36px 0 6px; break-before: page;">2 · Visual hierarchy</h2>
+    <p style="font-family: system-ui, sans-serif; font-size: 13px; color: #7a7870; margin: 0 0 18px;">Can a visitor tell, at a glance, what's most important and what to do next?</p>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #b5543a; color: white; padding: 2px 7px; border-radius: 10px;">HIGH</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">2.1 — Three equal-weight calls-to-action sit in one row</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> the hero offers "view work ↓" (solid pill), "about me," and "say hello" side by side at the same 13px mono size. Visually only one has a filled background, but all three sit in the same horizontal rhythm and read as a triad of equal options — undercutting "view work" as the one primary action.
+        <strong>Fix:</strong> keep one filled primary button; drop the other two to plain understated text (smaller, or moved below as a secondary line) so there's an unambiguous single next step.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #c8973a; color: white; padding: 2px 7px; border-radius: 10px;">MEDIUM</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">2.2 — The chapter index drops its own explanatory copy on mobile</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> the homepage's "a few places to wander" index (About / Work / Hobbies / Writing / Contact) hides its one-line description per row below the <code>sm</code> breakpoint, leaving mobile visitors with only a label and an arrow — the row that's supposed to sell each section becomes the least informative on the device most people will actually load it on.
+        <strong>Fix:</strong> keep a short description on mobile (wrap to a second line under the label) rather than cutting it entirely.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #7d9166; color: white; padding: 2px 7px; border-radius: 10px;">LOW</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">2.3 — Section eyebrows and body copy compete at nearly the same visual weight</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> the recurring mono "eyebrow" label (e.g. "selected work," "experience") is sage-colored and uppercase but the same weight as everything else — it's a hierarchy cue that relies entirely on color, which is fragile for anyone with low color vision.
+        <strong>Fix:</strong> give eyebrows a touch more letter-spacing or a hairline rule above them so the cue survives even in grayscale.
+      </p>
+    </div>
+
+    <!-- ══════════════════ BALANCE ══════════════════ -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 36px 0 6px;">3 · Balance</h2>
+    <p style="font-family: system-ui, sans-serif; font-size: 13px; color: #7a7870; margin: 0 0 18px;">Does visual weight distribute sensibly across the layout?</p>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #c8973a; color: white; padding: 2px 7px; border-radius: 10px;">MEDIUM</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">3.1 — The hero's right column is taller than its left, and nothing accounts for the gap</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> the hero splits into a 1.4fr text column (split into two stacked blocks: name+tagline, then intro+CTAs) beside a 1fr image column that also carries a caption note beneath it. The image + caption column's total height doesn't reliably match the two-block text column's combined height across breakpoints, so the bottom edges of the two columns drift out of alignment depending on viewport height and font-loading timing.
+        <strong>Fix:</strong> anchor both columns to a shared grid with an explicit row height, or simplify to a single flex row so there's one alignment axis to reason about, not two independently-sized stacks.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #7d9166; color: white; padding: 2px 7px; border-radius: 10px;">LOW</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">3.2 — Footer is left-heavy</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> the footer's six social links sit left, with a single short italic sign-off line right — on wide viewports that leaves a lot of dead horizontal space between two lightweight elements.
+        <strong>Fix:</strong> either center both groups as one line, or give the sign-off side a touch more presence (e.g. add the copyright line here instead of only on the Contact page).
+      </p>
+    </div>
+
+    <!-- ══════════════════ CONTRAST ══════════════════ -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 36px 0 6px; break-before: page;">4 · Contrast</h2>
+    <p style="font-family: system-ui, sans-serif; font-size: 13px; color: #7a7870; margin: 0 0 18px;">Legibility of text and clarity of state against backgrounds.</p>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #b5543a; color: white; padding: 2px 7px; border-radius: 10px;">HIGH</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">4.1 — Body copy is set light-weight, small, and mid-gray, all at once</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0 0 10px;">
+        <strong>Problem:</strong> nearly all body and caption text on the site uses <code>font-light</code> "stone" gray (#4B4B4B) at 11–15px — the bio intro, tag pills, hobby captions, footer links, and the "read time" metadata all stack the three factors that most hurt legibility (light weight + small size + reduced-contrast color) at the same time. Individually each is a defensible editorial choice; together, on a 11–13px mono tag or a 10px date stamp, the combination pushes past comfortable reading contrast, especially at arm's-length mobile viewing.
+      </p>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Fix:</strong> pick two of the three levers per element, not three. E.g. keep captions light-weight and small, but darken the color; or keep the light gray but move to regular weight at anything under 13px. Reserve the full light+small+gray combination for genuinely decorative marginalia (like the rotating garden notes), not for primary reading content like the bio and case-study text.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #c8973a; color: white; padding: 2px 7px; border-radius: 10px;">MEDIUM</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">4.2 — Nav link color depends on a runtime background sample, which can fail silently</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> the nav decides whether to render light or dark text by sampling the DOM element under the bar at scroll time and reading its computed background color. This is a clever way to keep contrast correct against the dark Contact page, but it's also a single point of failure: any section with a transparent or gradient background, or any timing where the sample runs before a page transition settles, silently returns the wrong branch and the nav can render dark-on-dark or light-on-light with no visual warning in the code.
+        <strong>Fix:</strong> replace the heuristic with an explicit "this route/section is dark" flag passed down from the page (the Contact page already knows it's dark) — deterministic, and one line instead of a getBoundingClientRect + elementFromPoint + color-parse chain.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #7d9166; color: white; padding: 2px 7px; border-radius: 10px;">LOW</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">4.3 — Tag-pill borders are nearly invisible on the cream background</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> skill/topic pills (e.g. "ui/ux design," "data analysis") use a 1px sage-light border on a cream/parchment fill — two close, low-chroma tones — so the pill boundary nearly disappears and the tag reads as loose floating text rather than a contained chip.
+        <strong>Fix:</strong> either fill the pill with a light sage tint (not just an outline) or darken the border a step so the chip shape holds up without squinting.
+      </p>
+    </div>
+
+    <!-- ══════════════════ GESTALT ══════════════════ -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 36px 0 6px;">5 · Gestalt &amp; grouping</h2>
+    <p style="font-family: system-ui, sans-serif; font-size: 13px; color: #7a7870; margin: 0 0 18px;">Do related things look related, and does the eye know where to rest?</p>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #b5543a; color: white; padding: 2px 7px; border-radius: 10px;">HIGH</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">5.1 — The hero has eight competing focal points and no clear figure/ground</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0 0 10px;">
+        <strong>Problem:</strong> in the first viewport alone: a swaying leaf, a swaying mushroom, a swaying sprout, a floret badge, a draggable "watering can" mini-game, a rotating margin note, a scroll-hint indicator, and the portrait photo itself are all animating or asking for attention at once. Per the <em>law of prägnanz</em>, a viewer's eye wants to resolve a scene into the simplest stable interpretation — with eight independent moving/interactive elements, there is no single interpretation to settle on, so the hero reads as busy rather than charming, and the actual content (name, tagline, primary CTA) has to compete with its own decoration for attention.
+      </p>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Fix:</strong> keep the garden motif, but stagger it — pick 2–3 decorative elements for the first screen and hold the rest (mushroom, sprout, margin note) for as the visitor scrolls into later sections. Easter eggs land better when they're discovered progressively, not all fired in the first three seconds.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #c8973a; color: white; padding: 2px 7px; border-radius: 10px; flex-shrink: 0;">MEDIUM</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">5.2 — Illustrated garden and photographed garden sit inside the same frame</h3>
+      </div>
+      <div style="display: flex; gap: 16px; font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e;">
+        <img src="src/assets/self-portrait.webp" alt="Homepage portrait — a real photo of a garden with pavilions behind the subject" style="width: 130px; height: 130px; object-fit: cover; border-radius: 60px 60px 8px 8px; border: 1px solid #e6e3dc; flex-shrink: 0;">
+        <p style="margin: 0;">
+          <strong>Problem:</strong> the portrait (left) is itself a photo of an actual ornamental garden — full of its own trees, rockery, and architecture — cropped into an arch and then surrounded by the site's illustrated line-art leaves/mushroom and an interactive watering-can badge. Two unrelated visual languages (photographic garden detail vs. flat line-art garden icons) occupy the same small region, so by the <em>law of similarity</em> the eye can't decide whether the illustrations belong "with" the photo or float independently over the page.
+          <strong>Fix:</strong> either pick a portrait with a plainer, lower-detail background so the illustrated motifs clearly sit "on top" of it, or move the swaying botanicals away from directly overlapping the photo's edge so the two garden languages don't visually collide.
+        </p>
+      </div>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #7d9166; color: white; padding: 2px 7px; border-radius: 10px;">LOW</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">5.3 — Hobby captions and hobby images aren't visually grouped as tightly as gallery items should be</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> in the gallery grid, each thumbnail's title/date sits directly below it with the same 8px gap used between unrelated rows elsewhere on the page — proximity alone doesn't clearly bind caption-to-image versus image-to-next-row.
+        <strong>Fix:</strong> tighten the image→caption gap noticeably relative to the gap between separate gallery cards, so grouping reads from spacing alone, without relying on remembering the grid structure.
+      </p>
+    </div>
+
+    <!-- ══════════════════ PRIORITIZED LIST ══════════════════ -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 36px 0 14px; break-before: page;">Prioritized action list</h2>
+    <table style="width: 100%; border-collapse: collapse; font-family: system-ui, sans-serif; font-size: 12.5px;">
+      <thead>
+        <tr style="border-bottom: 1.5px solid #1f1f1c;">
+          <th style="text-align: left; padding: 8px 8px 8px 0; font-weight: 600;">#</th>
+          <th style="text-align: left; padding: 8px; font-weight: 600;">Issue</th>
+          <th style="text-align: left; padding: 8px; font-weight: 600;">Category</th>
+          <th style="text-align: left; padding: 8px; font-weight: 600;">Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">1</td><td style="padding: 8px;">Hero has too many simultaneous focal points</td><td style="padding: 8px; color: #55534c;">Gestalt</td><td style="padding: 8px;"><span style="background:#b5543a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">HIGH</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">2</td><td style="padding: 8px;">Body copy stacks light weight + small size + gray at once</td><td style="padding: 8px; color: #55534c;">Contrast</td><td style="padding: 8px;"><span style="background:#b5543a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">HIGH</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">3</td><td style="padding: 8px;">Nav monogram illegible below ~32px</td><td style="padding: 8px; color: #55534c;">Scale</td><td style="padding: 8px;"><span style="background:#b5543a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">HIGH</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">4</td><td style="padding: 8px;">Three equal-weight CTAs in the hero row</td><td style="padding: 8px; color: #55534c;">Hierarchy</td><td style="padding: 8px;"><span style="background:#b5543a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">HIGH</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">5</td><td style="padding: 8px;">Hero type scale has too big a jump between steps</td><td style="padding: 8px; color: #55534c;">Scale</td><td style="padding: 8px;"><span style="background:#c8973a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">MED</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">6</td><td style="padding: 8px;">Work-page card widths follow grid slot, not content</td><td style="padding: 8px; color: #55534c;">Scale</td><td style="padding: 8px;"><span style="background:#c8973a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">MED</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">7</td><td style="padding: 8px;">Chapter index loses descriptions on mobile</td><td style="padding: 8px; color: #55534c;">Hierarchy</td><td style="padding: 8px;"><span style="background:#c8973a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">MED</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">8</td><td style="padding: 8px;">Hero column heights can drift out of alignment</td><td style="padding: 8px; color: #55534c;">Balance</td><td style="padding: 8px;"><span style="background:#c8973a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">MED</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">9</td><td style="padding: 8px;">Nav light/dark text relies on a fragile runtime heuristic</td><td style="padding: 8px; color: #55534c;">Contrast</td><td style="padding: 8px;"><span style="background:#c8973a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">MED</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">10</td><td style="padding: 8px;">Illustrated + photographed garden motifs collide in the hero</td><td style="padding: 8px; color: #55534c;">Gestalt</td><td style="padding: 8px;"><span style="background:#c8973a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">MED</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">11</td><td style="padding: 8px;">Eyebrow labels rely on color alone for hierarchy</td><td style="padding: 8px; color: #55534c;">Hierarchy</td><td style="padding: 8px;"><span style="background:#7d9166;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">LOW</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">12</td><td style="padding: 8px;">Footer is left-heavy with dead space on the right</td><td style="padding: 8px; color: #55534c;">Balance</td><td style="padding: 8px;"><span style="background:#7d9166;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">LOW</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">13</td><td style="padding: 8px;">Tag-pill outline nearly invisible on cream</td><td style="padding: 8px; color: #55534c;">Contrast</td><td style="padding: 8px;"><span style="background:#7d9166;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">LOW</span></td></tr>
+        <tr><td style="padding: 8px 8px 8px 0; color: #7a7870;">14</td><td style="padding: 8px;">Gallery caption spacing doesn't distinguish grouping</td><td style="padding: 8px; color: #55534c;">Gestalt</td><td style="padding: 8px;"><span style="background:#7d9166;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">LOW</span></td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-family: system-ui, sans-serif; font-size: 12px; color: #9a9a94; margin-top: 30px; border-top: 1px solid #e6e3dc; padding-top: 12px;">
+      Prepared from a review of the site's live source (components, content data, and imagery) as of July 2026.
+    </p>
+
+  </div>
+
+</x-import>
+</x-dc>
+</body>
+</html>

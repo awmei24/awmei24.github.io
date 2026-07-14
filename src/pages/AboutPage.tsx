@@ -24,7 +24,7 @@ export function AboutPage() {
             {/* Portrait */}
             <FadeIn className="md:col-span-4">
               <div className="relative">
-                <div className="overflow-hidden rounded-[24px] md:rounded-[180px_180px_20px_20px] border-[1.5px] border-sage-light/60 shadow-[0_30px_60px_-24px_rgba(31,31,31,0.28)]">
+                <div className="overflow-hidden rounded-[24px] border-[1.5px] border-sage-light/60 shadow-[0_30px_60px_-24px_rgba(31,31,31,0.28)]">
                   <img
                     src={selfPortrait}
                     alt="portrait of amanda"
@@ -61,7 +61,7 @@ export function AboutPage() {
             <StaggerGroup className="md:col-span-8 flex flex-col gap-6 pt-2">
               {bio.about.map((paragraph, i) => (
                 <FadeIn key={i} delay={i * 0.08}>
-                  <p className="text-lg leading-[1.8] text-stone font-light">
+                  <p className="text-lg leading-[1.8] text-stone font-normal">
                     {paragraph}
                   </p>
                 </FadeIn>
@@ -72,7 +72,7 @@ export function AboutPage() {
                   {["intentional development", "data & analytics", "systems thinking", "behavior design", "tools for thought"].map((tag) => (
                     <span
                       key={tag}
-                      className="font-mono text-[11px] px-3 py-1.5 rounded-full border border-sage-light text-stone dark:text-sage-light"
+                      className="font-mono text-[11px] px-3 py-1.5 rounded-full border border-sage-light bg-sage/10 text-stone dark:text-sage-light"
                     >
                       {tag}
                     </span>
@@ -85,7 +85,7 @@ export function AboutPage() {
       </Section>
 
       {/* ── Experience ── */}
-      <Section className="bg-parchment dark:bg-night-raised">
+      <Section>
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
             <div className="md:col-span-4">
@@ -93,7 +93,7 @@ export function AboutPage() {
                 <SectionLabel>experience</SectionLabel>
               </FadeIn>
               <FadeIn delay={0.05}>
-                <h2 className="font-serif font-light text-4xl md:text-5xl text-ink dark:text-cream tracking-[-0.02em] leading-tight mt-4 mb-8">
+                <h2 className="font-serif font-normal text-4xl md:text-5xl text-ink dark:text-cream tracking-[-0.02em] leading-tight mt-4 mb-8">
                   where i've<br />
                   <span className="italic text-stone">grown.</span>
                 </h2>
@@ -119,12 +119,12 @@ export function AboutPage() {
                     <p className="font-mono text-[11px] text-sage tracking-[0.22em] uppercase mb-1">
                       {role.company}
                     </p>
-                    <h3 className="font-serif text-lg text-ink dark:text-cream mb-3">
+                    <h3 className="font-serif font-medium text-lg text-ink dark:text-cream mb-3">
                       {role.title}
                     </h3>
                     <ul className="flex flex-col gap-1.5">
                       {role.notes.map((note) => (
-                        <li key={note} className="text-sm text-stone font-light flex items-start gap-2">
+                        <li key={note} className="text-sm text-stone font-normal flex items-start gap-2">
                           <span className="mt-1.5 w-1 h-1 rounded-full bg-sage-light shrink-0" />
                           {note}
                         </li>

@@ -62,16 +62,16 @@ export function GalleryCard({ item, variant = "full", onOpenLightbox }: GalleryC
 
       {preview ? (
         <>
-          <p className="text-xs font-medium text-stone mt-2 leading-snug">{item.title}</p>
-          {item.date && <p className="font-mono text-[10px] text-sage-light mt-0.5">{item.date}</p>}
+          <p className="text-xs font-medium text-stone mt-1.5 leading-snug">{item.title}</p>
+          {item.date && <p className="font-mono text-[11px] text-stone dark:text-sage-light mt-0.5">{item.date}</p>}
         </>
       ) : (
-        <div className="mt-3">
-          <p className="font-serif text-base text-ink dark:text-cream leading-snug">{item.title}</p>
+        <div className="mt-2">
+          <p className="font-serif font-medium text-base text-ink dark:text-cream leading-snug">{item.title}</p>
           {item.subtitle && (
-            <p className="font-serif italic text-xs text-stone font-light mt-0.5">{item.subtitle}</p>
+            <p className="font-serif italic text-xs text-stone font-normal mt-0.5">{item.subtitle}</p>
           )}
-          {item.date && <p className="font-mono text-[10px] text-sage-light mt-1">{item.date}</p>}
+          {item.date && <p className="font-mono text-[11px] text-stone dark:text-sage-light mt-1">{item.date}</p>}
         </div>
       )}
     </motion.div>

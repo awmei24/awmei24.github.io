@@ -44,7 +44,7 @@ export function WritingPage() {
                 meta={
                   <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-1 shrink-0">
                     <span className="font-mono text-[11px] text-stone dark:text-sage-light whitespace-nowrap">{post.date}</span>
-                    <span className="font-mono text-[11px] text-sage-light whitespace-nowrap">{post.readTime} read</span>
+                    <span className="font-mono text-[11px] text-stone dark:text-sage-light whitespace-nowrap">{post.readTime} read</span>
                   </div>
                 }
               />

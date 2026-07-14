@@ -1,5 +1,6 @@
 import { Sprout } from "../decorative/Botanical";
 import { useGarden } from "../garden/GardenContext";
+import { bio } from "../../lib/content";
 
 const footerLinks = [
   { label: "email", href: "mailto:amandawangmei.design@gmail.com" },
@@ -25,20 +26,25 @@ export function Footer() {
               {...(link.href.startsWith("http")
                 ? { target: "_blank", rel: "noreferrer" }
                 : {})}
-              className="font-mono text-xs tracking-[0.06em] text-sage-light hover:text-sage transition-colors duration-200 link-sage"
+              className="font-mono text-[13px] md:text-xs tracking-[0.06em] text-sage-light hover:text-sage transition-colors duration-200 link-sage"
             >
               {link.label}
             </a>
           ))}
         </nav>
-        <p className="font-serif italic text-sm text-sage flex items-center gap-2">
-          {secretFound && (
-            <span title="you found the garden" aria-label="you found the garden">
-              <Sprout size={16} className="inline-block" />
-            </span>
-          )}
-          designed &amp; built in the garden ✦
-        </p>
+        <div className="flex flex-col items-start sm:items-end gap-1.5">
+          <p className="font-serif italic text-sm text-sage flex items-center gap-2">
+            {secretFound && (
+              <span title="you found the garden" aria-label="you found the garden">
+                <Sprout size={16} className="inline-block" />
+              </span>
+            )}
+            designed &amp; built in the garden ✦
+          </p>
+          <p className="font-mono text-[11px] tracking-[0.06em] text-sage-light/70">
+            © 2026 {bio.name}
+          </p>
+        </div>
       </div>
     </footer>
   );

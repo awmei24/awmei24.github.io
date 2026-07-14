@@ -68,14 +68,13 @@ body {
 
 /* ─── Utilities ──────────────────────────────────────────────────────────── */
 
-/* Spring-physics lift for cards */
+/* Simple lift for cards: small translate + a shadow appears */
 .hover-lift {
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .hover-lift:hover {
-  transform: translateY(-4px) rotate(0.5deg);
-  box-shadow: 0 16px 40px -8px rgba(31, 31, 31, 0.10);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -14px rgba(31, 31, 31, 0.22);
 }
 
 /* Sage animated underline for links; hovering also blooms a tiny floret (egg #6) */
@@ -98,6 +97,7 @@ body {
   top: -0.4em;
   font-family: var(--font-serif);
   font-size: 0.65em;
+  font-weight: 500;
   line-height: 1;
   color: var(--color-sage);
   opacity: 0;

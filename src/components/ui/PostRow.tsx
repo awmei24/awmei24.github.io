@@ -29,11 +29,11 @@ export function PostRow({ href, title, description, date, meta, size = "lg" }: P
         className="group flex justify-between items-baseline gap-4 py-4 border-b border-parchment dark:border-night-raised last:border-0"
       >
         <div className="min-w-0">
-          <p className="font-serif text-base text-ink dark:text-cream group-hover:text-sage transition-colors duration-200 leading-snug">
+          <p className="font-serif font-medium text-base text-ink dark:text-cream group-hover:text-sage transition-colors duration-200 leading-snug">
             {title}
           </p>
           {description && (
-            <p className="text-xs text-stone font-light italic mt-0.5">{description}</p>
+            <p className="text-xs text-stone font-normal italic mt-0.5">{description}</p>
           )}
         </div>
         {meta ?? dateSpan}
@@ -50,11 +50,11 @@ export function PostRow({ href, title, description, date, meta, size = "lg" }: P
       className="group flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 py-7 border-b border-parchment dark:border-night-raised last:border-0"
     >
       <div className="flex-1 min-w-0">
-        <h3 className="font-serif text-lg md:text-xl text-ink dark:text-cream group-hover:text-sage transition-colors duration-200 leading-snug mb-1.5">
+        <h3 className="font-serif font-medium text-lg md:text-xl text-ink dark:text-cream group-hover:text-sage transition-colors duration-200 leading-snug mb-1.5">
           {title}
         </h3>
         {description && (
-          <p className="text-sm text-stone font-light leading-relaxed line-clamp-2">{description}</p>
+          <p className="text-sm text-stone font-normal leading-relaxed line-clamp-2">{description}</p>
         )}
       </div>
       {meta ?? dateSpan}

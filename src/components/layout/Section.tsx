@@ -26,8 +26,9 @@ interface SectionLabelProps {
 export function SectionLabel({ children, className = "" }: SectionLabelProps) {
   return (
     <p
-      className={`font-mono text-xs font-normal tracking-[0.22em] uppercase text-sage mb-8 ${className}`}
+      className={`font-mono text-[13px] md:text-xs font-normal tracking-[0.22em] uppercase text-sage mb-8 ${className}`}
     >
+      <span aria-hidden="true" className="block w-7 border-t border-sage mb-2.5" />
       {children}
     </p>
   );

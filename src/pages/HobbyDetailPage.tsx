@@ -80,7 +80,7 @@ export function HobbyDetailPage() {
               </div>
             </>
           ) : (
-            <StaggerGroup className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            <StaggerGroup className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
               {category.items.map((item) => (
                 <GalleryCard key={item.id} item={item} onOpenLightbox={lightbox.open} />
               ))}

@@ -67,7 +67,7 @@ export function ProjectDetailPage() {
             <>
               {caseStudy.overview && (
                 <FadeIn>
-                  <p className="text-base text-stone font-light leading-relaxed mb-14">
+                  <p className="text-base text-stone font-normal leading-relaxed mb-14">
                     {caseStudy.overview}
                   </p>
                 </FadeIn>
@@ -79,13 +79,13 @@ export function ProjectDetailPage() {
                     <motion.div key={section.label} variants={fadeUp}>
                       <div className="mb-4">
                         <FloralDivider color="var(--color-sage-light)" />
-                        <h2 className="font-mono text-xs text-clay tracking-[0.22em] uppercase mt-3">
+                        <h2 className="font-mono font-bold text-xs text-clay tracking-[0.22em] uppercase mt-3">
                           {section.label}
                         </h2>
                       </div>
                       <div className="flex flex-col gap-4">
                         {section.body.map((para, i) => (
-                          <p key={i} className="text-sm text-stone font-light leading-relaxed">
+                          <p key={i} className="text-[15px] text-stone font-normal leading-relaxed">
                             {para}
                           </p>
                         ))}
@@ -119,7 +119,7 @@ export function ProjectDetailPage() {
                 <div className="text-sage opacity-60">
                   <Sprout size={64} color="var(--color-sage)" />
                 </div>
-                <p className="text-base font-light text-stone max-w-xs leading-relaxed">
+                <p className="text-base font-normal text-stone max-w-xs leading-relaxed">
                   working on the case study—check back soon to see what has grown.
                 </p>
                 <Link

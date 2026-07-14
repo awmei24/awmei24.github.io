@@ -7,6 +7,11 @@
 - Logo files — the nav now uses the spec's sage dot, so src/assets/logo.png is unused (safe to delete), but public/logo.png is still the favicon; supply a new one if you want it to match.
 - Decide: the spec's footer link row includes substack but not bluesky; the contact page still lists bluesky. Tell me if you want them consistent.
 
+## From the design audit (assets only you can supply)
+- **Favicon-scale monogram** (audit 1.1) — the nav now renders the AWM mark at 36px, but the audit also asks for a simplified redraw (fewer strokes, thicker weight) for anywhere it appears below ~32px — e.g. the favicon. One drawing can't work at every size.
+- **Plainer-background portrait** (audit 5.2) — the current hero photo is itself a detailed garden scene, which competes with the site's line-art garden motifs. Consider a portrait with a calmer background; the ambient botanicals have been moved off the photo's edge in the meantime.
+- Note: the nav monogram (`public/logo.png`) sits in a light box that's visible over the dark contact page — worth exporting with a transparent background if that bothers you.
+
 ## Icons to hand-draw
 
 All are currently code-drawn SVGs (thin strokes, `currentColor`) in

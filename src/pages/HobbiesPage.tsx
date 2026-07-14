@@ -32,10 +32,10 @@ function HobbySection({
       <FadeIn>
         <div className="flex items-baseline justify-between mb-3">
           <div className="flex items-baseline gap-3">
-            <span className="text-lg text-stone select-none" aria-hidden="true">
+            <span className="text-lg text-stone font-semibold select-none" aria-hidden="true">
               ✦
             </span>
-            <h2 className="font-serif font-light text-2xl md:text-3xl text-ink dark:text-cream tracking-tight">
+            <h2 className="font-serif font-normal text-2xl md:text-3xl text-ink dark:text-cream tracking-tight">
               {category.label}
             </h2>
           </div>
@@ -46,7 +46,7 @@ function HobbySection({
             see all →
           </Link>
         </div>
-        <p className="font-serif italic text-sm text-stone font-light mb-8 ml-9">
+        <p className="font-serif italic text-sm text-stone font-normal mb-8 ml-9">
           {category.description}
         </p>
       </FadeIn>
@@ -66,7 +66,7 @@ function HobbySection({
             ))}
           </StaggerGroup>
         ) : (
-          <StaggerGroup className="grid grid-cols-3 gap-4">
+          <StaggerGroup className="grid grid-cols-3 gap-x-4 gap-y-6">
             {preview.map((item) => (
               <GalleryCard key={item.id} item={item} variant="preview" onOpenLightbox={onOpenLightbox} />
             ))}
@@ -130,7 +130,7 @@ export function HobbiesPage() {
         </Container>
       </Section>
 
-      <Section className="bg-parchment dark:bg-night-raised">
+      <Section>
         <Container narrow>
           <FadeIn>
             <div className="flex flex-col items-center gap-4 text-center">

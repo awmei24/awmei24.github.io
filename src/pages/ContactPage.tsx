@@ -1,5 +1,5 @@
 import { Container } from "../components/layout/Container";
-import { Section } from "../components/layout/Section";
+import { Section, SectionLabel } from "../components/layout/Section";
 import { FadeIn } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
 import { LeafSprig, TinyMushroom, FloralDivider } from "../components/decorative/Botanical";
@@ -25,20 +25,18 @@ export function ContactPage() {
 
         <Container narrow>
           <FadeIn>
-            <p className="font-mono text-xs font-normal tracking-[0.22em] uppercase text-sage mb-8">
-              get in touch
-            </p>
+            <SectionLabel>get in touch</SectionLabel>
           </FadeIn>
 
           <FadeIn delay={0.06}>
-            <h1 className="font-serif font-light text-4xl md:text-6xl text-cream tracking-[-0.02em] leading-tight mb-6">
+            <h1 className="font-serif font-normal text-4xl md:text-6xl text-cream tracking-[-0.02em] leading-tight mb-6">
               let's talk about<br />
               <span className="italic text-sage-light">something interesting.</span>
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.12}>
-            <p className="text-base text-sage-light font-light leading-relaxed mb-12 max-w-md">
+            <p className="text-base text-sage-light font-normal leading-relaxed mb-12 max-w-md">
               i'm always open to conversations about data, education, interesting problems, and the way design shapes how people feel.
             </p>
           </FadeIn>

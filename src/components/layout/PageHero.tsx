@@ -29,7 +29,7 @@ export function PageHero({
   children,
 }: PageHeroProps) {
   return (
-    <section className="pt-36 pb-20 bg-parchment dark:bg-night-raised relative overflow-hidden">
+    <section className="pt-36 pb-20 relative overflow-hidden">
       {decorations ?? (
         <div className="absolute top-12 right-8 md:right-20 text-sage-light opacity-40">
           <LeafSprig size={80} />
@@ -48,7 +48,7 @@ export function PageHero({
         </FadeIn>
         <FadeIn delay={back ? 0.08 : 0.06}>
           <h1
-            className={`font-serif font-light text-5xl md:text-7xl tracking-[-0.02em] text-ink dark:text-cream leading-[0.95] mt-4 ${titleClassName}`}
+            className={`font-serif font-normal text-5xl md:text-7xl tracking-[-0.02em] text-ink dark:text-cream leading-[0.95] mt-4 ${titleClassName}`}
           >
             {title}
           </h1>
