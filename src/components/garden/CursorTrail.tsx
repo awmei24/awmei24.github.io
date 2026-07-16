@@ -62,7 +62,7 @@ export function CursorTrail() {
           key={p.id}
           className={`absolute ${p.light ? "text-sage-light" : "text-sage"}`}
           style={{ left: p.x, top: p.y }}
-          initial={{ opacity: 0.45, x: 0, y: 0, rotate: 0, scale: 0.9 }}
+          initial={{ opacity: 0.35, x: 0, y: 0, rotate: 0, scale: 0.9 }}
           animate={{ opacity: 0, x: p.drift, y: 70, rotate: p.rotate, scale: 0.6 }}
           transition={{ duration: LIFE_MS / 1000, ease: "easeOut" }}
         >

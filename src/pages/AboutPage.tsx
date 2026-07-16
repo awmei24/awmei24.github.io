@@ -72,7 +72,7 @@ export function AboutPage() {
                   {["intentional development", "data & analytics", "systems thinking", "behavior design", "tools for thought"].map((tag) => (
                     <span
                       key={tag}
-                      className="font-mono text-[11px] px-3 py-1.5 rounded-full border border-sage-light bg-sage/10 text-stone dark:text-sage-light"
+                      className="font-mono text-[11px] px-3 py-1.5 rounded-full border border-sage/50 bg-sage/15 text-stone dark:text-sage-light"
                     >
                       {tag}
                     </span>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="print">
+  <style>
+    doc-page:not(:defined) { visibility: hidden; }
+    @media print {
+      a { color: inherit !important; text-decoration: none !important; }
+    }
+  </style>
+</helmet>
+
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="letter" margin="0.85in" hint-size="100%,1100px">
+
+  <div slot="header" style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #9a9a94; display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px solid #e6e3dc;">
+    <span>Design Audit v2 — awmei24.github.io</span>
+    <span>amanda wang mei — personal site</span>
+  </div>
+  <div slot="footer" style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9px; color: #b3b0a8; text-align: center; padding-top: 6px; border-top: 1px solid #e6e3dc;">
+    Confidential design review — July 2026
+  </div>
+
+  <div style="font-family: Georgia, 'Times New Roman', serif; color: #1f1f1c; margin-top: 20px;">
+
+    <!-- ── Cover ───────────────────────────────────────────── -->
+    <div style="margin-bottom: 40px;">
+      <p style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #8a9a7e; margin: 0 0 14px;">Design Audit Report — Round 2</p>
+      <h1 style="font-size: 40px; font-weight: 400; line-height: 1.08; margin: 0 0 10px; letter-spacing: -0.01em;">Follow-up review of<br><em>awmei24.github.io</em></h1>
+      <p style="font-family: system-ui, sans-serif; font-size: 14px; color: #55534c; margin: 0; line-height: 1.6;">
+        Re-audit after the latest round of changes. Confirms which round-1 issues were resolved, flags what's still open, and covers what's new — most notably a large expansion of the site's "garden" easter-egg system.
+      </p>
+    </div>
+
+    <!-- ── What changed ───────────────────────────────────────── -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 32px 0 14px;">What changed since round 1</h2>
+    <div style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.7; color: #33322e; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div>
+        <p style="font-weight: 600; color: #7d9166; margin: 0 0 8px;">✓ Resolved</p>
+        <ul style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 6px;">Hero's three equal-weight CTAs are now one filled primary ("view work") + a quiet secondary text line ("about me · say hello") — clear single next step.</li>
+          <li style="margin-bottom: 6px;">Nav monogram grew from 26px to 36px — legible ligature detail, though still worth a simplified mark below ~24px (see 1.1).</li>
+          <li style="margin-bottom: 6px;">Work-page cards now split an even 2-column grid instead of asymmetric spans tied to array index.</li>
+          <li>Mobile chapter rows keep their one-line description under the label instead of dropping it.</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-weight: 600; color: #b5543a; margin: 0 0 8px;">⚠ Still open</p>
+        <ul style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 6px;">Tag-pill outline (border-sage-light on bg-sage/10) is unchanged — still low-contrast on cream.</li>
+          <li style="margin-bottom: 6px;">Hero still layers several decorative/interactive elements in the first viewport (see 5.1 — now larger in scope, not smaller).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════ NEW: GESTALT / SYSTEM SCALE ══════════════════ -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 36px 0 6px;">1 · The garden system has grown past what the site can carry</h2>
+    <p style="font-family: system-ui, sans-serif; font-size: 13px; color: #7a7870; margin: 0 0 18px;">New since round 1 — the largest change in this update.</p>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #b5543a; color: white; padding: 2px 7px; border-radius: 10px;">HIGH</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">1.1 — Eight concurrent easter-egg systems now run sitewide</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0 0 10px;">
+        <strong>Problem:</strong> the codebase now ships a cursor-following leaf trail, a fixed "grown chapters" plant strip, a keyword-triggered petal bloom, an idle snail, rotating margin notes, a drag-to-water mini-game, a click-to-throw pottery wheel, and a sway-badge leaf — eight independent systems, most mounted globally in <code>App.tsx</code> so they run on <em>every</em> page, including dense case-study writing. Per the law of prägnanz, a page wants to resolve to one interpretation; a visitor reading the "three interviews" research section on the case study now also has leaves spawning off their cursor (<code>CursorTrail</code>, z-90) and a fixed plant strip in the corner (<code>ScrollGarden</code>) — decoration competing with the actual case-study content it's supposed to frame.
+      </p>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Fix:</strong> scope the ambient effects (cursor trail, scroll-garden strip) to the homepage and hobbies page — places where "charming and playful" is the point — and turn them off on read-heavy pages (case studies, writing). Keep the rarer, opt-in eggs (secret bloom, idle snail, pottery wheel) anywhere; they're discovered, not imposed.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #b5543a; color: white; padding: 2px 7px; border-radius: 10px;">HIGH</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">1.2 — The cursor-leaf trail sits over body text at reading distance</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> <code>CursorTrail</code> spawns a sage leaf glyph every 80ms anywhere the pointer moves, on top of every page (z-index 90 — above almost all content). While reading a paragraph, resting the mouse near the text to track your place now drops leaves across the words underneath. This is a contrast/legibility issue as much as a Gestalt one: transient shapes over live text compete for the same visual channel as the letterforms.
+        <strong>Fix:</strong> disable the trail on text-heavy routes (case studies, writing, about), or reduce its opacity/z-index so it never renders above body copy.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #c8973a; color: white; padding: 2px 7px; border-radius: 10px;">MEDIUM</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">1.3 — The fixed "grown chapters" strip can collide with the footer/CTA content it overlaps</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> <code>ScrollGarden</code> pins a row of plant icons to <code>fixed bottom-0 left-4</code> on every page once a visitor has explored ≥1 chapter — including the Contact page, which already has its own bottom-of-page content (the "© 2026 … — designed & built in the garden" line sits at a similar bottom-left position). Two independent systems now claim the same corner of the screen.
+        <strong>Fix:</strong> hide <code>ScrollGarden</code> on Contact (it already reads as the "final" page of the site, not one to keep gardening on), or move the strip to a corner the page-level footer never occupies.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #c8973a; color: white; padding: 2px 7px; border-radius: 10px;">MEDIUM</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">1.4 — The hero's watering-can game adds a fourth focal point right beside the primary CTA</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> <code>GardenPlant</code> — a sprout with a "psst—water me!" label — now sits directly below the hero's CTA row (<code>mt-10</code>), and its companion watering can overlaps the portrait's bottom-right corner. That's on top of the margin note, the sway-mushroom near the chapter index, and the scroll hint already in the same viewport. The single fixed-CTA improvement from round 1 (issue 1.1 in this doc) is undercut by a new competing element one line below it.
+        <strong>Fix:</strong> the watering game is a nice discoverable detail — but "psst—water me!" as visible copy competing with the CTA row promotes it to primary content. Make the plant smaller/quieter (icon only, no label) until it's watered, or move it further from the CTA row so the two don't share a glance.
+      </p>
+    </div>
+
+    <!-- ══════════════════ CARRIED-FORWARD / CONTRAST ══════════════════ -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 36px 0 6px; break-before: page;">2 · Carried forward from round 1</h2>
+    <p style="font-family: system-ui, sans-serif; font-size: 13px; color: #7a7870; margin: 0 0 18px;">Confirmed still present in the current source.</p>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #7d9166; color: white; padding: 2px 7px; border-radius: 10px;">LOW</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">2.1 — Tag-pill border still low-contrast</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <code>Tag.tsx</code> still pairs <code>border-sage-light</code> with <code>bg-sage/10</code> on the cream background — the chip edge is hard to see. Same fix as before: fill with a slightly stronger sage tint, or darken the border a step.
+      </p>
+    </div>
+
+    <div style="break-inside: avoid; margin-bottom: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+        <span style="font-family: 'Space Mono', monospace; font-size: 10px; background: #c8973a; color: white; padding: 2px 7px; border-radius: 10px;">MEDIUM</span>
+        <h3 style="font-size: 16px; font-weight: 600; font-family: system-ui, sans-serif; margin: 0;">2.2 — A second copy of the fragile "sample the backdrop color" heuristic now exists</h3>
+      </div>
+      <p style="font-family: system-ui, sans-serif; font-size: 13.5px; line-height: 1.65; color: #33322e; margin: 0;">
+        <strong>Problem:</strong> round 1 flagged the Nav's <code>elementFromPoint</code> + computed-background-color heuristic as a single point of failure. <code>ScrollGarden</code> now runs its own near-identical version (<code>useBackdropIsDark</code>) to decide whether its plant icons should render light or dark. The same fragility (transparent backgrounds, timing races on route change) now exists in two unrelated components instead of one, and they aren't guaranteed to agree with each other.
+        <strong>Fix:</strong> extract one shared "is this scroll position over a dark section" hook/utility, or better, pass explicit per-route/per-section dark flags as originally suggested — then both Nav and ScrollGarden read the same deterministic source.
+      </p>
+    </div>
+
+    <!-- ══════════════════ PRIORITIZED LIST ══════════════════ -->
+    <h2 style="font-size: 20px; font-weight: 400; border-top: 1px solid #1f1f1c; padding-top: 10px; margin: 36px 0 14px; break-before: page;">Prioritized action list</h2>
+    <table style="width: 100%; border-collapse: collapse; font-family: system-ui, sans-serif; font-size: 12.5px;">
+      <thead>
+        <tr style="border-bottom: 1.5px solid #1f1f1c;">
+          <th style="text-align: left; padding: 8px 8px 8px 0; font-weight: 600;">#</th>
+          <th style="text-align: left; padding: 8px; font-weight: 600;">Issue</th>
+          <th style="text-align: left; padding: 8px; font-weight: 600;">Status</th>
+          <th style="text-align: left; padding: 8px; font-weight: 600;">Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">1</td><td style="padding: 8px;">Cursor-leaf trail renders over body text sitewide</td><td style="padding: 8px; color: #55534c;">New</td><td style="padding: 8px;"><span style="background:#b5543a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">HIGH</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">2</td><td style="padding: 8px;">8 concurrent garden systems run on every page incl. case studies</td><td style="padding: 8px; color: #55534c;">New</td><td style="padding: 8px;"><span style="background:#b5543a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">HIGH</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">3</td><td style="padding: 8px;">Fixed plant strip can collide with page-level footer content (e.g. Contact)</td><td style="padding: 8px; color: #55534c;">New</td><td style="padding: 8px;"><span style="background:#c8973a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">MED</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">4</td><td style="padding: 8px;">Watering-can game adds a 4th hero focal point beside the primary CTA</td><td style="padding: 8px; color: #55534c;">New</td><td style="padding: 8px;"><span style="background:#c8973a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">MED</span></td></tr>
+        <tr style="border-bottom: 1px solid #e6e3dc;"><td style="padding: 8px 8px 8px 0; color: #7a7870;">5</td><td style="padding: 8px;">Dark-backdrop-sampling heuristic now duplicated in Nav + ScrollGarden</td><td style="padding: 8px; color: #55534c;">Carried forward, worse</td><td style="padding: 8px;"><span style="background:#c8973a;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">MED</span></td></tr>
+        <tr><td style="padding: 8px 8px 8px 0; color: #7a7870;">6</td><td style="padding: 8px;">Tag-pill border still low-contrast on cream</td><td style="padding: 8px; color: #55534c;">Carried forward</td><td style="padding: 8px;"><span style="background:#7d9166;color:#fff;padding:2px 7px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;">LOW</span></td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-family: system-ui, sans-serif; font-size: 12px; color: #9a9a94; margin-top: 30px; border-top: 1px solid #e6e3dc; padding-top: 12px;">
+      Prepared from a review of the site's live source (components, content data, App.tsx routing) as of July 2026. Full round-1 findings remain in <em>Design Audit - awmei24.dc.html</em>.
+    </p>
+
+  </div>
+
+</x-import>
+</x-dc>
+</body>
+</html>

@@ -2,9 +2,7 @@ import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence }
 import { Link, useLocation } from "react-router-dom";
 import { useState, useRef } from "react";
 import { hobbies } from "../../lib/content";
-
-/* Routes whose first viewport is a dark surface */
-const DARK_ROUTES = ["/contact"];
+import { DARK_ROUTES } from "../../lib/routes";
 
 /* Nav text flips to a light tone when the bar sits over a dark section *and*
    its own cream background hasn't scrolled in yet. */

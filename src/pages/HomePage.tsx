@@ -68,7 +68,7 @@ function FeaturedCard({ project }: { project: typeof projects[number] }) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="font-mono text-[11px] px-2.5 py-1 rounded-full border border-sage-light bg-sage/10 text-stone dark:text-sage-light"
+              className="font-mono text-[11px] px-2.5 py-1 rounded-full border border-sage/50 bg-sage/15 text-stone dark:text-sage-light"
             >
               {tag}
             </span>
@@ -160,7 +160,7 @@ export function HomePage() {
                 </p>
               </motion.div>
 
-              <motion.div variants={fadeUp} className="mt-10">
+              <motion.div variants={fadeUp} className="mt-16">
                 <GardenPlant />
               </motion.div>
             </motion.div>

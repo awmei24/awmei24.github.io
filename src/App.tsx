@@ -8,6 +8,7 @@ import { ScrollGarden } from "./components/garden/ScrollGarden";
 import { CursorTrail } from "./components/garden/CursorTrail";
 import { SecretBloom } from "./components/garden/SecretBloom";
 import { IdleCritter } from "./components/garden/IdleCritter";
+import { isPlayfulRoute } from "./lib/routes";
 
 const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
 const AboutPage = lazy(() => import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })));
@@ -49,8 +50,8 @@ function AnimatedRoutes() {
 
 function SiteChrome() {
   const { pathname } = useLocation();
-  // the contact page is its own dark closing spread — no footer band there
   const showFooter = pathname !== "/contact";
+  const playful = isPlayfulRoute(pathname);
 
   return (
     <>
@@ -61,9 +62,8 @@ function SiteChrome() {
       </main>
       {showFooter && <Footer />}
 
-      {/* garden easter-egg layers (all reduced-motion aware) */}
-      <ScrollGarden />
-      <CursorTrail />
+      {playful && <ScrollGarden />}
+      {playful && <CursorTrail />}
       <SecretBloom />
       <IdleCritter />
     </>

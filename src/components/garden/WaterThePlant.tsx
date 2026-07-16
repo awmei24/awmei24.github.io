@@ -205,7 +205,7 @@ export function GardenPlant({ className = "" }: { className?: string }) {
   const { stage, growth, pouring, message, reduce, plantRef, resetPlant } = useWaterGarden();
 
   return (
-    <div className={`flex items-end gap-2 ${className}`}>
+    <div className={`group flex items-end gap-2 ${className}`}>
       <motion.button
         ref={plantRef}
         type="button"
@@ -222,10 +222,12 @@ export function GardenPlant({ className = "" }: { className?: string }) {
         <PlantIcon stage={stage} growth={growth} />
       </motion.button>
 
-      {/* hint — points you to the can, then thanks you once it's fully bloomed */}
+      {/* hint appears on approach (hover/focus); the bloomed thanks stays visible */}
       <span
-        className={`font-serif italic text-xs whitespace-nowrap mb-1 select-none transition-colors duration-300 ${
-          stage === 2 ? "text-sage" : "text-stone/70 dark:text-sage-light/70"
+        className={`font-serif italic text-xs whitespace-nowrap mb-1 select-none transition duration-300 ${
+          stage === 2
+            ? "text-sage opacity-100"
+            : "text-stone/70 dark:text-sage-light/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100"
         }`}
       >
         {stage === 2 ? "thanks for tending :)" : "psst—water me!"}
