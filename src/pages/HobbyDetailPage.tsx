@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Container } from "../components/layout/Container";
 import { Section } from "../components/layout/Section";
 import { PageHero } from "../components/layout/PageHero";
@@ -8,9 +8,11 @@ import { FloralDivider } from "../components/decorative/Botanical";
 import { Lightbox } from "../components/ui/Lightbox";
 import { GalleryCard } from "../components/ui/GalleryCard";
 import { PostRow } from "../components/ui/PostRow";
+import { PillLink } from "../components/ui/PillLink";
+import { NotFound } from "../components/ui/NotFound";
 import { useLightbox } from "../hooks/useLightbox";
 import { usePageTitle } from "../hooks/usePageTitle";
-import { hobbies } from "../lib/content";
+import { hobbies, socials } from "../lib/content";
 
 export function HobbyDetailPage() {
   const { hobbyId } = useParams<{ hobbyId: string }>();
@@ -19,16 +21,7 @@ export function HobbyDetailPage() {
   usePageTitle(category?.label ?? "not found");
 
   if (!category) {
-    return (
-      <PageTransition>
-        <div className="min-h-screen flex flex-col items-center justify-center gap-4 pt-24">
-          <p className="text-stone font-light">page not found.</p>
-          <Link to="/hobbies" className="link-sage text-sm text-sage">
-            ← back to hobbies
-          </Link>
-        </div>
-      </PageTransition>
-    );
+    return <NotFound message="page not found." backTo="/hobbies" backLabel="back to hobbies" />;
   }
 
   return (
@@ -66,14 +59,7 @@ export function HobbyDetailPage() {
                 {category.id === "writing" && (
                   <FadeIn delay={0.2}>
                     <div className="mt-10">
-                      <a
-                        href="https://amandawangmei.substack.com"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-block px-5 py-2.5 rounded-full border border-sage text-sage font-mono text-[13px] tracking-wide hover:bg-sage hover:text-ink transition-colors duration-300"
-                      >
-                        visit substack →
-                      </a>
+                      <PillLink href={socials.substack}>visit substack →</PillLink>
                     </div>
                   </FadeIn>
                 )}

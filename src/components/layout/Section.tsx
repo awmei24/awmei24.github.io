@@ -1,16 +1,20 @@
 import type { ReactNode } from "react";
 
+/* Subtle warm wash used by alternating sections for separation */
+export const sectionTint = "bg-parchment/50 dark:bg-night-raised/60";
+
 interface SectionProps {
   id?: string;
   children: ReactNode;
   className?: string;
+  tinted?: boolean;
 }
 
-export function Section({ id, children, className = "" }: SectionProps) {
+export function Section({ id, children, className = "", tinted = false }: SectionProps) {
   return (
     <section
       id={id}
-      className={`py-24 md:py-32 ${className}`}
+      className={`py-24 md:py-32 ${tinted ? sectionTint : ""} ${className}`}
     >
       {children}
     </section>

@@ -130,7 +130,7 @@ export function HobbiesPage() {
         </Container>
       </Section>
 
-      <Section>
+      <Section tinted>
         <Container narrow>
           <FadeIn>
             <div className="flex flex-col items-center gap-4 text-center">

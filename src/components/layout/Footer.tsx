@@ -1,15 +1,10 @@
 import { Sprout } from "../decorative/Botanical";
 import { useGarden } from "../garden/GardenContext";
-import { bio } from "../../lib/content";
+import { bio, socials } from "../../lib/content";
 
-const footerLinks = [
-  { label: "email", href: "mailto:amandawangmei.design@gmail.com" },
-  { label: "linkedin", href: "https://www.linkedin.com/in/amandawangmei/" },
-  { label: "github", href: "https://github.com/awmei24/" },
-  { label: "instagram", href: "https://www.instagram.com/amand.amei/" },
-  { label: "bluesky", href: "https://bsky.app/profile/amandawangmei.bsky.social" },
-  { label: "substack", href: "https://amandawangmei.substack.com" },
-];
+const footerLinks = (
+  ["email", "linkedin", "github", "instagram", "bluesky", "substack"] as const
+).map((label) => ({ label, href: socials[label] }));
 
 /* Ink footer band — mono link row left, serif garden sign-off right. */
 export function Footer() {

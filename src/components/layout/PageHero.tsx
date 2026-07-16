@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "./Container";
-import { SectionLabel } from "./Section";
+import { SectionLabel, sectionTint } from "./Section";
 import { FadeIn } from "../motion/FadeIn";
 import { LeafSprig } from "../decorative/Botanical";
 
@@ -29,7 +29,7 @@ export function PageHero({
   children,
 }: PageHeroProps) {
   return (
-    <section className="pt-36 pb-20 relative overflow-hidden">
+    <section className={`pt-36 pb-20 relative overflow-hidden ${sectionTint}`}>
       {decorations ?? (
         <div className="absolute top-12 right-8 md:right-20 text-sage-light opacity-40">
           <LeafSprig size={80} />

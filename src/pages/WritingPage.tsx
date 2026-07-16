@@ -5,8 +5,9 @@ import { FadeIn, StaggerGroup } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
 import { FloralDivider } from "../components/decorative/Botanical";
 import { PostRow } from "../components/ui/PostRow";
+import { PillLink } from "../components/ui/PillLink";
 import { usePageTitle } from "../hooks/usePageTitle";
-import { posts } from "../lib/content";
+import { posts, socials } from "../lib/content";
 
 export function WritingPage() {
   usePageTitle("writing");
@@ -53,14 +54,7 @@ export function WritingPage() {
 
           <FadeIn delay={0.2}>
             <div className="mt-12">
-              <a
-                href="https://amandawangmei.substack.com"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block px-5 py-2.5 rounded-full border border-sage text-sage font-mono text-[13px] tracking-wide hover:bg-sage hover:text-ink transition-colors duration-300"
-              >
-                visit substack →
-              </a>
+              <PillLink href={socials.substack}>visit substack →</PillLink>
             </div>
           </FadeIn>
         </Container>

@@ -37,14 +37,11 @@ const links: NavLink[] = [
   { href: "/contact", label: "contact", accent: true },
 ];
 
-const mobileLinks = [
-  { href: "/about", label: "about" },
-  { href: "/work", label: "work" },
-  { href: "/hobbies", label: "hobbies" },
-  ...hobbySubLinks.map((s) => ({ ...s, sub: true })),
-  { href: "/writing", label: "writing" },
-  { href: "/contact", label: "contact" },
-];
+/* the mobile overlay flattens the same links, with dropdown items indented */
+const mobileLinks = links.flatMap((link) => [
+  { href: link.href, label: link.label },
+  ...(link.subLinks ?? []).map((s) => ({ ...s, sub: true })),
+]);
 
 /* ── Desktop nav item (with optional dropdown) ───────────────────────────── */
 function NavItem({ link, overDark }: { link: NavLink; overDark: boolean }) {

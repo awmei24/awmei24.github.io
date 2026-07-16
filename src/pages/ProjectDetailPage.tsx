@@ -6,6 +6,7 @@ import { PageHero } from "../components/layout/PageHero";
 import { FadeIn, StaggerGroup } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
 import { Tag } from "../components/ui/Tag";
+import { NotFound } from "../components/ui/NotFound";
 import { Sprout, FloralDivider } from "../components/decorative/Botanical";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { projects } from "../lib/content";
@@ -17,16 +18,7 @@ export function ProjectDetailPage() {
   usePageTitle(project?.title ?? "not found");
 
   if (!project) {
-    return (
-      <PageTransition>
-        <div className="min-h-screen flex flex-col items-center justify-center gap-4 pt-24">
-          <p className="text-stone font-light">project not found.</p>
-          <Link to="/work" className="link-sage text-sm text-sage">
-            ← back to work
-          </Link>
-        </div>
-      </PageTransition>
-    );
+    return <NotFound message="project not found." backTo="/work" backLabel="back to work" />;
   }
 
   const { caseStudy } = project;

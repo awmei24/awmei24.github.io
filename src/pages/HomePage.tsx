@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Container } from "../components/layout/Container";
-import { SectionLabel } from "../components/layout/Section";
+import { SectionLabel, sectionTint } from "../components/layout/Section";
+import { Tag } from "../components/ui/Tag";
+import { PillLink } from "../components/ui/PillLink";
+import { PortraitFrame } from "../components/ui/PortraitFrame";
 import { FadeIn, StaggerGroup } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
 import { Sprout, TinyMushroom, FloralDivider } from "../components/decorative/Botanical";
@@ -66,12 +69,7 @@ function FeaturedCard({ project }: { project: typeof projects[number] }) {
 
         <div className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="font-mono text-[11px] px-2.5 py-1 rounded-full border border-sage/50 bg-sage/15 text-stone dark:text-sage-light"
-            >
-              {tag}
-            </span>
+            <Tag key={tag}>{tag}</Tag>
           ))}
         </div>
 
@@ -143,12 +141,9 @@ export function HomePage() {
               className="max-md:order-3 md:mt-10"
             >
               <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-y-4">
-                <Link
-                  to="/work"
-                  className="inline-block px-5 py-2.5 rounded-full bg-ink text-cream dark:bg-cream dark:text-ink font-mono text-[13px] tracking-wide hover:bg-stone dark:hover:bg-parchment transition-colors duration-200"
-                >
+                <PillLink to="/work" variant="solid">
                   view work ↓
-                </Link>
+                </PillLink>
                 <p className="ml-10 font-mono text-xs text-stone/70 dark:text-sage-light/70">
                   <Link to="/about" className="link-sage hover:text-stone dark:hover:text-sage-light">
                     about me
@@ -174,7 +169,7 @@ export function HomePage() {
               transition={{ delay: 0.4, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
             >
               <div className="relative w-full max-w-[340px] md:max-w-[380px]">
-                <div className="aspect-[4/5] overflow-hidden rounded-[24px] border-[1.5px] border-sage-light/60 shadow-[0_30px_60px_-24px_rgba(31,31,31,0.28)] bg-parchment dark:bg-night-raised">
+                <PortraitFrame className="aspect-[4/5] bg-parchment dark:bg-night-raised">
                   <img
                     src={selfPortrait}
                     alt="portrait of amanda"
@@ -183,7 +178,7 @@ export function HomePage() {
                     decoding="async"
                     className="w-full h-full object-cover"
                   />
-                </div>
+                </PortraitFrame>
                 {/* Egg #1 — the watering can frames the portrait; drag it down
                     to the sprout by the copy to grow it */}
                 <GardenWateringCan className="absolute -bottom-4 -right-3 z-20" />
@@ -211,7 +206,7 @@ export function HomePage() {
       </section>
 
       {/* ── Chapter index (the almanac) ── */}
-      <section className="py-20 md:py-24 relative overflow-hidden">
+      <section className={`py-20 md:py-24 relative overflow-hidden ${sectionTint}`}>
         <div className="absolute bottom-10 right-8 md:right-16 text-sage opacity-30">
           <Sway duration={6.5}>
             <TinyMushroom size={44} />
@@ -258,7 +253,7 @@ export function HomePage() {
       </section>
 
       {/* ── Selected work ── */}
-      <section className="py-20 md:py-24 relative overflow-hidden">
+      <section className={`py-20 md:py-24 relative overflow-hidden ${sectionTint}`}>
         <div className="absolute top-16 left-4 md:left-8 text-sage-light opacity-25">
           <Sway duration={4.2}>
             <Sprout size={48} />

@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { Container } from "../components/layout/Container";
 import { Section, SectionLabel } from "../components/layout/Section";
 import { PageHero } from "../components/layout/PageHero";
 import { FadeIn, StaggerGroup } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
 import { LeafSprig, FloralDivider, Sprout } from "../components/decorative/Botanical";
+import { Tag } from "../components/ui/Tag";
+import { PillLink } from "../components/ui/PillLink";
+import { PortraitFrame } from "../components/ui/PortraitFrame";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { bio, experience } from "../lib/content";
 import { fadeUp } from "../lib/motion";
@@ -24,7 +26,7 @@ export function AboutPage() {
             {/* Portrait */}
             <FadeIn className="md:col-span-4">
               <div className="relative">
-                <div className="overflow-hidden rounded-[24px] border-[1.5px] border-sage-light/60 shadow-[0_30px_60px_-24px_rgba(31,31,31,0.28)]">
+                <PortraitFrame>
                   <img
                     src={selfPortrait}
                     alt="portrait of amanda"
@@ -33,7 +35,7 @@ export function AboutPage() {
                     decoding="async"
                     className="w-full object-cover"
                   />
-                </div>
+                </PortraitFrame>
                 <motion.div
                   className="absolute -bottom-5 -right-4 text-sage"
                   animate={{ rotate: [0, 6, 0] }}
@@ -70,12 +72,9 @@ export function AboutPage() {
               <FadeIn delay={0.3}>
                 <div className="flex flex-wrap gap-3 mt-4">
                   {["intentional development", "data & analytics", "systems thinking", "behavior design", "tools for thought"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-mono text-[11px] px-3 py-1.5 rounded-full border border-sage/50 bg-sage/15 text-stone dark:text-sage-light"
-                    >
+                    <Tag key={tag} size="lg">
                       {tag}
-                    </span>
+                    </Tag>
                   ))}
                 </div>
               </FadeIn>
@@ -85,7 +84,7 @@ export function AboutPage() {
       </Section>
 
       {/* ── Experience ── */}
-      <Section>
+      <Section tinted>
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
             <div className="md:col-span-4">
@@ -161,12 +160,9 @@ export function AboutPage() {
               <p className="font-serif italic text-lg text-stone font-light">
                 want to see what i've built?
               </p>
-              <Link
-                to="/work"
-                className="inline-block px-6 py-3 rounded-full border border-sage text-sage font-mono text-[13px] tracking-wide hover:bg-sage hover:text-ink transition-colors duration-300"
-              >
+              <PillLink to="/work" size="lg">
                 view my work →
-              </Link>
+              </PillLink>
             </div>
           </FadeIn>
         </Container>

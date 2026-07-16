@@ -49,7 +49,7 @@ function SectionDivider() {
 
 function CaseLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-mono text-[var(--color-sage)] tracking-widest uppercase mb-3">
+    <p className="text-xs font-mono text-sage tracking-widest uppercase mb-3">
       {children}
     </p>
   );
@@ -57,8 +57,8 @@ function CaseLabel({ children }: { children: React.ReactNode }) {
 
 function Callout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="border-l-2 border-[var(--color-sage)] pl-6 py-1 my-8">
-      <p className="text-base md:text-lg font-light text-[var(--color-ink)] dark:text-[var(--color-cream)] leading-relaxed italic">
+    <div className="border-l-2 border-sage pl-6 py-1 my-8">
+      <p className="text-base md:text-lg font-light text-ink dark:text-cream leading-relaxed italic">
         {children}
       </p>
     </div>
@@ -67,9 +67,9 @@ function Callout({ children }: { children: React.ReactNode }) {
 
 function Quote({ text, attribution }: { text: string; attribution: string }) {
   return (
-    <div className="bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)] rounded-2xl px-7 py-6 my-2">
-      <p className="text-sm text-[var(--color-stone)] font-light italic leading-relaxed mb-3">"{text}"</p>
-      <p className="text-xs text-[var(--color-sage)] font-medium tracking-wide">— {attribution}</p>
+    <div className="bg-parchment dark:bg-night-raised rounded-2xl px-7 py-6 my-2">
+      <p className="text-sm text-stone font-light italic leading-relaxed mb-3">"{text}"</p>
+      <p className="text-xs text-sage font-medium tracking-wide">— {attribution}</p>
     </div>
   );
 }
@@ -90,23 +90,23 @@ function InterviewCard({
   return (
     <motion.div
       variants={fadeUp}
-      className="bg-[var(--color-cream)] dark:bg-[var(--color-night)] border border-[var(--color-parchment)] dark:border-[var(--color-night-raised)] rounded-2xl p-7 flex flex-col gap-5"
+      className="bg-cream dark:bg-night border border-parchment dark:border-night-raised rounded-2xl p-7 flex flex-col gap-5"
     >
       <div className="flex items-center gap-4">
-        <div className="w-10 h-10 rounded-full bg-[var(--color-sage-light)]/30 flex items-center justify-center shrink-0">
-          <span className="text-sm font-medium text-[var(--color-sage)]">{initials}</span>
+        <div className="w-10 h-10 rounded-full bg-sage-light/30 flex items-center justify-center shrink-0">
+          <span className="text-sm font-medium text-sage">{initials}</span>
         </div>
         <div>
-          <p className="text-sm font-medium text-[var(--color-ink)] dark:text-[var(--color-cream)]">{role}</p>
-          <p className="text-xs text-[var(--color-stone)] font-light italic">{context}</p>
+          <p className="text-sm font-medium text-ink dark:text-cream">{role}</p>
+          <p className="text-xs text-stone font-light italic">{context}</p>
         </div>
       </div>
-      <p className="text-sm text-[var(--color-stone)] font-light leading-relaxed italic">
+      <p className="text-sm text-stone font-light leading-relaxed italic">
         "{quote}"
       </p>
-      <div className="pt-3 border-t border-[var(--color-parchment)] dark:border-[var(--color-night-raised)]">
-        <p className="text-xs font-medium text-[var(--color-sage)] tracking-wide uppercase mb-1">takeaway</p>
-        <p className="text-xs text-[var(--color-stone)] font-light leading-relaxed">{takeaway}</p>
+      <div className="pt-3 border-t border-parchment dark:border-night-raised">
+        <p className="text-xs font-medium text-sage tracking-wide uppercase mb-1">takeaway</p>
+        <p className="text-xs text-stone font-light leading-relaxed">{takeaway}</p>
       </div>
     </motion.div>
   );
@@ -116,13 +116,13 @@ function PrincipleCard({ principle, detail }: { principle: string; detail: strin
   return (
     <motion.div
       variants={fadeUp}
-      className="bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)] rounded-2xl p-6 flex flex-col gap-3"
+      className="bg-parchment dark:bg-night-raised rounded-2xl p-6 flex flex-col gap-3"
     >
       <div className="flex items-start gap-2">
         <SmallLeaf size={16} color="var(--color-sage)" className="mt-0.5 shrink-0" />
-        <p className="text-sm font-medium text-[var(--color-ink)] dark:text-[var(--color-cream)]">{principle}</p>
+        <p className="text-sm font-medium text-ink dark:text-cream">{principle}</p>
       </div>
-      <p className="text-xs text-[var(--color-stone)] font-light leading-relaxed">{detail}</p>
+      <p className="text-xs text-stone font-light leading-relaxed">{detail}</p>
     </motion.div>
   );
 }
@@ -133,16 +133,16 @@ function MobileFrame({ src, caption }: { src: string; caption: string }) {
     <div className="flex flex-col items-center gap-3">
       <div className="relative w-full max-w-[200px] mx-auto">
         {/* Phone shell */}
-        <div className="rounded-[2rem] border-2 border-[var(--color-stone)]/20 bg-[var(--color-ink)] p-2 shadow-xl">
+        <div className="rounded-[2rem] border-2 border-stone/20 bg-ink p-2 shadow-xl">
           {/* Notch */}
-          <div className="w-16 h-4 bg-[var(--color-ink)] rounded-full mx-auto mb-1 relative z-10" />
+          <div className="w-16 h-4 bg-ink rounded-full mx-auto mb-1 relative z-10" />
           {/* Screen */}
-          <div className="rounded-[1.4rem] overflow-hidden aspect-[9/19] bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)]">
+          <div className="rounded-[1.4rem] overflow-hidden aspect-[9/19] bg-parchment dark:bg-night-raised">
             <img src={src} alt={caption} className="w-full h-full object-cover object-top" />
           </div>
         </div>
       </div>
-      <p className="text-xs text-[var(--color-stone)] font-light italic text-center">{caption}</p>
+      <p className="text-xs text-stone font-light italic text-center">{caption}</p>
     </div>
   );
 }
@@ -152,15 +152,15 @@ function MobilePlaceholder({ label }: { label: string }) {
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="relative w-full max-w-[200px] mx-auto">
-        <div className="rounded-[2rem] border-2 border-dashed border-[var(--color-sage-light)]/50 bg-[var(--color-cream)] dark:bg-[var(--color-night)] p-2">
-          <div className="w-16 h-4 bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)] rounded-full mx-auto mb-1" />
-          <div className="rounded-[1.4rem] aspect-[9/19] bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)] flex flex-col items-center justify-center gap-2 p-4">
+        <div className="rounded-[2rem] border-2 border-dashed border-sage-light/50 bg-cream dark:bg-night p-2">
+          <div className="w-16 h-4 bg-parchment dark:bg-night-raised rounded-full mx-auto mb-1" />
+          <div className="rounded-[1.4rem] aspect-[9/19] bg-parchment dark:bg-night-raised flex flex-col items-center justify-center gap-2 p-4">
             <Sprout size={28} color="var(--color-sage-light)" />
-            <p className="text-[10px] text-[var(--color-sage-light)] font-light text-center leading-snug">screenshot<br />coming soon</p>
+            <p className="text-[10px] text-sage-light font-light text-center leading-snug">screenshot<br />coming soon</p>
           </div>
         </div>
       </div>
-      <p className="text-xs text-[var(--color-stone)]/50 font-light italic text-center">{label}</p>
+      <p className="text-xs text-stone/50 font-light italic text-center">{label}</p>
     </div>
   );
 }
@@ -169,17 +169,17 @@ function MobilePlaceholder({ label }: { label: string }) {
 function VideoSlot({ src, label }: { src: string; label: string }) {
   if (src) {
     return (
-      <div className="rounded-2xl overflow-hidden bg-[var(--color-ink)] aspect-video w-full shadow-xl">
+      <div className="rounded-2xl overflow-hidden bg-ink aspect-video w-full shadow-xl">
         <video src={src} controls className="w-full h-full object-cover" />
       </div>
     );
   }
   return (
-    <div className="rounded-2xl border-2 border-dashed border-[var(--color-sage-light)]/40 bg-[var(--color-cream)] dark:bg-[var(--color-night)] aspect-video w-full flex flex-col items-center justify-center gap-3">
-      <div className="w-14 h-14 rounded-full border-2 border-[var(--color-sage-light)]/50 flex items-center justify-center">
-        <span className="text-[var(--color-sage-light)] text-lg ml-1">▷</span>
+    <div className="rounded-2xl border-2 border-dashed border-sage-light/40 bg-cream dark:bg-night aspect-video w-full flex flex-col items-center justify-center gap-3">
+      <div className="w-14 h-14 rounded-full border-2 border-sage-light/50 flex items-center justify-center">
+        <span className="text-sage-light text-lg ml-1">▷</span>
       </div>
-      <p className="text-xs text-[var(--color-sage-light)] font-light italic">{label}</p>
+      <p className="text-xs text-sage-light font-light italic">{label}</p>
     </div>
   );
 }
@@ -211,13 +211,13 @@ export function SocialEnergyTrackerPage() {
     <PageTransition>
 
       {/* ── Header ── */}
-      <section className="pt-36 pb-20 bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)] relative overflow-hidden">
-        <div className="absolute top-12 right-8 md:right-20 text-[var(--color-sage-light)] opacity-40">
+      <section className="pt-36 pb-20 bg-parchment dark:bg-night-raised relative overflow-hidden">
+        <div className="absolute top-12 right-8 md:right-20 text-sage-light opacity-40">
           <LeafSprig size={90} />
         </div>
         <Container>
           <FadeIn>
-            <Link to="/work" className="text-xs text-[var(--color-sage)] font-light link-sage inline-block mb-6">
+            <Link to="/work" className="text-xs text-sage font-light link-sage inline-block mb-6">
               ← work
             </Link>
           </FadeIn>
@@ -225,13 +225,13 @@ export function SocialEnergyTrackerPage() {
             <SectionLabel>case study</SectionLabel>
           </FadeIn>
           <FadeIn delay={0.08}>
-            <h1 className="text-5xl md:text-7xl font-light tracking-tight text-[var(--color-ink)] dark:text-[var(--color-cream)] leading-[0.95] mt-4 max-w-2xl">
+            <h1 className="text-5xl md:text-7xl font-light tracking-tight text-ink dark:text-cream leading-[0.95] mt-4 max-w-2xl">
               social energy<br />
-              <span className="italic text-[var(--color-stone)]">tracker</span>
+              <span className="italic text-stone">tracker</span>
             </h1>
           </FadeIn>
           <FadeIn delay={0.14}>
-            <p className="text-base italic text-[var(--color-sage)] font-light mt-5 max-w-md leading-relaxed">
+            <p className="text-base italic text-sage font-light mt-5 max-w-md leading-relaxed">
               a tool for understanding your own social patterns over time.
             </p>
           </FadeIn>
@@ -246,8 +246,8 @@ export function SocialEnergyTrackerPage() {
                 { label: "tools", value: "react, vite, figma, capacitor" },
               ].map(({ label, value }) => (
                 <div key={label}>
-                  <p className="text-xs font-mono text-[var(--color-sage)] tracking-widest uppercase mb-1">{label}</p>
-                  <p className="text-sm text-[var(--color-stone)] font-light leading-snug">{value}</p>
+                  <p className="text-xs font-mono text-sage tracking-widest uppercase mb-1">{label}</p>
+                  <p className="text-sm text-stone font-light leading-snug">{value}</p>
                 </div>
               ))}
             </div>
@@ -269,7 +269,7 @@ export function SocialEnergyTrackerPage() {
           <FadeIn>
             <SectionDivider />
             <CaseLabel>overview</CaseLabel>
-            <p className="text-lg md:text-xl font-light text-[var(--color-stone)] leading-[1.9]">
+            <p className="text-lg md:text-xl font-light text-stone leading-[1.9]">
               social energy tracker is a mobile app that helps young professionals understand why they feel socially drained.
               users log their social interactions in under 10 seconds, and the app surfaces patterns over time — showing which
               kinds of interactions cost energy and which restore it.
@@ -285,7 +285,7 @@ export function SocialEnergyTrackerPage() {
       </Section>
 
       {/* ── Demo video ── */}
-      <Section className="bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)] py-12">
+      <Section className="bg-parchment dark:bg-night-raised py-12">
         <Container>
           <FadeIn>
             <CaseLabel>demo</CaseLabel>
@@ -302,9 +302,9 @@ export function SocialEnergyTrackerPage() {
               <FadeIn>
                 <SectionDivider />
                 <CaseLabel>problem definition</CaseLabel>
-                <h2 className="text-3xl md:text-4xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)] tracking-tight leading-tight mt-2">
+                <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2">
                   the invisible<br />
-                  <span className="italic text-[var(--color-stone)]">pattern.</span>
+                  <span className="italic text-stone">pattern.</span>
                 </h2>
               </FadeIn>
               <FadeIn delay={0.08}>
@@ -316,23 +316,23 @@ export function SocialEnergyTrackerPage() {
             <div className="md:col-span-8">
               <StaggerGroup className="flex flex-col gap-5 pt-2">
                 <motion.div variants={fadeUp}>
-                  <p className="text-xs font-mono text-[var(--color-sage)] tracking-widest uppercase mb-2">user</p>
-                  <p className="text-sm text-[var(--color-stone)] font-light leading-relaxed">
+                  <p className="text-xs font-mono text-sage tracking-widest uppercase mb-2">user</p>
+                  <p className="text-sm text-stone font-light leading-relaxed">
                     socially drained young professionals who don't know why they feel the way they do after social interactions.
                   </p>
                 </motion.div>
                 <motion.div variants={fadeUp}>
-                  <p className="text-xs font-mono text-[var(--color-sage)] tracking-widest uppercase mb-2">problem</p>
-                  <p className="text-sm text-[var(--color-stone)] font-light leading-relaxed">
+                  <p className="text-xs font-mono text-sage tracking-widest uppercase mb-2">problem</p>
+                  <p className="text-sm text-stone font-light leading-relaxed">
                     people lack awareness of which types of social interactions affect their energy — positively or negatively.
                     without data, patterns stay invisible and behavior can't change.
                   </p>
                 </motion.div>
                 <motion.div variants={fadeUp}>
-                  <div className="bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)] rounded-2xl p-6 mt-2">
-                    <p className="text-sm text-[var(--color-stone)] font-light leading-relaxed">
+                  <div className="bg-parchment dark:bg-night-raised rounded-2xl p-6 mt-2">
+                    <p className="text-sm text-stone font-light leading-relaxed">
                       there are journaling apps. there are mood trackers. but nothing designed specifically around the
-                      relationship between your energy and your social interactions: <span className="text-[var(--color-ink)] dark:text-[var(--color-cream)] font-medium">who 
+                      relationship between your energy and your social interactions: <span className="text-ink dark:text-cream font-medium">who 
                       you interact with, how many people, what kind of setting, and how it made you feel.</span>
                     </p>
                   </div>
@@ -344,16 +344,16 @@ export function SocialEnergyTrackerPage() {
       </Section>
 
       {/* ── Research ── */}
-      <Section className="bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)]">
+      <Section className="bg-parchment dark:bg-night-raised">
         <Container>
           <FadeIn>
             <SectionDivider />
             <CaseLabel>research</CaseLabel>
-            <h2 className="text-3xl md:text-4xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)] tracking-tight leading-tight mt-2 mb-3">
+            <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2 mb-3">
               three interviews.<br />
-              <span className="italic text-[var(--color-stone)]">one clear signal.</span>
+              <span className="italic text-stone">one clear signal.</span>
             </h2>
-            <p className="text-sm text-[var(--color-stone)] font-light max-w-lg leading-relaxed mb-10">
+            <p className="text-sm text-stone font-light max-w-lg leading-relaxed mb-10">
               i conducted semi-structured interviews across different professional contexts, probing on current behavior,
               pain points, and what would make or break adoption.
             </p>
@@ -385,21 +385,21 @@ export function SocialEnergyTrackerPage() {
 
           {/* Synthesis */}
           <FadeIn>
-            <div className="border border-[var(--color-sage-light)]/30 rounded-2xl p-8 max-w-2xl">
-              <p className="text-xs font-mono text-[var(--color-sage)] tracking-widest uppercase mb-5">synthesis</p>
+            <div className="border border-sage-light/30 rounded-2xl p-8 max-w-2xl">
+              <p className="text-xs font-mono text-sage tracking-widest uppercase mb-5">synthesis</p>
               <div className="flex flex-col gap-5">
                 <div className="flex gap-4 items-start">
-                  <span className="text-[var(--color-sage)] font-mono text-sm shrink-0 mt-0.5">01</span>
+                  <span className="text-sage font-mono text-sm shrink-0 mt-0.5">01</span>
                   <div>
-                    <p className="text-sm font-medium text-[var(--color-ink)] dark:text-[var(--color-cream)] mb-1">speed is the primary adoption lever</p>
-                    <p className="text-sm text-[var(--color-stone)] font-light leading-relaxed">all three participants were open to the concept but would drop off if logging felt effortful. the threshold is roughly: no interaction should require more than 10 seconds.</p>
+                    <p className="text-sm font-medium text-ink dark:text-cream mb-1">speed is the primary adoption lever</p>
+                    <p className="text-sm text-stone font-light leading-relaxed">all three participants were open to the concept but would drop off if logging felt effortful. the threshold is roughly: no interaction should require more than 10 seconds.</p>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
-                  <span className="text-[var(--color-sage)] font-mono text-sm shrink-0 mt-0.5">02</span>
+                  <span className="text-sage font-mono text-sm shrink-0 mt-0.5">02</span>
                   <div>
-                    <p className="text-sm font-medium text-[var(--color-ink)] dark:text-[var(--color-cream)] mb-1">the "why" is unclear to users</p>
-                    <p className="text-sm text-[var(--color-stone)] font-light leading-relaxed">nobody could easily articulate why certain interactions drained them. the app doesn't need to tell them — it needs to show them patterns they can interpret themselves.</p>
+                    <p className="text-sm font-medium text-ink dark:text-cream mb-1">the "why" is unclear to users</p>
+                    <p className="text-sm text-stone font-light leading-relaxed">nobody could easily articulate why certain interactions drained them. the app doesn't need to tell them — it needs to show them patterns they can interpret themselves.</p>
                   </div>
                 </div>
               </div>
@@ -414,9 +414,9 @@ export function SocialEnergyTrackerPage() {
           <FadeIn>
             <SectionDivider />
             <CaseLabel>design principles</CaseLabel>
-            <h2 className="text-3xl md:text-4xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)] tracking-tight leading-tight mt-2 mb-10">
+            <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2 mb-10">
               every decision<br />
-              <span className="italic text-[var(--color-stone)]">flowed from these.</span>
+              <span className="italic text-stone">flowed from these.</span>
             </h2>
           </FadeIn>
           <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
@@ -441,57 +441,57 @@ export function SocialEnergyTrackerPage() {
       </Section>
 
       {/* ── User Flow ── */}
-      <Section className="bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)]">
+      <Section className="bg-parchment dark:bg-night-raised">
         <Container>
           <FadeIn>
             <SectionDivider />
             <CaseLabel>user flow</CaseLabel>
-            <h2 className="text-3xl md:text-4xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)] tracking-tight leading-tight mt-2 mb-10">
+            <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2 mb-10">
               removing friction<br />
-              <span className="italic text-[var(--color-stone)]">at every step.</span>
+              <span className="italic text-stone">at every step.</span>
             </h2>
           </FadeIn>
           <StaggerGroup className="flex flex-col gap-8">
             {/* Preliminary flow */}
             <motion.div variants={fadeUp} className="flex flex-col gap-3">
-              <p className="text-xs font-mono text-[var(--color-stone)]/50 tracking-widest uppercase">preliminary flow</p>
+              <p className="text-xs font-mono text-stone/50 tracking-widest uppercase">preliminary flow</p>
               {FLOW_PRELIMINARY ? (
-                <div className="relative rounded-2xl overflow-hidden border border-[var(--color-stone)]">
-                  <img src={FLOW_PRELIMINARY} alt="preliminary user flow" className="w-full object-contain bg-[var(--color-cream)] dark:bg-[var(--color-night)]" />
+                <div className="relative rounded-2xl overflow-hidden border border-stone">
+                  <img src={FLOW_PRELIMINARY} alt="preliminary user flow" className="w-full object-contain bg-cream dark:bg-night" />
                   <div className="absolute bottom-4 left-4 opacity-20 pointer-events-none">
                     <Sprout size={40} color="var(--color-stone)" />
                   </div>
                 </div>
               ) : (
-                <div className="relative rounded-2xl border border-[var(--color-stone)] bg-[var(--color-cream)] dark:bg-[var(--color-night)] aspect-[16/7] flex items-center justify-center overflow-hidden">
-                  <p className="text-xs text-[var(--color-stone)]/40 font-light italic">flow diagram coming soon</p>
+                <div className="relative rounded-2xl border border-stone bg-cream dark:bg-night aspect-[16/7] flex items-center justify-center overflow-hidden">
+                  <p className="text-xs text-stone/40 font-light italic">flow diagram coming soon</p>
                   <div className="absolute bottom-4 left-4 opacity-20 pointer-events-none">
                     <Sprout size={40} color="var(--color-stone)" />
                   </div>
                 </div>
               )}
-              <p className="text-xs text-[var(--color-stone)]/60 font-light italic">a redundant layer — users had to make a choice before doing anything.</p>
+              <p className="text-xs text-stone/60 font-light italic">a redundant layer — users had to make a choice before doing anything.</p>
             </motion.div>
 
             {/* Updated flow */}
             <motion.div variants={fadeUp} className="flex flex-col gap-3">
-              <p className="text-xs font-mono text-[var(--color-sage)] tracking-widest uppercase">updated flow</p>
+              <p className="text-xs font-mono text-sage tracking-widest uppercase">updated flow</p>
               {FLOW_UPDATED ? (
-                <div className="relative rounded-2xl overflow-hidden border border-[var(--color-sage)]">
-                  <img src={FLOW_UPDATED} alt="updated user flow" className="w-full object-contain bg-[var(--color-cream)] dark:bg-[var(--color-night)]" />
+                <div className="relative rounded-2xl overflow-hidden border border-sage">
+                  <img src={FLOW_UPDATED} alt="updated user flow" className="w-full object-contain bg-cream dark:bg-night" />
                   <div className="absolute top-4 right-4 opacity-25 pointer-events-none">
                     <Sprout size={40} color="var(--color-sage)" />
                   </div>
                 </div>
               ) : (
-                <div className="relative rounded-2xl border border-[var(--color-sage)] bg-[var(--color-cream)] dark:bg-[var(--color-night)] aspect-[16/7] flex items-center justify-center overflow-hidden">
-                  <p className="text-xs text-[var(--color-sage-light)] font-light italic">flow diagram coming soon</p>
+                <div className="relative rounded-2xl border border-sage bg-cream dark:bg-night aspect-[16/7] flex items-center justify-center overflow-hidden">
+                  <p className="text-xs text-sage-light font-light italic">flow diagram coming soon</p>
                   <div className="absolute top-4 right-4 opacity-25 pointer-events-none">
                     <Sprout size={40} color="var(--color-sage)" />
                   </div>
                 </div>
               )}
-              <p className="text-xs text-[var(--color-sage)] font-light italic">opens directly to analytics — logging always one tap away.</p>
+              <p className="text-xs text-sage font-light italic">opens directly to analytics — logging always one tap away.</p>
             </motion.div>
           </StaggerGroup>
         </Container>
@@ -503,9 +503,9 @@ export function SocialEnergyTrackerPage() {
           <FadeIn>
             <SectionDivider />
             <CaseLabel>solution</CaseLabel>
-            <h2 className="text-3xl md:text-4xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)] tracking-tight leading-tight mt-2 mb-14">
+            <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2 mb-14">
               three screens.<br />
-              <span className="italic text-[var(--color-stone)]">one clear loop.</span>
+              <span className="italic text-stone">one clear loop.</span>
             </h2>
           </FadeIn>
 
@@ -513,10 +513,10 @@ export function SocialEnergyTrackerPage() {
           <div className="mb-20">
             <FadeIn>
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs font-mono text-[var(--color-cream)] bg-[var(--color-sage)] px-2.5 py-1 rounded-full tracking-widest">01</span>
-                <h3 className="text-xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)]">logging flow</h3>
+                <span className="text-xs font-mono text-cream bg-sage px-2.5 py-1 rounded-full tracking-widest">01</span>
+                <h3 className="text-xl font-light text-ink dark:text-cream">logging flow</h3>
               </div>
-              <p className="text-sm text-[var(--color-stone)] font-light leading-relaxed max-w-lg mb-2">
+              <p className="text-sm text-stone font-light leading-relaxed max-w-lg mb-2">
                 split into three fast steps to reduce cognitive load per screen. total time for a minimal log: under 10 seconds.
               </p>
             </FadeIn>
@@ -527,7 +527,7 @@ export function SocialEnergyTrackerPage() {
                   "2. interaction type + group size",
                   "3. tags + optional journal",
                 ].map((step) => (
-                  <div key={step} className="bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)] rounded-full px-4 py-2 text-xs text-[var(--color-stone)] font-light">
+                  <div key={step} className="bg-parchment dark:bg-night-raised rounded-full px-4 py-2 text-xs text-stone font-light">
                     {step}
                   </div>
                 ))}
@@ -554,10 +554,10 @@ export function SocialEnergyTrackerPage() {
           <div className="mb-20">
             <FadeIn>
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs font-mono text-[var(--color-cream)] bg-[var(--color-sage)] px-2.5 py-1 rounded-full tracking-widest">02</span>
-                <h3 className="text-xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)]">analytics</h3>
+                <span className="text-xs font-mono text-cream bg-sage px-2.5 py-1 rounded-full tracking-widest">02</span>
+                <h3 className="text-xl font-light text-ink dark:text-cream">analytics</h3>
               </div>
-              <p className="text-sm text-[var(--color-stone)] font-light leading-relaxed max-w-lg mb-2">
+              <p className="text-sm text-stone font-light leading-relaxed max-w-lg mb-2">
                 three lenses on your data — breakdown, category counts, and a timeline. the timeline is the most useful view for spotting patterns: a string of red dots on mondays tells a clearer story than a number.
               </p>
             </FadeIn>
@@ -571,10 +571,10 @@ export function SocialEnergyTrackerPage() {
           <div className="mb-6">
             <FadeIn>
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs font-mono text-[var(--color-cream)] bg-[var(--color-sage)] px-2.5 py-1 rounded-full tracking-widest">03</span>
-                <h3 className="text-xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)]">digital journal</h3>
+                <span className="text-xs font-mono text-cream bg-sage px-2.5 py-1 rounded-full tracking-widest">03</span>
+                <h3 className="text-xl font-light text-ink dark:text-cream">digital journal</h3>
               </div>
-              <p className="text-sm text-[var(--color-stone)] font-light leading-relaxed max-w-lg mb-2">
+              <p className="text-sm text-stone font-light leading-relaxed max-w-lg mb-2">
                 entries are displayed as a physical book metaphor with a CSS 3D page-flip gesture. the drag interaction maps 1:1 with finger movement. re-reading past entries feels intentional — you're leafing through something, not scrolling a feed.
               </p>
             </FadeIn>
@@ -587,20 +587,20 @@ export function SocialEnergyTrackerPage() {
       </Section>
 
       {/* ── Reflection ── */}
-      <Section className="bg-[var(--color-parchment)] dark:bg-[var(--color-night-raised)]">
+      <Section className="bg-parchment dark:bg-night-raised">
         <Container>
           <FadeIn>
             <SectionDivider />
             <CaseLabel>reflection</CaseLabel>
-            <h2 className="text-3xl md:text-4xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)] tracking-tight leading-tight mt-2 mb-10">
+            <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2 mb-10">
               what i learned<br />
-              <span className="italic text-[var(--color-stone)]">along the way.</span>
+              <span className="italic text-stone">along the way.</span>
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <FadeIn>
-              <div className="bg-[var(--color-cream)] dark:bg-[var(--color-night)] rounded-2xl p-7">
-                <p className="text-xs font-mono text-[var(--color-sage)] tracking-widest uppercase mb-5">what worked</p>
+              <div className="bg-cream dark:bg-night rounded-2xl p-7">
+                <p className="text-xs font-mono text-sage tracking-widest uppercase mb-5">what worked</p>
                 <ul className="flex flex-col gap-4">
                   {[
                     "the tap-first logging flow genuinely hits the <10s target — early testing confirmed users didn't feel burdened.",
@@ -608,16 +608,16 @@ export function SocialEnergyTrackerPage() {
                     "energy iconography communicates state without words — no translation issues, no literacy dependency.",
                   ].map((item, i) => (
                     <li key={i} className="flex gap-3 items-start">
-                      <span className="w-5 h-5 rounded-full bg-[var(--color-sage)]/15 text-[var(--color-sage)] text-xs flex items-center justify-center shrink-0 mt-0.5">✓</span>
-                      <p className="text-sm text-[var(--color-stone)] font-light leading-relaxed">{item}</p>
+                      <span className="w-5 h-5 rounded-full bg-sage/15 text-sage text-xs flex items-center justify-center shrink-0 mt-0.5">✓</span>
+                      <p className="text-sm text-stone font-light leading-relaxed">{item}</p>
                     </li>
                   ))}
                 </ul>
               </div>
             </FadeIn>
             <FadeIn delay={0.06}>
-              <div className="bg-[var(--color-cream)] dark:bg-[var(--color-night)] rounded-2xl p-7">
-                <p className="text-xs font-mono text-[var(--color-sage)] tracking-widest uppercase mb-5">what i'd explore next</p>
+              <div className="bg-cream dark:bg-night rounded-2xl p-7">
+                <p className="text-xs font-mono text-sage tracking-widest uppercase mb-5">what i'd explore next</p>
                 <ul className="flex flex-col gap-4">
                   {[
                     { title: "patterns over time", detail: "a calendar heatmap or weekly rhythm view — the current analytics shows totals, not 'why am i drained every thursday?'" },
@@ -626,10 +626,10 @@ export function SocialEnergyTrackerPage() {
                     { title: "multi-user / cloud", detail: "scoped to local storage for now. cloud sync would unlock cross-device use and optional sharing." },
                   ].map(({ title, detail }, i) => (
                     <li key={i} className="flex gap-3 items-start">
-                      <span className="text-[var(--color-sage)] font-mono text-xs mt-1 shrink-0">→</span>
+                      <span className="text-sage font-mono text-xs mt-1 shrink-0">→</span>
                       <div>
-                        <p className="text-sm font-medium text-[var(--color-ink)] dark:text-[var(--color-cream)]">{title}</p>
-                        <p className="text-xs text-[var(--color-stone)] font-light leading-relaxed mt-0.5">{detail}</p>
+                        <p className="text-sm font-medium text-ink dark:text-cream">{title}</p>
+                        <p className="text-xs text-stone font-light leading-relaxed mt-0.5">{detail}</p>
                       </div>
                     </li>
                   ))}
@@ -646,30 +646,30 @@ export function SocialEnergyTrackerPage() {
           <FadeIn>
             <div className="flex flex-col items-center gap-6 text-center">
               <FloralDivider color="var(--color-sage-light)" />
-              <h2 className="text-2xl font-light text-[var(--color-ink)] dark:text-[var(--color-cream)] tracking-tight">
+              <h2 className="text-2xl font-light text-ink dark:text-cream tracking-tight">
                 see it in action
               </h2>
-              <p className="text-sm text-[var(--color-stone)] font-light max-w-sm leading-relaxed">
+              <p className="text-sm text-stone font-light max-w-sm leading-relaxed">
                 the app is built as a mobile-first web app wrapped in capacitor for ios distribution.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <a
                   href="#"
-                  className="inline-block px-6 py-3 rounded-full bg-[var(--color-sage)] text-[var(--color-ink)] text-sm font-medium tracking-wide hover:opacity-90 transition-opacity duration-200 opacity-50 cursor-not-allowed"
+                  className="inline-block px-6 py-3 rounded-full bg-sage text-ink text-sm font-medium tracking-wide hover:opacity-90 transition-opacity duration-200 opacity-50 cursor-not-allowed"
                   title="coming soon"
                 >
                   view figma prototype →
                 </a>
                 <a
                   href="#"
-                  className="inline-block px-6 py-3 rounded-full border border-[var(--color-sage)] text-[var(--color-sage)] text-sm font-medium tracking-wide hover:bg-[var(--color-sage)] hover:text-[var(--color-ink)] transition-colors duration-300 opacity-50 cursor-not-allowed"
+                  className="inline-block px-6 py-3 rounded-full border border-sage text-sage text-sm font-medium tracking-wide hover:bg-sage hover:text-ink transition-colors duration-300 opacity-50 cursor-not-allowed"
                   title="coming soon"
                 >
                   testflight / app store →
                 </a>
               </div>
-              <p className="text-xs text-[var(--color-stone)]/50 font-light italic">links coming soon</p>
-              <Link to="/work" className="text-xs text-[var(--color-sage)] font-light link-sage mt-4">
+              <p className="text-xs text-stone/50 font-light italic">links coming soon</p>
+              <Link to="/work" className="text-xs text-sage font-light link-sage mt-4">
                 ← back to work
               </Link>
             </div>

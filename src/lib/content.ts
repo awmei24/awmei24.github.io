@@ -56,6 +56,16 @@ export interface HobbyCategory {
 }
 
 
+/* Canonical outbound links — single source for the footer, contact page, etc. */
+export const socials = {
+  email: "mailto:amandawangmei.design@gmail.com",
+  linkedin: "https://www.linkedin.com/in/amandawangmei/",
+  github: "https://github.com/awmei24/",
+  instagram: "https://www.instagram.com/amand.amei/",
+  bluesky: "https://bsky.app/profile/amandawangmei.bsky.social",
+  substack: "https://amandawangmei.substack.com",
+};
+
 export const bio = {
   name: "amanda wang mei",
   tagline: "quietly building thoughtful things.",
@@ -190,9 +200,9 @@ export const hobbies: HobbyCategory[] = [
 
 /* Rotating almanac marginalia — one is shown per visit (easter egg #11).*/
 export const marginNotes = [
-  "on the pottery shelf right now: getting a membership @ a nearby studio!",
+  "on the pottery shelf: not throwing yet, but working on getting a membership at a nearby studio!",
   "the garden grows slowly, and that's okay!",
-  "currently reading: the seven husbands of evelyn hugo by taylor jenkins reid.",
+  "currently reading: 107 days by kamala harris.",
   "note to self: remember to water the plants.",
   "lots of half-formed thoughts included—more welcome!",
 ];

@@ -3,8 +3,9 @@ import { Section, SectionLabel } from "../components/layout/Section";
 import { FadeIn } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
 import { LeafSprig, TinyMushroom, FloralDivider } from "../components/decorative/Botanical";
+import { PillLink } from "../components/ui/PillLink";
 import { usePageTitle } from "../hooks/usePageTitle";
-import { bio } from "../lib/content";
+import { bio, socials } from "../lib/content";
 
 export function ContactPage() {
   usePageTitle("contact");
@@ -43,28 +44,30 @@ export function ContactPage() {
 
           <FadeIn delay={0.18}>
             <div className="flex flex-wrap gap-6 items-center mb-16">
-              <a
-                href="mailto:amandawangmei.design@gmail.com"
-                className="inline-block px-6 py-3 rounded-full border border-sage text-sage font-mono text-[13px] tracking-wide hover:bg-sage hover:text-ink transition-colors duration-300"
-              >
+              <PillLink href={socials.email} size="lg">
                 send an email →
-              </a>
+              </PillLink>
               <div className="flex items-center gap-5">
-                <a href="https://www.linkedin.com/in/amandawangmei/" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="text-sage-light hover:text-sage transition-colors duration-200 font-mono text-xs tracking-[0.06em] link-sage">
-                  linkedin
-                </a>
-                <span className="text-stone">·</span>
-                <a href="https://github.com/awmei24/" target="_blank" rel="noreferrer" aria-label="GitHub" className="text-sage-light hover:text-sage transition-colors duration-200 font-mono text-xs tracking-[0.06em] link-sage">
-                  github
-                </a>
-                <span className="text-stone">·</span>
-                <a href="https://www.instagram.com/amand.amei/" target="_blank" rel="noreferrer" aria-label="Instagram" className="text-sage-light hover:text-sage transition-colors duration-200 font-mono text-xs tracking-[0.06em] link-sage">
-                  instagram
-                </a>
-                <span className="text-stone">·</span>
-                <a href="https://bsky.app/profile/amandawangmei.bsky.social" target="_blank" rel="noreferrer" aria-label="Bluesky" className="text-sage-light hover:text-sage transition-colors duration-200 font-mono text-xs tracking-[0.06em] link-sage">
-                  bluesky
-                </a>
+                {(
+                  [
+                    ["linkedin", socials.linkedin],
+                    ["github", socials.github],
+                    ["instagram", socials.instagram],
+                    ["bluesky", socials.bluesky],
+                  ] as const
+                ).map(([label, href], i) => (
+                  <span key={label} className="flex items-center gap-5">
+                    {i > 0 && <span className="text-stone" aria-hidden="true">·</span>}
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sage-light hover:text-sage transition-colors duration-200 font-mono text-xs tracking-[0.06em] link-sage"
+                    >
+                      {label}
+                    </a>
+                  </span>
+                ))}
               </div>
             </div>
           </FadeIn>
