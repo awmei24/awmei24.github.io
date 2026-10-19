@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { readFlag, writeFlag } from "../../lib/storage";
 
 const STORAGE_KEY = "awm:garden:watered";
@@ -52,7 +52,13 @@ function WateringCanIcon({ pouring }: { pouring: boolean }) {
 
 /* `growth` is a continuous 0→1 value so the plant swells in real time while
    it's being watered — the discrete stages just gate when new parts appear. */
-function PlantIcon({ stage, growth }: { stage: Stage; growth: number }) {
+function PlantIcon({ growth }: { growth: number }) {
+  /* how far each part has grown in (0→1): leaves over the first half of the
+     watering, the flower over the second */
+  const sprout = Math.min(1, growth / STAGE_STEP);
+  const bloom = Math.max(0, (growth - STAGE_STEP) / STAGE_STEP);
+  const grow = { duration: 0.3, ease: "easeOut" } as const;
+
   return (
     <svg width="52" height="56" viewBox="0 0 52 56" fill="none" aria-hidden="true">
       {/* soil mound */}
@@ -61,53 +67,40 @@ function PlantIcon({ stage, growth }: { stage: Stage; growth: number }) {
       <motion.g
         initial={false}
         animate={{ scaleY: 0.68 + growth * 0.32, scaleX: 0.8 + growth * 0.2 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={grow}
         style={{ transformOrigin: "26px 52px" }}
       >
-      {/* stage 0 — seedling nub */}
-      <motion.g
-        initial={false}
-        animate={{ opacity: 1 }}
-      >
+      {/* seedling nub — always there */}
+      <g>
         <path d="M26 50 L26 44" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
         <path d="M26 46 C26 46 22.5 45 21.5 42" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" fill="none" />
+      </g>
+      {/* taller sprout with leaves — stretches up from the nub while watered */}
+      <motion.g
+        initial={false}
+        animate={{ opacity: Math.min(1, sprout * 3), scaleY: sprout, scaleX: 0.6 + sprout * 0.4 }}
+        transition={grow}
+        style={{ transformOrigin: "26px 44px" }}
+      >
+        <path d="M26 44 L26 28" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+        <path d="M26 38 C26 38 19 36 17 29 C22 27 26 31 26 38Z" stroke="currentColor" strokeWidth="1.1" fill="none" strokeLinecap="round" />
+        <path d="M26 33 C26 33 33 30 35 24 C30 22 26 26 26 33Z" stroke="currentColor" strokeWidth="1.1" fill="none" strokeLinecap="round" />
       </motion.g>
-      {/* stage 1 — taller sprout with leaves */}
-      <AnimatePresence>
-        {stage >= 1 && (
-          <motion.g
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            style={{ transformOrigin: "26px 50px" }}
-          >
-            <path d="M26 44 L26 28" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-            <path d="M26 38 C26 38 19 36 17 29 C22 27 26 31 26 38Z" stroke="currentColor" strokeWidth="1.1" fill="none" strokeLinecap="round" />
-            <path d="M26 33 C26 33 33 30 35 24 C30 22 26 26 26 33Z" stroke="currentColor" strokeWidth="1.1" fill="none" strokeLinecap="round" />
-          </motion.g>
-        )}
-      </AnimatePresence>
-      {/* stage 2 — bloom */}
-      <AnimatePresence>
-        {stage >= 2 && (
-          <motion.g
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            style={{ transformOrigin: "26px 28px" }}
-          >
-            <path d="M26 28 L26 18" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-            <circle cx="26" cy="12" r="3" stroke="currentColor" strokeWidth="1.1" fill="none" />
-            <circle cx="26" cy="5.5" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
-            <circle cx="20" cy="9" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
-            <circle cx="32" cy="9" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
-            <circle cx="21.5" cy="15.5" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
-            <circle cx="30.5" cy="15.5" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
-          </motion.g>
-        )}
-      </AnimatePresence>
+      {/* bloom — the stem rises, then the flower head opens */}
+      <motion.g
+        initial={false}
+        animate={{ opacity: Math.min(1, bloom * 3), scale: bloom }}
+        transition={grow}
+        style={{ transformOrigin: "26px 28px" }}
+      >
+        <path d="M26 28 L26 18" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+        <circle cx="26" cy="12" r="3" stroke="currentColor" strokeWidth="1.1" fill="none" />
+        <circle cx="26" cy="5.5" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
+        <circle cx="20" cy="9" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
+        <circle cx="32" cy="9" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
+        <circle cx="21.5" cy="15.5" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
+        <circle cx="30.5" cy="15.5" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
+      </motion.g>
       </motion.g>
     </svg>
   );
@@ -237,7 +230,7 @@ export function GardenPlant({ className = "" }: { className?: string }) {
         animate={pouring && !reduce ? { rotate: [-3, 3, -3] } : { rotate: 0 }}
         transition={{ duration: 0.4, repeat: pouring ? Infinity : 0 }}
       >
-        <PlantIcon stage={stage} growth={growth} />
+        <PlantIcon growth={growth} />
       </motion.button>
 
       {/* hint appears on approach (hover/focus); the bloomed thanks stays visible */}
@@ -263,6 +256,9 @@ export function GardenPlant({ className = "" }: { className?: string }) {
    sprout to water; tap / Enter waters too (accessible fallback). */
 export function GardenWateringCan({ className = "" }: { className?: string }) {
   const { pouring, reduce, water, handleDrag, endPour } = useWaterGarden();
+  /* framer-motion still fires onTap when a drag is released over the can,
+     so a drag must not also count as a tap-to-water */
+  const dragged = useRef(false);
 
   return (
     <motion.div
@@ -273,9 +269,13 @@ export function GardenWateringCan({ className = "" }: { className?: string }) {
       drag={!reduce}
       dragSnapToOrigin
       dragMomentum={false}
+      onPointerDown={() => (dragged.current = false)}
+      onDragStart={() => (dragged.current = true)}
       onDrag={handleDrag}
       onDragEnd={endPour}
-      onTap={() => water(STAGE_STEP)}
+      onTap={() => {
+        if (!dragged.current) water(STAGE_STEP);
+      }}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
