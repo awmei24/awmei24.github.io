@@ -1,3 +1,5 @@
+import { substackPosts } from "./posts.generated";
+
 export interface CaseStudySection {
   label: string;
   body: string[];
@@ -103,40 +105,8 @@ export const projects: Project[] = [
   },
 ];
 
-export const posts: Post[] = [
-  {
-    id: "may-jun-2026",
-    title: "may + jun 2026",
-    date: "jul 2026",
-    readTime: "5 min",
-    excerpt: "easily the best months of 2026 so far",
-    link: "https://amandawangmei.substack.com/p/may-jun-2026",
-  },
-  {
-    id: "goodbye-la",
-    title: "what i'm going to miss about los angeles",
-    date: "jun 2026",
-    readTime: "5 min",
-    excerpt: "no time for goodbyes ... see you soon !",
-    link: "https://amandawangmei.substack.com/p/what-im-going-to-miss-about-los-angeles",
-  },
-  {
-    id: "mar-apr-2026",
-    title: "mar + apr 2026",
-    date: "may 2026",
-    readTime: "5 min",
-    excerpt: "thrown a bit off balance",
-    link: "https://amandawangmei.substack.com/p/mar-apr-2026",
-  },
-  {
-    id: "jan-feb-2026",
-    title: "jan + feb 2026",
-    date: "march 2026",
-    readTime: "5 min",
-    excerpt: "making life upgrades this year :))",
-    link: "https://amandawangmei.substack.com/p/jan-feb-2026",
-  },
-];
+/* newest first; refresh with `npm run sync:substack` */
+export const posts: Post[] = substackPosts;
 
 export const experience: Role[] = [
   {
@@ -207,7 +177,7 @@ export const hobbies: HobbyCategory[] = [
 export const marginNotes = [
   "on the pottery shelf: not throwing yet, but working on getting a membership at a nearby studio!",
   "the garden grows slowly, and that's okay!",
-  "currently reading: 107 days by kamala harris.",
+  "currently reading: left on tenth by delia ephron.",
   "note to self: remember to water the plants.",
   "lots of half-formed thoughts included—more welcome!",
 ];
