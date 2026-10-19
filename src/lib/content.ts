@@ -120,8 +120,10 @@ export const hobbies: HobbyCategory[] = [
     path: "/hobbies/ceramics",
     layout: "image",
     items: [
-      { id: "c1", title: "traditional landscape painting series (灵枝)", subtitle: "wheel-thrown, various glazes", date: "2026" },
-      { id: "c2", title: "traditional birds series (飞翼)", subtitle: "wheel-thrown, various glazes", date: "2026" },
+      { id: "koi", title: "traditional koi fish series (鲤跃)", subtitle: "wheel-thrown, underglazed", date: "oct 2026" },
+      { id: "qipao", title: "traditional qipao series (缝鬓)", subtitle: "wheel-thrown, underglazed", date: "sept 2026" },
+      { id: "bird", title: "traditional birds series (飞翼)", subtitle: "wheel-thrown, underglazed", date: "may 2026" },
+      { id: "landscape", title: "traditional landscape painting series (灵枝)", subtitle: "wheel-thrown, underglazed or various glazes", date: "apr 2026" },
     ],
   },
   {
@@ -167,11 +169,11 @@ export const hobbies: HobbyCategory[] = [
 
 /* Rotating almanac marginalia — one is shown per visit (easter egg #11).*/
 export const marginNotes = [
-  "on the pottery shelf: not throwing yet, but working on getting a membership at a nearby studio!",
+  "on the pottery shelf: vases and useful home trinkets",
   "the garden grows slowly, and that's okay!",
   "currently reading: left on tenth by delia ephron.",
   "note to self: remember to water the plants.",
-  "lots of half-formed thoughts included—more welcome!",
+  "lots of half-formed thoughts included-—more welcome!",
 ];
 
 /* Chapter index — used on homepage to link to each section page */
