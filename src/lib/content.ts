@@ -170,15 +170,20 @@ export const hobbies: HobbyCategory[] = [
     ],
   },
   {
-    id: "dancing",
-    label: "dancing",
-    description: "expressing myself through movement.",
-    path: "/hobbies/dancing",
-    layout: "image",
+    id: "dev-lab",
+    label: "dev lab",
+    description: "small experiments and side builds.",
+    path: "/hobbies/dev-lab",
+    layout: "post",
     items: [
-      { id: "d1", title: "random dance classes", subtitle: "epicenter + bzcc, mL, rüts", date: "ongoing" },
-      { id: "d2", title: "team choreography", subtitle: "with mit missbehavior", date: "2022-2024" },
-      { id: "d4", title: "chinese traditional dance", subtitle: "with mit adt", date: "2020-2024" },
+      /* served from the a-light-below repo's own github pages site */
+      {
+        id: "a-light-below",
+        title: "a light below",
+        subtitle: "a slow, quiet text game about a dying lamp, a buried city, and the long way up.",
+        date: "2026",
+        link: "/a-light-below/",
+      },
     ],
   },
   {

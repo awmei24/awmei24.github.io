@@ -1,14 +1,19 @@
-import { createContext, useContext, useRef, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { readFlag, writeFlag } from "../../lib/storage";
 
 const STORAGE_KEY = "awm:garden:watered";
-/* drag events accumulated over the sprout before each growth step —
+/* seconds of pouring over the sprout per growth step —
    higher = slower, more gradual growth toward 50% and 100% */
-const POUR_PER_STAGE = 512;
-/* total watering from bare seedling to full bloom */
-const TOTAL_POUR = POUR_PER_STAGE * 2;
+const SECONDS_PER_STAGE = 2.5;
+/* growth added by one tap / Enter on the can */
+const STAGE_STEP = 0.5;
 
 type Stage = 0 | 1 | 2; // seedling → sprout → bloom
+
+function stageOf(growth: number): Stage {
+  return growth >= 1 ? 2 : growth >= STAGE_STEP ? 1 : 0;
+}
 
 function WateringCanIcon({ pouring }: { pouring: boolean }) {
   return (
@@ -135,56 +140,69 @@ function useWaterGarden() {
 
 export function WaterGardenProvider({ children }: { children: ReactNode }) {
   const reduce = useReducedMotion() ?? false;
-  const alreadyBloomed = localStorage.getItem(STORAGE_KEY) === "true";
-  const [stage, setStage] = useState<Stage>(alreadyBloomed ? 2 : 0);
-  const [growth, setGrowth] = useState(alreadyBloomed ? 1 : 0);
+  const [growth, setGrowth] = useState(() => (readFlag(STORAGE_KEY) ? 1 : 0));
+  const stage = stageOf(growth);
   const [pouring, setPouring] = useState(false);
   const [message, setMessage] = useState("");
-  /* total water poured so far (0 → TOTAL_POUR); drives continuous growth */
-  const poured = useRef(alreadyBloomed ? TOTAL_POUR : 0);
+  /* mirrors `growth` so water() can compare before/after without a stale closure */
+  const growthRef = useRef(growth);
   const plantRef = useRef<HTMLButtonElement>(null);
 
-  /* Add `amount` water and let the plant grow smoothly toward the next stage. */
-  function water(amount: number) {
-    if (stage === 2) return;
-    poured.current = Math.min(TOTAL_POUR, poured.current + amount);
-    const g = poured.current / TOTAL_POUR;
-    setGrowth(g);
-    const nextStage: Stage = g >= 1 ? 2 : g >= 0.5 ? 1 : 0;
-    setStage((s) => {
-      if (nextStage > s) {
-        if (nextStage === 2) {
-          localStorage.setItem(STORAGE_KEY, "true");
-          setMessage("🌿 thanks for tending");
-        } else {
-          setMessage("the sprout is growing…");
-        }
-      }
-      return nextStage > s ? nextStage : s;
-    });
-  }
+  /* Add `amount` (0→1 scale) of water; announce and persist when a stage is crossed. */
+  const water = useCallback((amount: number) => {
+    const prev = growthRef.current;
+    if (prev >= 1) return;
+    const next = Math.min(1, prev + amount);
+    growthRef.current = next;
+    setGrowth(next);
+
+    const from = stageOf(prev);
+    const to = stageOf(next);
+    if (to === from) return;
+    if (to === 2) {
+      writeFlag(STORAGE_KEY, true);
+      setMessage("🌿 thanks for tending");
+      setPouring(false);
+    } else {
+      setMessage("the sprout is growing…");
+    }
+  }, []);
+
+  /* while the can hovers the sprout, pour at a steady rate per second —
+     independent of mouse polling rate, and still pours if the can is held still */
+  useEffect(() => {
+    if (!pouring) return;
+    let frame = 0;
+    let last = performance.now();
+    const tick = (now: number) => {
+      water(((now - last) / 1000) * (STAGE_STEP / SECONDS_PER_STAGE));
+      last = now;
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [pouring, water]);
 
   function resetPlant() {
     if (stage !== 2) return;
-    localStorage.removeItem(STORAGE_KEY);
-    poured.current = 0;
+    writeFlag(STORAGE_KEY, false);
+    growthRef.current = 0;
     setGrowth(0);
-    setStage(0);
     setMessage("replanted — water it again sometime");
   }
 
   function handleDrag(_: unknown, info: { point: { x: number; y: number } }) {
     const plant = plantRef.current?.getBoundingClientRect();
-    if (!plant || stage === 2) return;
+    if (!plant || growthRef.current >= 1) return;
+    /* info.point is page-relative (pageX/Y); the rect is viewport-relative */
+    const x = info.point.x - window.scrollX;
+    const y = info.point.y - window.scrollY;
     const over =
-      info.point.x > plant.left - 24 &&
-      info.point.x < plant.right + 24 &&
-      info.point.y > plant.top - 40 &&
-      info.point.y < plant.bottom + 20;
+      x > plant.left - 24 &&
+      x < plant.right + 24 &&
+      y > plant.top - 40 &&
+      y < plant.bottom + 20;
     setPouring(over);
-    /* water a little on every frame the can hovers the sprout, so the plant
-       visibly swells while you're pouring — not only when you stop */
-    if (over) water(1);
   }
 
   return (
@@ -257,11 +275,11 @@ export function GardenWateringCan({ className = "" }: { className?: string }) {
       dragMomentum={false}
       onDrag={handleDrag}
       onDragEnd={endPour}
-      onTap={() => water(POUR_PER_STAGE)}
+      onTap={() => water(STAGE_STEP)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          water(POUR_PER_STAGE);
+          water(STAGE_STEP);
         }
       }}
       whileHover={{ rotate: -8 }}

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
 import { useLocation } from "react-router-dom";
+import { readFlag, writeFlag } from "../../lib/storage";
 
 const CHAPTERS = ["about", "work", "hobbies", "writing", "contact"] as const;
 const SECRET_KEY = "awm:garden:secretFound";
@@ -21,9 +22,7 @@ const GardenContext = createContext<GardenContextValue>({
 export function GardenProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const [grown, setGrown] = useState<string[]>([]);
-  const [secretFound, setSecretFound] = useState(
-    () => localStorage.getItem(SECRET_KEY) === "true"
-  );
+  const [secretFound, setSecretFound] = useState(() => readFlag(SECRET_KEY));
 
   // derive the explored-chapter list from the route during render
   const segment = location.pathname.split("/")[1];
@@ -34,7 +33,7 @@ export function GardenProvider({ children }: { children: ReactNode }) {
 
   const foundSecret = useCallback(() => {
     setSecretFound(true);
-    localStorage.setItem(SECRET_KEY, "true");
+    writeFlag(SECRET_KEY, true);
   }, []);
 
   return (
