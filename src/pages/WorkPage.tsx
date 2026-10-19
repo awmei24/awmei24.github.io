@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Container } from "../components/layout/Container";
-import { Section } from "../components/layout/Section";
-import { StaggerGroup } from "../components/motion/FadeIn";
+import { Section, Meta } from "../components/layout/Section";
+import { FadeIn, StaggerGroup } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
 import { Tag } from "../components/ui/Tag";
-import { SmallLeaf } from "../components/decorative/Botanical";
+import { SmallLeaf, Sprout } from "../components/decorative/Botanical";
 import { PageHero } from "../components/layout/PageHero";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { projects } from "../lib/content";
@@ -21,7 +21,7 @@ export function WorkPage() {
         title={
           <>
             things i've made<br />
-            <span className="italic text-stone">and tended to.</span>
+            <span className="italic text-muted">and tended to.</span>
           </>
         }
         titleClassName="max-w-lg"
@@ -31,6 +31,22 @@ export function WorkPage() {
       {/* ── Projects ── */}
       <Section>
         <Container>
+          {projects.length === 0 ? (
+            <FadeIn>
+              <div className="flex flex-col items-center gap-6 py-16 text-center">
+                <div className="text-sage opacity-60">
+                  <Sprout size={64} color="var(--color-sage)" />
+                </div>
+                <p className="text-base font-normal text-muted max-w-xs leading-relaxed">
+                  case studies are still growing—check back soon. in the meantime, see the{" "}
+                  <Link to="/hobbies/dev-lab" className="link-sage text-ink dark:text-cream">
+                    dev lab
+                  </Link>
+                  .
+                </p>
+              </div>
+            </FadeIn>
+          ) : (
           <StaggerGroup className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project, i) => (
               <motion.article
@@ -49,16 +65,16 @@ export function WorkPage() {
                   </motion.div>
 
                   <div className="flex items-center justify-between mb-6">
-                    <span className="font-mono text-xs text-clay tracking-widest uppercase">
+                    <Meta tone="text-clay-ink" className="uppercase">
                       {project.year} — {String(i + 1).padStart(2, "0")}
-                    </span>
+                    </Meta>
                   </div>
 
                   <h3 className="font-serif text-2xl md:text-[26px] font-medium text-ink dark:text-cream leading-snug mb-2">
                     {project.title}
                   </h3>
-                  <p className="font-serif italic text-base text-stone mb-4 font-light">{project.tagline}</p>
-                  <p className="text-sm text-stone leading-relaxed mb-6 font-light">{project.description}</p>
+                  <p className="font-serif italic text-base text-muted mb-4">{project.tagline}</p>
+                  <p className="text-sm text-muted leading-relaxed mb-6">{project.description}</p>
 
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
@@ -74,6 +90,7 @@ export function WorkPage() {
               </motion.article>
             ))}
           </StaggerGroup>
+          )}
         </Container>
       </Section>
     </PageTransition>

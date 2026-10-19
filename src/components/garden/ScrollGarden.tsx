@@ -60,7 +60,7 @@ export function ScrollGarden() {
                 : { type: "spring", stiffness: 240, damping: 14, delay: i === grown.length - 1 ? 0.3 : 0 }
             }
             style={{ transformOrigin: "bottom center" }}
-            className={i % 2 === 0 ? "text-ink dark:text-cream" : "text-stone dark:text-sage-light"}
+            className={i % 2 === 0 ? "text-ink dark:text-cream" : "text-muted dark:text-sage-light"}
           >
             <Mark size={22 + ((i * 7) % 10)} />
           </motion.div>

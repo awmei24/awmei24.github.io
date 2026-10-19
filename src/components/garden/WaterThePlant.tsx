@@ -237,8 +237,8 @@ export function GardenPlant({ className = "" }: { className?: string }) {
       <span
         className={`font-serif italic text-xs whitespace-nowrap mb-1 select-none transition duration-300 ${
           stage === 2
-            ? "text-sage opacity-100"
-            : "text-stone/70 dark:text-sage-light/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100"
+            ? "text-sage-ink opacity-100"
+            : "text-muted dark:text-sage-light/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100"
         }`}
       >
         {stage === 2 ? "thanks for tending :)" : "psst—water me!"}
@@ -265,7 +265,7 @@ export function GardenWateringCan({ className = "" }: { className?: string }) {
       role="button"
       tabIndex={0}
       aria-label="watering can — drag it over the sprout (or press enter) to water"
-      className={`text-stone/70 dark:text-sage-light/70 cursor-grab active:cursor-grabbing touch-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded ${className}`}
+      className={`text-muted dark:text-sage-light/70 cursor-grab active:cursor-grabbing touch-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded ${className}`}
       drag={!reduce}
       dragSnapToOrigin
       dragMomentum={false}

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Container } from "../components/layout/Container";
-import { SectionLabel, sectionTint } from "../components/layout/Section";
+import { SectionLabel, Meta, sectionTint } from "../components/layout/Section";
 import { Tag } from "../components/ui/Tag";
 import { PillLink } from "../components/ui/PillLink";
 import { PortraitFrame } from "../components/ui/PortraitFrame";
@@ -24,21 +24,21 @@ function ChapterRow({ chapter }: { chapter: typeof chapters[number] }) {
         to={chapter.path}
         className="group grid grid-cols-[40px_1fr_30px] sm:grid-cols-[64px_200px_1fr_30px] items-baseline gap-2 px-2 py-5 border-b border-hairline dark:border-night-raised transition-colors duration-200 hover:bg-parchment dark:hover:bg-night-raised"
       >
-        <span className="font-mono text-[13px] text-clay">{chapter.index}</span>
+        <span className="font-mono text-[13px] text-clay-ink">{chapter.index}</span>
         <span>
-          <span className="block font-serif font-medium text-[19px] md:text-2xl text-ink dark:text-cream group-hover:text-sage transition-colors duration-200">
+          <span className="block font-serif font-medium text-[19px] md:text-2xl text-ink dark:text-cream group-hover:text-sage-ink transition-colors duration-200">
             {chapter.label}
           </span>
-          <span className="block sm:hidden text-[13px] text-stone font-normal leading-snug mt-1">
+          <span className="block sm:hidden text-[13px] text-muted font-normal leading-snug mt-1">
             {chapter.description}
           </span>
         </span>
-        <span className="hidden sm:block text-sm text-stone font-normal leading-snug">
+        <span className="hidden sm:block text-sm text-muted font-normal leading-snug">
           {chapter.description}
         </span>
         <span
           aria-hidden="true"
-          className="text-sage font-semibold justify-self-end transition-transform duration-200 group-hover:translate-x-1"
+          className="text-sage-ink font-semibold justify-self-end transition-transform duration-200 group-hover:translate-x-1"
         >
           →
         </span>
@@ -56,13 +56,13 @@ function FeaturedCard({ project }: { project: typeof projects[number] }) {
         className="hover-lift group flex flex-col justify-between h-full p-8 rounded-[18px] border border-hairline dark:border-night-raised bg-parchment dark:bg-night-raised relative overflow-hidden"
       >
         <div>
-          <span className="font-mono text-xs text-clay tracking-widest uppercase">
+          <Meta tone="text-clay-ink" className="uppercase">
             {project.year}
-          </span>
-          <h3 className="font-serif text-[26px] font-medium text-ink dark:text-cream mt-3 mb-2 leading-snug group-hover:text-sage transition-colors duration-200">
+          </Meta>
+          <h3 className="font-serif text-[26px] font-medium text-ink dark:text-cream mt-3 mb-2 leading-snug group-hover:text-sage-ink transition-colors duration-200">
             {project.title}
           </h3>
-          <p className="font-serif italic text-base text-stone font-normal mb-5">
+          <p className="font-serif italic text-base text-muted font-normal mb-5">
             {project.tagline}
           </p>
         </div>
@@ -110,12 +110,9 @@ export function HomePage() {
               animate="visible"
               className="max-md:order-1"
             >
-              <motion.p
-                variants={slideLeft}
-                className="font-mono text-[13px] md:text-xs font-normal tracking-[0.22em] uppercase text-sage mb-8"
-              >
-                {bio.location}  ✦  open to opportunities
-              </motion.p>
+              <motion.div variants={slideLeft}>
+                <SectionLabel>{bio.location}  ✦  open to opportunities</SectionLabel>
+              </motion.div>
 
               <motion.h1
                 variants={fadeUp}
@@ -128,7 +125,7 @@ export function HomePage() {
 
               <motion.p
                 variants={fadeUp}
-                className="font-serif italic font-normal text-[18px] md:text-[27px] text-stone leading-relaxed"
+                className="font-serif italic font-normal text-[18px] md:text-[27px] text-muted leading-relaxed"
               >
                 {bio.tagline}
               </motion.p>
@@ -138,18 +135,18 @@ export function HomePage() {
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
-              className="max-md:order-3 md:mt-10"
+              className="max-md:order-2 md:mt-10"
             >
               <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-y-4">
                 <PillLink to="/work" variant="solid">
                   view work ↓
                 </PillLink>
-                <p className="ml-10 font-mono text-xs text-stone/70 dark:text-sage-light/70">
-                  <Link to="/about" className="link-sage hover:text-stone dark:hover:text-sage-light">
+                <p className="ml-10 font-mono text-xs text-muted dark:text-sage-light">
+                  <Link to="/about" className="link-sage inline-block py-1.5 hover:text-ink dark:hover:text-cream">
                     about me
                   </Link>
                   <span className="mx-2.5" aria-hidden="true">·</span>
-                  <Link to="/contact" className="link-sage hover:text-stone dark:hover:text-sage-light">
+                  <Link to="/contact" className="link-sage inline-block py-1.5 hover:text-ink dark:hover:text-cream">
                     say hello
                   </Link>
                 </p>
@@ -161,9 +158,9 @@ export function HomePage() {
             </motion.div>
             </div>
 
-            {/* Arched portrait (egg #1 lives at its base) */}
+            {/* Portrait (egg #1 lives at its base) */}
             <motion.div
-              className="max-md:order-2 md:col-start-2 flex flex-col items-center md:items-end"
+              className="max-md:order-3 md:col-start-2 flex flex-col items-center md:items-end"
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
@@ -200,7 +197,7 @@ export function HomePage() {
               animate={{ scaleY: 1 }}
               transition={{ delay: 2, duration: 0.6 }}
             />
-            <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-sage">scroll</span>
+            <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-sage-ink">scroll</span>
           </motion.div>
         </Container>
       </section>
@@ -216,11 +213,11 @@ export function HomePage() {
           <FadeIn>
             <div className="flex items-baseline justify-between mb-8">
               <h2 className="font-serif font-normal text-3xl md:text-4xl text-ink dark:text-cream tracking-tight">
-                a few places <span className="italic text-stone">to wander.</span>
+                a few places <span className="italic text-muted">to wander.</span>
               </h2>
-              <span className="font-mono text-xs tracking-[0.22em] uppercase text-sage" aria-hidden="true">
+              <Meta tone="text-sage-ink" className="uppercase" aria-hidden>
                 index
-              </span>
+              </Meta>
             </div>
           </FadeIn>
 
@@ -253,6 +250,7 @@ export function HomePage() {
       </section>
 
       {/* ── Selected work ── */}
+      {featuredProjects.length > 0 && (
       <section className={`py-20 md:py-24 relative overflow-hidden ${sectionTint}`}>
         <div className="absolute top-16 left-4 md:left-8 text-sage-light opacity-25">
           <Sway duration={4.2}>
@@ -273,13 +271,14 @@ export function HomePage() {
           <FadeIn delay={0.2}>
             <div className="mt-10 flex items-center gap-4">
               <div className="flex-1 h-px bg-hairline dark:bg-night" />
-              <Link to="/work" className="link-sage font-mono text-xs text-stone dark:text-sage-light whitespace-nowrap">
+              <Link to="/work" className="link-sage font-mono text-xs text-muted dark:text-sage-light whitespace-nowrap">
                 all projects →
               </Link>
             </div>
           </FadeIn>
         </Container>
       </section>
+      )}
     </PageTransition>
   );
 }

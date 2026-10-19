@@ -1,5 +1,5 @@
 import { Container } from "../components/layout/Container";
-import { Section } from "../components/layout/Section";
+import { Section, Meta } from "../components/layout/Section";
 import { PageHero } from "../components/layout/PageHero";
 import { FadeIn, StaggerGroup } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
@@ -19,7 +19,7 @@ export function WritingPage() {
         title={
           <>
             things i've been<br />
-            <span className="italic text-stone">thinking about.</span>
+            <span className="italic text-muted">thinking about.</span>
           </>
         }
         titleClassName="max-w-lg"
@@ -44,8 +44,8 @@ export function WritingPage() {
                 description={post.excerpt}
                 meta={
                   <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-1 shrink-0">
-                    <span className="font-mono text-[11px] text-stone dark:text-sage-light whitespace-nowrap">{post.date}</span>
-                    <span className="font-mono text-[11px] text-stone dark:text-sage-light whitespace-nowrap">{post.readTime} read</span>
+                    <Meta tone="text-muted dark:text-sage-light" className="whitespace-nowrap">{post.date}</Meta>
+                    <Meta tone="text-muted dark:text-sage-light" className="whitespace-nowrap">{post.readTime} read</Meta>
                   </div>
                 }
               />

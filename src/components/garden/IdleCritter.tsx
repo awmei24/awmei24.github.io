@@ -60,7 +60,7 @@ export function IdleCritter() {
   return (
     <motion.div
       aria-hidden="true"
-      className="fixed bottom-0.5 z-[6] text-stone/50 dark:text-sage-light/40 pointer-events-none"
+      className="fixed bottom-0.5 z-[6] text-muted/50 dark:text-sage-light/40 pointer-events-none"
       initial={{ x: -50 }}
       animate={{ x: typeof window !== "undefined" ? window.innerWidth + 50 : 2000 }}
       transition={{ duration: CRAWL_S, ease: "linear" }}

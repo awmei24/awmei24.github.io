@@ -1,10 +1,6 @@
 import { Sprout } from "../decorative/Botanical";
 import { useGarden } from "../garden/GardenContext";
-import { bio, socials } from "../../lib/content";
-
-const footerLinks = (
-  ["email", "linkedin", "github", "instagram", "bluesky", "substack"] as const
-).map((label) => ({ label, href: socials[label] }));
+import { bio, socialLinks } from "../../lib/content";
 
 /* Ink footer band — mono link row left, serif garden sign-off right. */
 export function Footer() {
@@ -13,15 +9,15 @@ export function Footer() {
   return (
     <footer className="bg-ink dark:bg-night-raised px-6 md:px-14 py-9">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-        <nav aria-label="Social links" className="flex flex-wrap items-center gap-x-5 gap-y-2">
-          {footerLinks.map((link) => (
+        <nav aria-label="Social links" className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          {socialLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               {...(link.href.startsWith("http")
                 ? { target: "_blank", rel: "noreferrer" }
                 : {})}
-              className="font-mono text-[13px] md:text-xs tracking-[0.06em] text-sage-light hover:text-sage transition-colors duration-200 link-sage"
+              className="font-mono text-[13px] md:text-xs tracking-[0.06em] py-1.5 text-sage-light hover:text-sage transition-colors duration-200 link-sage"
             >
               {link.label}
             </a>

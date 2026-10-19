@@ -31,7 +31,7 @@ export function HobbyDetailPage() {
         title={category.label}
         back={{ to: "/hobbies", label: "hobbies" }}
         description={category.description}
-        descriptionClassName="font-serif italic text-base text-stone font-light mt-4 max-w-md leading-relaxed"
+        descriptionClassName="font-serif italic text-base text-muted mt-4 max-w-md leading-relaxed"
       />
 
       {/* ── Items ── */}

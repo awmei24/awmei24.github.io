@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { hobbies } from "../../lib/content";
 import { DARK_ROUTES } from "../../lib/routes";
 
@@ -54,12 +54,12 @@ function NavItem({ link, overDark }: { link: NavLink; overDark: boolean }) {
     link.subLinks?.some((s) => location.pathname === s.href);
 
   const linkColor = link.accent
-    ? "text-clay"
+    ? overDark ? "text-clay" : "text-clay-ink"
     : active
-      ? "text-sage"
+      ? "text-sage-ink"
       : overDark
         ? "text-cream/90"
-        : "text-stone dark:text-sage-light";
+        : "text-muted dark:text-sage-light";
 
   function show() {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -79,7 +79,7 @@ function NavItem({ link, overDark }: { link: NavLink; overDark: boolean }) {
     return (
       <Link
         to={link.href}
-        className={`link-sage font-mono text-xs tracking-[0.06em] transition-colors duration-200 ${linkColor}`}
+        className={`link-sage font-mono text-xs tracking-[0.06em] py-1.5 transition-colors duration-200 ${linkColor}`}
       >
         {link.label}
       </Link>
@@ -102,7 +102,7 @@ function NavItem({ link, overDark }: { link: NavLink; overDark: boolean }) {
         to={link.href}
         aria-expanded={open}
         aria-haspopup="true"
-        className={`link-sage font-mono text-xs tracking-[0.06em] transition-colors duration-200 flex items-center gap-1 ${linkColor}`}
+        className={`link-sage font-mono text-xs tracking-[0.06em] py-1.5 transition-colors duration-200 flex items-center gap-1 ${linkColor}`}
       >
         {link.label}
         <motion.span
@@ -125,15 +125,15 @@ function NavItem({ link, overDark }: { link: NavLink; overDark: boolean }) {
             transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
             className="absolute top-full left-0 pt-3"
           >
-            <div className="flex flex-col gap-0.5 bg-cream/95 dark:bg-night/95 backdrop-blur-md border border-parchment dark:border-night-raised rounded-xl px-3 py-2.5 shadow-sm min-w-[140px]">
+            <div className="flex flex-col gap-0.5 bg-cream/95 dark:bg-night/95 backdrop-blur-md border border-hairline dark:border-night-raised rounded-xl px-3 py-2.5 shadow-sm min-w-[140px]">
               {link.subLinks.map((sub) => (
                 <Link
                   key={sub.href}
                   to={sub.href}
-                  className={`font-mono text-xs tracking-[0.06em] py-1.5 px-2 rounded-lg link-sage transition-colors duration-150 ${
+                  className={`font-mono text-xs tracking-[0.06em] py-1.5 px-2 link-sage transition-colors duration-150 ${
                     location.pathname === sub.href
-                      ? "text-sage"
-                      : "text-stone dark:text-sage-light"
+                      ? "text-sage-ink"
+                      : "text-muted dark:text-sage-light"
                   }`}
                 >
                   {sub.label}
@@ -153,6 +153,47 @@ export function Nav() {
   const bgOpacity = useTransform(scrollY, [0, 80], [0, 1]);
   const [menuOpen, setMenuOpen] = useState(false);
   const overDark = useNavOverDark(menuOpen);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  /* While the mobile menu is open: lock page scroll, close on Escape (focus
+     returns to the button), and keep Tab cycling between the button and links. */
+  useEffect(() => {
+    if (!menuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const focusables = [
+        menuButtonRef.current,
+        ...(overlayRef.current?.querySelectorAll<HTMLElement>("a[href]") ?? []),
+      ].filter((el): el is HTMLElement => el !== null);
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const current = document.activeElement as HTMLElement | null;
+      if (!current || !focusables.includes(current)) {
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && current === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && current === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
 
   return (
     <>
@@ -190,10 +231,12 @@ export function Nav() {
 
         {/* Mobile hamburger */}
         <button
+          ref={menuButtonRef}
           onClick={() => setMenuOpen(!menuOpen)}
-          className="relative z-10 sm:hidden flex flex-col gap-1.5 p-1"
+          className="relative z-10 sm:hidden flex flex-col items-center justify-center gap-1.5 w-11 h-11 -mr-3"
           aria-label={menuOpen ? "close menu" : "open menu"}
           aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
         >
           <motion.span
             animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
@@ -212,6 +255,8 @@ export function Nav() {
 
       {/* Mobile overlay */}
       <motion.div
+        ref={overlayRef}
+        id="mobile-menu"
         initial={false}
         animate={menuOpen ? { opacity: 1, pointerEvents: "auto" } : { opacity: 0, pointerEvents: "none" as const }}
         transition={{ duration: 0.25 }}
@@ -229,7 +274,7 @@ export function Nav() {
                 to={link.href}
                 onClick={() => setMenuOpen(false)}
                 tabIndex={menuOpen ? 0 : -1}
-                className={`link-sage ${"sub" in link && link.sub ? "font-mono text-lg tracking-[0.06em] text-stone dark:text-sage-light pl-4" : "font-serif text-3xl text-ink dark:text-cream"}`}
+                className={`link-sage ${"sub" in link && link.sub ? "font-mono text-lg tracking-[0.06em] text-muted dark:text-sage-light pl-4" : "font-serif text-3xl text-ink dark:text-cream"}`}
               >
                 {link.label.trim()}
               </Link>

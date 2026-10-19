@@ -10,7 +10,7 @@ export function PortraitFrame({
 }) {
   return (
     <div
-      className={`overflow-hidden rounded-[24px] border-[1.5px] border-sage-light/60 shadow-[0_30px_60px_-24px_rgba(31,31,31,0.28)] ${className}`}
+      className={`overflow-hidden rounded-[18px] border-[1.5px] border-sage-light/60 shadow-[0_30px_60px_-24px_rgba(31,31,31,0.28)] ${className}`}
     >
       {children}
     </div>

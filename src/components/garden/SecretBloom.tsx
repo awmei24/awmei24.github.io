@@ -90,7 +90,7 @@ export function SecretBloom() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="absolute inset-0 flex items-center justify-center px-8 text-center"
             >
-              <span className="font-serif italic text-xl md:text-2xl text-ink dark:text-cream bg-cream/85 dark:bg-night/85 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-[0_16px_40px_-16px_rgba(31,31,31,0.25)]">
+              <span className="font-serif italic text-xl md:text-2xl text-ink dark:text-cream bg-cream/85 dark:bg-night/85 backdrop-blur-sm rounded-[18px] px-6 py-4 shadow-[0_16px_40px_-16px_rgba(31,31,31,0.25)]">
                 {NOTE}
               </span>
             </motion.p>

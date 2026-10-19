@@ -3,6 +3,7 @@ import { LeafSprig } from "../decorative/Botanical";
 import type { HobbyItem } from "../../lib/content";
 import type { LightboxState } from "./Lightbox";
 import { springPop } from "../../lib/motion";
+import { Meta } from "../layout/Section";
 
 interface GalleryCardProps {
   item: HobbyItem;
@@ -62,16 +63,16 @@ export function GalleryCard({ item, variant = "full", onOpenLightbox }: GalleryC
 
       {preview ? (
         <>
-          <p className="text-xs font-medium text-stone mt-1.5 leading-snug">{item.title}</p>
-          {item.date && <p className="font-mono text-[11px] text-stone dark:text-sage-light mt-0.5">{item.date}</p>}
+          <p className="text-xs font-medium text-muted mt-1.5 leading-snug line-clamp-2">{item.title}</p>
+          {item.date && <Meta tone="text-muted dark:text-sage-light" className="block mt-0.5">{item.date}</Meta>}
         </>
       ) : (
         <div className="mt-2">
           <p className="font-serif font-medium text-base text-ink dark:text-cream leading-snug">{item.title}</p>
           {item.subtitle && (
-            <p className="font-serif italic text-xs text-stone font-normal mt-0.5">{item.subtitle}</p>
+            <p className="font-serif italic text-xs text-muted font-normal mt-0.5">{item.subtitle}</p>
           )}
-          {item.date && <p className="font-mono text-[11px] text-stone dark:text-sage-light mt-1">{item.date}</p>}
+          {item.date && <Meta tone="text-muted dark:text-sage-light" className="block mt-1">{item.date}</Meta>}
         </div>
       )}
     </motion.div>

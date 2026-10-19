@@ -28,30 +28,25 @@ function HobbySection({
   const hasMore = category.items.length > PREVIEW_COUNT;
 
   return (
-    <div className="py-16 border-b border-parchment dark:border-night-raised last:border-0">
+    <div className="py-12 md:py-16 border-b border-hairline dark:border-night-raised first:pt-0 last:border-0">
       <FadeIn>
         <div className="flex items-baseline justify-between mb-3">
-          <div className="flex items-baseline gap-3">
-            <span className="text-lg text-stone font-semibold select-none" aria-hidden="true">
-              ✦
-            </span>
-            <h2 className="font-serif font-normal text-2xl md:text-3xl text-ink dark:text-cream tracking-tight">
-              {category.label}
-            </h2>
-          </div>
+          <h2 className="font-serif font-normal text-2xl md:text-3xl text-ink dark:text-cream tracking-tight">
+            {category.label}
+          </h2>
           <Link
             to={category.path}
-            className="font-mono text-xs text-sage link-sage whitespace-nowrap"
+            className="font-mono text-xs text-sage-ink link-sage whitespace-nowrap py-1.5"
           >
             see all →
           </Link>
         </div>
-        <p className="font-serif italic text-sm text-stone font-normal mb-8 ml-9">
+        <p className="font-serif italic text-sm text-muted font-normal mb-8">
           {category.description}
         </p>
       </FadeIn>
 
-      <div className="ml-9">
+      <div>
         {category.layout === "post" ? (
           <StaggerGroup>
             {preview.map((item) => (
@@ -66,7 +61,7 @@ function HobbySection({
             ))}
           </StaggerGroup>
         ) : (
-          <StaggerGroup className="grid grid-cols-3 gap-x-4 gap-y-6">
+          <StaggerGroup className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-6">
             {preview.map((item) => (
               <GalleryCard key={item.id} item={item} variant="preview" onOpenLightbox={onOpenLightbox} />
             ))}
@@ -77,10 +72,10 @@ function HobbySection({
           <FadeIn delay={0.1}>
             <Link
               to={category.path}
-              className="mt-5 inline-flex items-center gap-1.5 text-sm text-stone font-light link-sage"
+              className="mt-5 inline-flex items-center gap-1.5 text-sm text-muted link-sage"
             >
               <span>see {category.items.length - PREVIEW_COUNT} more</span>
-              <span className="text-sage">→</span>
+              <span className="text-sage-ink">→</span>
             </Link>
           </FadeIn>
         )}
@@ -101,7 +96,7 @@ export function HobbiesPage() {
         title={
           <>
             the rest of<br />
-            <span className="italic text-stone">the garden.</span>
+            <span className="italic text-muted">the garden.</span>
           </>
         }
         titleClassName="max-w-xl"
@@ -135,7 +130,7 @@ export function HobbiesPage() {
           <FadeIn>
             <div className="flex flex-col items-center gap-4 text-center">
               <FloralDivider color="var(--color-sage-light)" />
-              <p className="font-serif italic text-sm text-stone font-light">
+              <p className="font-serif italic text-sm text-muted">
                 always adding more to the collection ✦
               </p>
             </div>

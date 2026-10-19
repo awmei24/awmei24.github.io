@@ -16,6 +16,12 @@
   /* hairline used by the almanac index rules */
   --color-hairline:     #E4DFD6;
 
+  /* Text-safe inks — sage and clay stay for marks and display type;
+     these are for text. Dark values are swapped in below. */
+  --color-muted:        #4B4B4B;  /* stone; 8.3:1 on cream */
+  --color-sage-ink:     #5E7251;  /* 4.6:1 on cream & parchment */
+  --color-clay-ink:     #AB5439;  /* clay under 24px; 4.5:1 on parchment */
+
   --font-sans:  "Plus Jakarta Sans", system-ui, sans-serif;
   --font-serif: "Newsreader", Georgia, serif;
   --font-mono:  "Space Mono", ui-monospace, SFMono-Regular, monospace;
@@ -44,6 +50,11 @@ body {
 /* ─── Dark Mode ──────────────────────────────────────────────────────────── */
 
 @media (prefers-color-scheme: dark) {
+  :root {
+    --color-muted:    #B5B0A6;  /* 8.5:1 on night */
+    --color-sage-ink: #93A985;  /* sage itself reads on night (7.3:1) */
+    --color-clay-ink: #C46A4E;  /* 4.9:1 on night */
+  }
   html {
     background-color: var(--color-night);
     color: var(--color-cream);
@@ -73,8 +84,12 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .hover-lift:hover {
-  transform: translateY(-4px);
   box-shadow: 0 18px 40px -14px rgba(31, 31, 31, 0.22);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
 }
 
 /* Sage animated underline for links; hovering also blooms a tiny floret (egg #6) */
@@ -82,6 +97,8 @@ body {
   position: relative;
   text-decoration: none;
   background-image: linear-gradient(var(--color-sage), var(--color-sage));
+  /* keep the underline under the text when links get tap padding */
+  background-origin: content-box;
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0% 1.5px;

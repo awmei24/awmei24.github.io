@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { PageTransition } from "../motion/PageTransition";
+import { BackLink } from "../layout/PageHero";
 
 /* Fallback for detail routes whose id doesn't match any content */
 export function NotFound({
@@ -14,10 +14,8 @@ export function NotFound({
   return (
     <PageTransition>
       <div className="min-h-screen flex flex-col items-center justify-center gap-4 pt-24">
-        <p className="text-stone font-light">{message}</p>
-        <Link to={backTo} className="link-sage text-sm text-sage">
-          ← {backLabel}
-        </Link>
+        <p className="text-muted">{message}</p>
+        <BackLink to={backTo}>{backLabel}</BackLink>
       </div>
     </PageTransition>
   );

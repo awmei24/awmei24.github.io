@@ -9,11 +9,15 @@ interface PillLinkProps {
   href?: string;
   variant?: "outline" | "solid";
   size?: "md" | "lg";
+  /* on ink/night grounds the outline uses plain sage, which reads there (6.5:1+) */
+  onDark?: boolean;
   className?: string;
 }
 
 const VARIANT = {
   outline:
+    "border border-sage-ink text-sage-ink hover:bg-sage hover:border-sage hover:text-ink transition-colors duration-300",
+  outlineDark:
     "border border-sage text-sage hover:bg-sage hover:text-ink transition-colors duration-300",
   solid:
     "bg-ink text-cream dark:bg-cream dark:text-ink hover:bg-stone dark:hover:bg-parchment transition-colors duration-200",
@@ -31,9 +35,11 @@ export function PillLink({
   href,
   variant = "outline",
   size = "md",
+  onDark = false,
   className = "",
 }: PillLinkProps) {
-  const classes = `inline-block rounded-full font-mono text-[13px] tracking-wide ${VARIANT[variant]} ${SIZE[size]} ${className}`;
+  const variantClasses = VARIANT[variant === "outline" && onDark ? "outlineDark" : variant];
+  const classes = `inline-block rounded-full font-mono text-[13px] tracking-wide ${variantClasses} ${SIZE[size]} ${className}`;
 
   if (to) {
     return (

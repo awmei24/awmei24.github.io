@@ -68,6 +68,11 @@ export const socials = {
   substack: "https://amandawangmei.substack.com",
 };
 
+/* The one ordered link list — footer and contact page both read it */
+export const socialLinks = (
+  ["email", "linkedin", "github", "instagram", "bluesky", "substack"] as const
+).map((label) => ({ label, href: socials[label] }));
+
 export const bio = {
   name: "amanda wang mei",
   tagline: "quietly building thoughtful things.",
@@ -82,28 +87,8 @@ export const bio = {
   available: true,
 };
 
-export const projects: Project[] = [
-  {
-    id: "social-energy-tracker",
-    title: "social energy tracker",
-    tagline: "a tool for understanding your own social patterns over time.",
-    tags: ["ui/ux design", "data analysis", "self-reflection"],
-    year: "apr 2026",
-    featured: true,
-    description:
-      "an introspective journaling app that tracks how social interactions affect your energy—built for introverts and ambiverts who want to understand their own rhythms without judgment.",
-  },
-  {
-    id: "weather-buddy",
-    title: "weather buddy",
-    tagline: "hyperlocal weather with mood-aware framing.",
-    tags: ["react", "api", "visual design"],
-    year: "mar 2026",
-    featured: true,
-    description:
-      "a simple weather web app that combines local forecasts using the OpenWeatherAPI with detailed visual designs.",
-  },
-];
+/* empty until the case studies are written — WorkPage shows a placeholder and HomePage hides "selected work" */
+export const projects: Project[] = [];
 
 /* newest first; refresh with `npm run sync:substack` */
 export const posts: Post[] = substackPosts;
@@ -146,7 +131,14 @@ export const hobbies: HobbyCategory[] = [
     path: "/hobbies/dev-lab",
     layout: "post",
     items: [
-      /* served from the a-light-below repo's own github pages site */
+      /* each served from its repo's own github pages site */
+      {
+        id: "weather-buddy",
+        title: "weather buddy",
+        subtitle: "a little animated desktop friend that changes with the weather.",
+        date: "2026",
+        link: "/weather-buddy/",
+      },
       {
         id: "a-light-below",
         title: "a light below",
