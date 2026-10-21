@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import { motion, useReducedMotion } from "framer-motion";
 import { readFlag, writeFlag } from "../../lib/storage";
 import { WildFlowerFrame } from "../decorative/Botanical";
+import { FrameSequence } from "./FrameSequence";
 
 const STORAGE_KEY = "awm:garden:watered";
 /* seconds of pouring over the sprout per growth step —
@@ -78,26 +79,11 @@ function PlantIcon({ growth }: { growth: number }) {
         className="absolute left-0 top-1 block"
         style={{ width: 52, height: 52, originX: 0.5, originY: 0.88 }}
       >
-        {/* the new frame eases in on top (later frames stack higher) while the old one
-            stays solid underneath, then quietly drops out — no dip in between */}
-        {Array.from({ length: SPROUT_FRAMES + 1 }, (_, i) => (
-          <motion.span
-            key={i}
-            initial={false}
-            animate={i === frame ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.97 }}
-            transition={
-              i === frame
-                ? { duration: 0.9, ease: "easeInOut" }
-                : i > frame
-                  ? { duration: 0.3, ease: "easeOut" } /* replanted — clear the bloom right away */
-                  : { opacity: { delay: 0.8, duration: 0.3 }, scale: { delay: 0.8, duration: 0 } }
-            }
-            className="absolute inset-0 block"
-            style={{ originX: 0.5, originY: 0.88 }}
-          >
-            <WildFlowerFrame frame={i} size={52} className="block" />
-          </motion.span>
-        ))}
+        <FrameSequence
+          frame={frame}
+          count={SPROUT_FRAMES + 1}
+          renderFrame={(i) => <WildFlowerFrame frame={i} size={52} className="block" />}
+        />
       </motion.span>
     </span>
   );

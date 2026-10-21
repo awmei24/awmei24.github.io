@@ -103,16 +103,25 @@ export function HobbiesPage() {
         description="a peek into how i spend my time outside of work."
         decorations={
           <>
-            <div className="absolute top-12 right-8 md:right-24 text-sage-light opacity-40">
+            <div className="md:hidden absolute top-12 right-8 text-sage-light opacity-40">
               <LeafSprig size={80} />
             </div>
             <div className="absolute bottom-8 right-32 text-sage opacity-25">
               <TinyMushroom size={44} />
             </div>
+            {/* md+: the wheel sits beside the title, aligned to the content column's right edge */}
+            <div className="hidden md:block absolute inset-x-0 top-36 bottom-20 pointer-events-none">
+              <Container className="h-full flex items-center justify-end">
+                <div className="pointer-events-auto">
+                  <PotteryWheel />
+                </div>
+              </Container>
+            </div>
           </>
         }
       >
-        <div className="mt-6">
+        {/* phones: no room beside the title, so it stays under the copy */}
+        <div className="mt-6 md:hidden">
           <PotteryWheel />
         </div>
       </PageHero>

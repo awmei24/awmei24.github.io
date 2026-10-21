@@ -12,6 +12,14 @@ import wildFlower2Png from "./WildFlower2.png";
 import wildFlower3Png from "./WildFlower3.png";
 import smallLeafPng from "./SmallLeaf.png";
 import flowerPng from "./FloralDivider-Flower.png";
+import ceramicsWheel1Png from "./CeramicsWheel1.png";
+import ceramicsWheel2Png from "./CeramicsWheel2.png";
+import ceramicsWheel3Png from "./CeramicsWheel3.png";
+import ceramicsWheel4Png from "./CeramicsWheel4.png";
+import ceramicsWheel5Png from "./CeramicsWheel5.png";
+import ceramicsWheel6Png from "./CeramicsWheel6.png";
+import ceramicsWheel7Png from "./CeramicsWheel7.png";
+import ceramicsWheel8Png from "./CeramicsWheel8.png";
 
 interface BotanicalProps {
   className?: string;
@@ -60,6 +68,16 @@ const WILDFLOWER_FRAMES = [wildFlower0Png, wildFlower1Png, wildFlower2Png, wildF
 
 export function WildFlowerFrame({ frame, size = 36, ...props }: BotanicalProps & { frame: number }) {
   return <Mark src={WILDFLOWER_FRAMES[frame]} size={size} {...props} />;
+}
+
+/* Throwing frames of the pottery wheel on a shared canvas: empty wheel, clay centred, then shaped up into a vase. */
+const CERAMICS_WHEEL_FRAMES = [
+  ceramicsWheel1Png, ceramicsWheel2Png, ceramicsWheel3Png, ceramicsWheel4Png,
+  ceramicsWheel5Png, ceramicsWheel6Png, ceramicsWheel7Png, ceramicsWheel8Png,
+];
+
+export function CeramicsWheelFrame({ frame, size = 36, ...props }: BotanicalProps & { frame: number }) {
+  return <Mark src={CERAMICS_WHEEL_FRAMES[frame]} size={size} {...props} />;
 }
 
 export function SmallLeaf({ size = 20, ...props }: BotanicalProps) {

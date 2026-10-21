@@ -1,28 +1,43 @@
-import { useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
+import { CeramicsWheelFrame } from "../decorative/Botanical";
+import { FrameSequence } from "./FrameSequence";
 
-const SPIN_S = 2.6;
+/* empty wheel → centred clay → shaped up into a little vase */
+const FRAMES = 8;
+const LAST = FRAMES - 1;
+/* seconds the whole throw takes, spread evenly across the frames */
+const SPIN_S = 6;
 
 /* Egg #8 — click to spin the wheel and throw a little pot (ceramics nod). */
 export function PotteryWheel({ className = "" }: { className?: string }) {
   const reduce = useReducedMotion();
+  const [frame, setFrame] = useState(0);
   const [spinning, setSpinning] = useState(false);
-  const [thrown, setThrown] = useState(false);
-  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const interval = useRef<ReturnType<typeof setInterval> | null>(null);
+  const thrown = frame === LAST;
+
+  useEffect(() => () => {
+    if (interval.current) clearInterval(interval.current);
+  }, []);
 
   function throwPot() {
     if (spinning) return;
     if (reduce) {
-      setThrown((t) => !t);
+      setFrame((f) => (f === LAST ? 0 : LAST));
       return;
     }
-    setThrown(false);
+    setFrame(0);
     setSpinning(true);
-    if (timeout.current) clearTimeout(timeout.current);
-    timeout.current = setTimeout(() => {
-      setSpinning(false);
-      setThrown(true);
-    }, SPIN_S * 1000);
+    let next = 0;
+    interval.current = setInterval(() => {
+      next += 1;
+      setFrame(next);
+      if (next === LAST) {
+        if (interval.current) clearInterval(interval.current);
+        setSpinning(false);
+      }
+    }, (SPIN_S * 1000) / LAST);
   }
 
   return (
@@ -31,47 +46,21 @@ export function PotteryWheel({ className = "" }: { className?: string }) {
       onClick={throwPot}
       aria-label="throw a pot"
       title="throw a pot"
-      className={`group inline-flex flex-col items-center gap-1 bg-transparent border-0 p-1 cursor-pointer text-sage hover:text-clay transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded ${className}`}
+      className={`group relative inline-flex flex-col items-center bg-transparent border-0 p-1 cursor-pointer text-sage hover:text-clay transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded ${className}`}
     >
-      <svg width="56" height="52" viewBox="0 0 56 52" fill="none" aria-hidden="true">
-        {/* the pot — squashed clay that rises while the wheel spins */}
-        <motion.g
-          style={{ transformOrigin: "28px 34px" }}
-          initial={false}
-          animate={
-            spinning
-              ? { scaleY: [0.25, 0.6, 0.9, 1], scaleX: [1.5, 1.2, 1.05, 1] }
-              : thrown
-                ? { scaleY: 1, scaleX: 1 }
-                : { scaleY: 0.25, scaleX: 1.5 }
-          }
-          transition={
-            spinning
-              ? { duration: SPIN_S, ease: "easeOut" }
-              : { type: "spring", stiffness: 240, damping: 15 }
-          }
-        >
-          <path
-            d="M20 12 h16 c-1 3 -0.5 5 1.5 7 c2.5 2.5 2.5 8 -1 11 c-2.5 2.2 -4.5 4 -8.5 4 s-6 -1.8 -8.5 -4 c-3.5 -3 -3.5 -8.5 -1 -11 c2 -2 2.5 -4 1.5 -7Z"
-            stroke="currentColor"
-            strokeWidth="1.3"
-            strokeLinejoin="round"
-            fill="none"
-          />
-          <path d="M22 12 c2 1.5 10 1.5 12 0" stroke="currentColor" strokeWidth="1" fill="none" strokeLinecap="round" />
-        </motion.g>
-        {/* wheel disc */}
-        <motion.g
-          style={{ transformOrigin: "28px 38px" }}
-          animate={spinning ? { rotateY: 360 * 3 } : { rotateY: 0 }}
-          transition={spinning ? { duration: SPIN_S, ease: "easeOut" } : { duration: 0 }}
-        >
-          <ellipse cx="28" cy="38" rx="17" ry="4.5" stroke="currentColor" strokeWidth="1.3" fill="none" />
-        </motion.g>
-        <path d="M28 42.5 L28 47" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-        <path d="M19 49 h18" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-      </svg>
-      <span className="font-mono text-[10px] tracking-[0.18em] uppercase opacity-0 group-hover:opacity-70 group-focus-visible:opacity-70 transition-opacity duration-200">
+      {/* the frames share one canvas, so they stack in place */}
+      <span className="relative block" style={{ width: 120, height: 120 }}>
+        <FrameSequence
+          frame={frame}
+          count={FRAMES}
+          fadeIn={0.6}
+          hold={0.5}
+          renderFrame={(i) => <CeramicsWheelFrame frame={i} size={120} className="block" />}
+        />
+      </span>
+      {/* out of flow and centred under the wheel, so the label swap never resizes
+          the button and nudges the wheel sideways */}
+      <span className="absolute top-full left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] tracking-[0.18em] uppercase opacity-0 group-hover:opacity-70 group-focus-visible:opacity-70 transition-opacity duration-200">
         {thrown ? "a little pot ✦" : "throw a pot"}
       </span>
     </button>
