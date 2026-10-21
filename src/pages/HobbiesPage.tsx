@@ -100,7 +100,7 @@ export function HobbiesPage() {
           </>
         }
         titleClassName="max-w-xl"
-        description="a peek into how i spend my time outside of work."
+        description="clay, side projects, and writing, mostly."
         decorations={
           <>
             <div className="md:hidden absolute top-12 right-8 text-sage-light opacity-40">

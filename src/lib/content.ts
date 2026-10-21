@@ -77,7 +77,7 @@ export const bio = {
   name: "amanda wang mei",
   tagline: "quietly building thoughtful things.",
   intro:
-    "designer & engineer turning raw data into things people actually understand — with ceramics, writing, and code on the side.",
+    "i build data tools for people who don't code. \noff the clock: clay, essays, and small games.",
   about: [
     "i graduated from mit in 2024 after studying biological engineering and education, earning my teaching license along the way, which deeply influenced how i think about people, empathy, and clarity. learning to teach reinforced the importance of meeting people where they are and designing with intention.‍",
     "i currently work in a mixed role as a data scientist, data engineer, and software engineer, building systems that transform raw information into something usable and meaningful for non-technical audiences. drawing on my engineering and research background, i approach product design through the lens of solving problems. this blend of design, engineering, and research helps me create intuitive, seamless experiences that truly resonate with users.",
@@ -95,9 +95,19 @@ export const posts: Post[] = substackPosts;
 
 export const experience: Role[] = [
   {
+    company: "tidalwave",
+    title: "software engineer",
+    period: "2026 - present",
+    notes: [
+      "building AI-powered mortgage experiences around borrower and lending-team needs",
+      "turning complex financial documents and underwriting requirements into clear, actionable next steps",
+      "using AI evaluations and product feedback to identify gaps and improve the lending experience",
+    ],
+  },
+  {
     company: "terracotta group",
     title: "senior analyst, data analytics & engineering",
-    period: "2024 – present",
+    period: "2024 – 2026",
     notes: [
       "building tools conscious of non-technical user needs", 
       "translating complex data into clear narratives for cross-functional teams",
@@ -153,7 +163,7 @@ export const hobbies: HobbyCategory[] = [
   {
     id: "writing",
     label: "writing",
-    description: "essays, updates, and half-formed thoughts—published on substack.",
+    description: "essays and drafts, published on substack.",
     path: "/writing",
     layout: "post",
     /* the two most recent posts, kept in sync with `posts` above */
@@ -203,14 +213,14 @@ export const chapters = [
     id: "writing",
     path: "/writing",
     label: "writing",
-    description: "essays, notes, and half-formed thoughts.",
+    description: "essays, notes, and drafts.",
     index: "04",
   },
   {
     id: "contact",
     path: "/contact",
     label: "contact",
-    description: "let's talk about something interesting.",
+    description: "tell me about something you made.",
     index: "05",
   },
 ];

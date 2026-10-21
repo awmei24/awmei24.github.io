@@ -18,12 +18,12 @@ export function WritingPage() {
         label="writing"
         title={
           <>
-            things i've been<br />
-            <span className="italic text-muted">thinking about.</span>
+            notes from<br />
+            <span className="italic text-muted">the margins.</span>
           </>
         }
         titleClassName="max-w-lg"
-        description="essays, notes, and half-formed thoughts — published on substack."
+        description="essays and drafts, on substack."
       />
 
       {/* ── Posts ── */}

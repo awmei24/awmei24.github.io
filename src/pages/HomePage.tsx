@@ -111,7 +111,7 @@ export function HomePage() {
               className="max-md:order-1"
             >
               <motion.div variants={slideLeft}>
-                <SectionLabel>{bio.location}  ✦  open to opportunities</SectionLabel>
+                <SectionLabel>{bio.location}  ✦  open to new work</SectionLabel>
               </motion.div>
 
               <motion.h1
@@ -241,7 +241,7 @@ export function HomePage() {
           <FadeIn>
             <figure className="flex flex-col items-center gap-7 text-center">
               <FloralDivider color="var(--color-sage)" />
-              <blockquote className="font-serif italic font-normal text-[22px] md:text-[26px] leading-relaxed text-ink dark:text-cream">
+              <blockquote className="font-serif italic font-normal text-[22px] md:text-[26px] leading-relaxed text-ink dark:text-cream whitespace-pre-line">
                 {bio.intro}
               </blockquote>
             </figure>

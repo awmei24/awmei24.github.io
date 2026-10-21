@@ -31,14 +31,13 @@ export function ContactPage() {
 
           <FadeIn delay={0.06}>
             <h1 className="font-serif font-normal text-5xl md:text-7xl text-cream tracking-[-0.02em] leading-[0.95] mb-6">
-              let's talk about<br />
-              <span className="italic text-sage-light">something interesting.</span>
+              say <span className="italic text-sage-light">hello.</span>
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.12}>
             <p className="text-base text-sage-light font-normal leading-relaxed mb-12 max-w-md">
-              i'm always open to conversations about data, education, interesting problems, and the way design shapes how people feel.
+              tell me about a data problem, a classroom, or a pot you made.
             </p>
           </FadeIn>
 

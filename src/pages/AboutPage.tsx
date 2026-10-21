@@ -93,8 +93,7 @@ export function AboutPage() {
               </FadeIn>
               <FadeIn delay={0.05}>
                 <h2 className="font-serif font-normal text-3xl md:text-4xl text-ink dark:text-cream tracking-tight leading-tight mt-4 mb-8">
-                  where i've<br />
-                  <span className="italic text-muted">grown.</span>
+                  so <span className="italic text-muted">far.</span>
                 </h2>
               </FadeIn>
               <FadeIn delay={0.1}>

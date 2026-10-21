@@ -20,12 +20,12 @@ export function WorkPage() {
         label="work"
         title={
           <>
-            things i've made<br />
-            <span className="italic text-muted">and tended to.</span>
+            selected<br />
+            <span className="italic text-muted">work.</span>
           </>
         }
         titleClassName="max-w-lg"
-        description="product and engineering case studies — built with care and curiosity."
+        description="case studies in product and data engineering."
       />
 
       {/* ── Projects ── */}
