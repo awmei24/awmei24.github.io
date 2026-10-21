@@ -20,6 +20,7 @@ import ceramicsWheel5Png from "./CeramicsWheel5.png";
 import ceramicsWheel6Png from "./CeramicsWheel6.png";
 import ceramicsWheel7Png from "./CeramicsWheel7.png";
 import ceramicsWheel8Png from "./CeramicsWheel8.png";
+import wateringCanPng from "./WateringCan.png";
 
 interface BotanicalProps {
   className?: string;
@@ -78,6 +79,30 @@ const CERAMICS_WHEEL_FRAMES = [
 
 export function CeramicsWheelFrame({ frame, size = 36, ...props }: BotanicalProps & { frame: number }) {
   return <Mark src={CERAMICS_WHEEL_FRAMES[frame]} size={size} {...props} />;
+}
+
+/* The can only fills the lower half of its 1640×2360 canvas, so it's cropped to
+   the drawing (in canvas px) rather than letterboxed in a square. */
+const CAN = { x: 40, y: 952, w: 1560, h: 1216, canvasW: 1640, canvasH: 2360 };
+const WATERING_CAN_ASPECT = CAN.h / CAN.w;
+
+export function WateringCan({ width = 52, className, color = "currentColor" }: { width?: number; className?: string; color?: string }) {
+  const scale = width / CAN.w;
+  const mask = `url(${wateringCanPng}) ${-CAN.x * scale}px ${-CAN.y * scale}px / ${CAN.canvasW * scale}px ${CAN.canvasH * scale}px no-repeat`;
+  return (
+    <span
+      aria-hidden="true"
+      className={className}
+      style={{
+        display: "inline-block",
+        width,
+        height: width * WATERING_CAN_ASPECT,
+        backgroundColor: color,
+        mask,
+        WebkitMask: mask,
+      }}
+    />
+  );
 }
 
 export function SmallLeaf({ size = 20, ...props }: BotanicalProps) {

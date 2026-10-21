@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { readFlag, writeFlag } from "../../lib/storage";
-import { WildFlowerFrame } from "../decorative/Botanical";
+import { WateringCan, WildFlowerFrame } from "../decorative/Botanical";
 import { FrameSequence } from "./FrameSequence";
 
 const STORAGE_KEY = "awm:garden:watered";
@@ -17,38 +17,38 @@ function stageOf(growth: number): Stage {
   return growth >= 1 ? 2 : growth >= STAGE_STEP ? 1 : 0;
 }
 
+const CAN_WIDTH = 52;
+/* the spout's opening, as a fraction of the cropped can (it points up-left, toward the sprout) */
+const SPOUT_TIP = { x: 0.08, y: 0.3 };
+/* matches the can's whileDrag tilt; droplets counter-rotate so they fall straight down */
+const POUR_TILT = -28;
+
 function WateringCanIcon({ pouring }: { pouring: boolean }) {
   return (
-    <svg width="44" height="36" viewBox="0 0 44 36" fill="none" aria-hidden="true">
-      {/* body */}
-      <path
-        d="M12 14 h16 v12 a4 4 0 0 1 -4 4 h-8 a4 4 0 0 1 -4 -4 z"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
-        fill="none"
-      />
-      {/* handle */}
-      <path d="M15 14 a5 5 0 0 1 10 0" stroke="currentColor" strokeWidth="1.2" fill="none" />
-      {/* spout */}
-      <path d="M28 18 L38 10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M36 8 L40 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    <span className="relative block">
+      <WateringCan width={CAN_WIDTH} className="block" />
       {/* droplets from the spout while pouring */}
       {pouring && (
-        <g>
-          <motion.circle
-            cx="39" cy="14" r="1.2" fill="currentColor"
-            animate={{ cy: [14, 24], opacity: [0.9, 0] }}
-            transition={{ duration: 0.5, repeat: Infinity, ease: "easeIn" }}
-          />
-          <motion.circle
-            cx="41" cy="13" r="1" fill="currentColor"
-            animate={{ cy: [13, 23], opacity: [0.8, 0] }}
-            transition={{ duration: 0.5, repeat: Infinity, ease: "easeIn", delay: 0.2 }}
-          />
-        </g>
+        <span
+          className="absolute block"
+          style={{ left: `${SPOUT_TIP.x * 100}%`, top: `${SPOUT_TIP.y * 100}%`, rotate: `${-POUR_TILT}deg` }}
+        >
+          {[
+            { size: 2.6, drift: -2, delay: 0 },
+            { size: 2, drift: -4, delay: 0.18 },
+            { size: 2.2, drift: -1, delay: 0.34 },
+          ].map((d, i) => (
+            <motion.span
+              key={i}
+              className="absolute block rounded-full bg-current"
+              style={{ width: d.size, height: d.size, left: -d.size / 2, top: -d.size / 2 }}
+              animate={{ y: [0, 16], x: [0, d.drift], opacity: [0.9, 0] }}
+              transition={{ duration: 0.5, repeat: Infinity, ease: "easeIn", delay: d.delay }}
+            />
+          ))}
+        </span>
       )}
-    </svg>
+    </span>
   );
 }
 
@@ -266,7 +266,7 @@ export function GardenWateringCan({ className = "" }: { className?: string }) {
         }
       }}
       whileHover={{ rotate: -8 }}
-      whileDrag={{ rotate: -28, scale: 1.05, zIndex: 50 }}
+      whileDrag={{ rotate: POUR_TILT, scale: 1.05, zIndex: 50 }}
     >
       <WateringCanIcon pouring={pouring} />
     </motion.div>
