@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { readFlag, writeFlag } from "../../lib/storage";
+import { WildFlowerFrame } from "../decorative/Botanical";
 
 const STORAGE_KEY = "awm:garden:watered";
 /* seconds of pouring over the sprout per growth step —
@@ -50,59 +51,55 @@ function WateringCanIcon({ pouring }: { pouring: boolean }) {
   );
 }
 
-/* `growth` is a continuous 0→1 value so the plant swells in real time while
-   it's being watered — the discrete stages just gate when new parts appear. */
+/* stem → one leaf → two leaves → bud while watering; the full wildflower only at bloom */
+const SPROUT_FRAMES = 4;
+
+function frameOf(growth: number) {
+  return growth >= 1 ? SPROUT_FRAMES : Math.min(SPROUT_FRAMES - 1, Math.floor(growth * SPROUT_FRAMES));
+}
+
+/* `growth` is a continuous 0→1 value; it steps through the wildflower frames
+   and swells slightly in real time while the plant is being watered. */
 function PlantIcon({ growth }: { growth: number }) {
-  /* how far each part has grown in (0→1): leaves over the first half of the
-     watering, the flower over the second */
-  const sprout = Math.min(1, growth / STAGE_STEP);
-  const bloom = Math.max(0, (growth - STAGE_STEP) / STAGE_STEP);
+  const frame = frameOf(growth);
   const grow = { duration: 0.3, ease: "easeOut" } as const;
 
   return (
-    <svg width="52" height="56" viewBox="0 0 52 56" fill="none" aria-hidden="true">
-      {/* soil mound */}
-      <path d="M14 52 Q26 46 38 52" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none" />
-      {/* everything above the soil grows smoothly as water accumulates */}
-      <motion.g
+    <span className="relative block" style={{ width: 52, height: 56 }}>
+      <svg width="52" height="56" viewBox="0 0 52 56" fill="none" aria-hidden="true">
+        {/* soil mound */}
+        <path d="M14 52 Q26 46 38 52" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none" />
+      </svg>
+      {/* the frames share one canvas, so they stack in place; the stem base sits ~88% down it */}
+      <motion.span
         initial={false}
-        animate={{ scaleY: 0.68 + growth * 0.32, scaleX: 0.8 + growth * 0.2 }}
+        animate={{ scale: 0.9 + growth * 0.1 }}
         transition={grow}
-        style={{ transformOrigin: "26px 52px" }}
+        className="absolute left-0 top-1 block"
+        style={{ width: 52, height: 52, originX: 0.5, originY: 0.88 }}
       >
-      {/* seedling nub — always there */}
-      <g>
-        <path d="M26 50 L26 44" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-        <path d="M26 46 C26 46 22.5 45 21.5 42" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" fill="none" />
-      </g>
-      {/* taller sprout with leaves — stretches up from the nub while watered */}
-      <motion.g
-        initial={false}
-        animate={{ opacity: Math.min(1, sprout * 3), scaleY: sprout, scaleX: 0.6 + sprout * 0.4 }}
-        transition={grow}
-        style={{ transformOrigin: "26px 44px" }}
-      >
-        <path d="M26 44 L26 28" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-        <path d="M26 38 C26 38 19 36 17 29 C22 27 26 31 26 38Z" stroke="currentColor" strokeWidth="1.1" fill="none" strokeLinecap="round" />
-        <path d="M26 33 C26 33 33 30 35 24 C30 22 26 26 26 33Z" stroke="currentColor" strokeWidth="1.1" fill="none" strokeLinecap="round" />
-      </motion.g>
-      {/* bloom — the stem rises, then the flower head opens */}
-      <motion.g
-        initial={false}
-        animate={{ opacity: Math.min(1, bloom * 3), scale: bloom }}
-        transition={grow}
-        style={{ transformOrigin: "26px 28px" }}
-      >
-        <path d="M26 28 L26 18" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-        <circle cx="26" cy="12" r="3" stroke="currentColor" strokeWidth="1.1" fill="none" />
-        <circle cx="26" cy="5.5" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
-        <circle cx="20" cy="9" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
-        <circle cx="32" cy="9" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
-        <circle cx="21.5" cy="15.5" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
-        <circle cx="30.5" cy="15.5" r="2.4" stroke="currentColor" strokeWidth="1" fill="none" />
-      </motion.g>
-      </motion.g>
-    </svg>
+        {/* the new frame eases in on top (later frames stack higher) while the old one
+            stays solid underneath, then quietly drops out — no dip in between */}
+        {Array.from({ length: SPROUT_FRAMES + 1 }, (_, i) => (
+          <motion.span
+            key={i}
+            initial={false}
+            animate={i === frame ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.97 }}
+            transition={
+              i === frame
+                ? { duration: 0.9, ease: "easeInOut" }
+                : i > frame
+                  ? { duration: 0.3, ease: "easeOut" } /* replanted — clear the bloom right away */
+                  : { opacity: { delay: 0.8, duration: 0.3 }, scale: { delay: 0.8, duration: 0 } }
+            }
+            className="absolute inset-0 block"
+            style={{ originX: 0.5, originY: 0.88 }}
+          >
+            <WildFlowerFrame frame={i} size={52} className="block" />
+          </motion.span>
+        ))}
+      </motion.span>
+    </span>
   );
 }
 
