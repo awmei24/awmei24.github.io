@@ -7,13 +7,13 @@ import { PillLink } from "../components/ui/PillLink";
 import { PortraitFrame } from "../components/ui/PortraitFrame";
 import { FadeIn, StaggerGroup } from "../components/motion/FadeIn";
 import { PageTransition } from "../components/motion/PageTransition";
-import { Sprout, TinyMushroom, FloralDivider } from "../components/decorative/Botanical";
+import { Sprout, TinyMushroom } from "../components/decorative/Botanical";
 import { Sway } from "../components/garden/Sway";
 import { WaterGardenProvider, GardenPlant, GardenWateringCan } from "../components/garden/WaterThePlant";
 import { MarginNote } from "../components/garden/MarginNote";
 import { usePageTitle } from "../hooks/usePageTitle";
-import { bio, projects, chapters } from "../lib/content";
-import { fadeUp, springPop, staggerContainer, slideLeft } from "../lib/motion";
+import { bio, projects, chapters, isTodo } from "../lib/content";
+import { fadeUp, springPop, slideLeft, heroStagger, heroFadeUp } from "../lib/motion";
 import selfPortrait from "../assets/self-portrait.webp";
 
 /* ── Almanac chapter index row ────────────────────────────────────────────── */
@@ -52,14 +52,16 @@ function FeaturedCard({ project }: { project: typeof projects[number] }) {
   return (
     <motion.div variants={springPop}>
       <Link
-        to="/work"
+        to={`/work/${project.id}`}
         className="hover-lift group flex flex-col justify-between h-full p-8 rounded-[18px] border border-hairline dark:border-night-raised bg-parchment dark:bg-night-raised relative overflow-hidden"
       >
         <div>
-          <Meta tone="text-clay-ink" className="uppercase">
-            {project.year}
-          </Meta>
-          <h3 className="font-serif text-[26px] font-medium text-ink dark:text-cream mt-3 mb-2 leading-snug group-hover:text-sage-ink transition-colors duration-200">
+          {!isTodo(project.year) && (
+            <Meta tone="text-clay-ink" className="uppercase block mb-3">
+              {project.year}
+            </Meta>
+          )}
+          <h3 className="font-serif text-[26px] font-medium text-ink dark:text-cream mb-2 leading-snug group-hover:text-sage-ink transition-colors duration-200">
             {project.title}
           </h3>
           <p className="font-serif italic text-base text-muted font-normal mb-5">
@@ -105,7 +107,7 @@ export function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-y-10 md:gap-14 items-center">
             <div className="max-md:contents md:col-start-1">
             <motion.div
-              variants={staggerContainer}
+              variants={heroStagger}
               initial="hidden"
               animate="visible"
               className="max-md:order-1"
@@ -115,7 +117,7 @@ export function HomePage() {
               </motion.div>
 
               <motion.h1
-                variants={fadeUp}
+                variants={heroFadeUp}
                 className="font-serif font-normal text-[52px] md:text-[88px] tracking-[-0.02em] text-ink dark:text-cream leading-[0.92] mb-7"
               >
                 {firstName}
@@ -123,21 +125,34 @@ export function HomePage() {
                 {middleNames} <span className="italic text-clay">{lastName}</span>
               </motion.h1>
 
+              {!isTodo(bio.role) && (
+                <motion.div variants={heroFadeUp}>
+                  <SectionLabel className="mb-5!">{bio.role}</SectionLabel>
+                </motion.div>
+              )}
+
               <motion.p
-                variants={fadeUp}
+                variants={heroFadeUp}
                 className="font-serif italic font-normal text-[18px] md:text-[27px] text-muted leading-relaxed"
               >
                 {bio.tagline}
               </motion.p>
+
+              <motion.p
+                variants={heroFadeUp}
+                className="mt-4 text-[15px] md:text-base text-muted dark:text-sage-light leading-relaxed max-w-md whitespace-pre-line"
+              >
+                {bio.intro}
+              </motion.p>
             </motion.div>
 
             <motion.div
-              variants={staggerContainer}
+              variants={heroStagger}
               initial="hidden"
               animate="visible"
               className="max-md:order-2 md:mt-10"
             >
-              <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-y-4">
+              <motion.div variants={heroFadeUp} className="flex flex-wrap items-center gap-y-4">
                 <PillLink to="/work" variant="solid">
                   view work ↓
                 </PillLink>
@@ -152,7 +167,7 @@ export function HomePage() {
                 </p>
               </motion.div>
 
-              <motion.div variants={fadeUp} className="mt-16">
+              <motion.div variants={heroFadeUp} className="mt-16">
                 <GardenPlant />
               </motion.div>
             </motion.div>
@@ -163,7 +178,7 @@ export function HomePage() {
               className="max-md:order-3 md:col-start-2 flex flex-col items-center md:items-end"
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+              transition={{ delay: 0.1, duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             >
               <div className="relative w-full max-w-[340px] md:max-w-[380px]">
                 <PortraitFrame className="aspect-[4/5] bg-parchment dark:bg-night-raised">
@@ -235,23 +250,9 @@ export function HomePage() {
         </Container>
       </section>
 
-      {/* ── Intro pull-quote ── */}
-      <section className="pt-24 md:pt-28 pb-20 md:pb-24">
-        <Container narrow>
-          <FadeIn>
-            <figure className="flex flex-col items-center gap-7 text-center">
-              <FloralDivider color="var(--color-sage)" />
-              <blockquote className="font-serif italic font-normal text-[22px] md:text-[26px] leading-relaxed text-ink dark:text-cream whitespace-pre-line">
-                {bio.intro}
-              </blockquote>
-            </figure>
-          </FadeIn>
-        </Container>
-      </section>
-
-      {/* ── Selected work ── */}
+      {/* ── Selected work ── (untinted, so it alternates with the tinted index above) */}
       {featuredProjects.length > 0 && (
-      <section className={`py-20 md:py-24 relative overflow-hidden ${sectionTint}`}>
+      <section className="py-20 md:py-24 relative overflow-hidden">
         <div className="absolute top-16 left-4 md:left-8 text-sage-light opacity-25">
           <Sway duration={4.2}>
             <Sprout size={48} />

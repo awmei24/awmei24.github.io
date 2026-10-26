@@ -73,22 +73,40 @@ export const socialLinks = (
   ["email", "linkedin", "github", "instagram", "bluesky", "substack"] as const
 ).map((label) => ({ label, href: socials[label] }));
 
+/* Copy still waiting on amanda starts with this marker; anything that renders it
+   checks isTodo() and hides itself, so a placeholder never ships. */
+export const TODO = "TODO(amanda)";
+export const isTodo = (value: string | undefined) => !value || value.startsWith(TODO);
+
 export const bio = {
   name: "amanda wang mei",
+  /* shown under the name in the home hero, e.g. the job title you're applying for */
+  role: "software engineer and product designer",
   tagline: "quietly building thoughtful things.",
   intro:
     "i build data tools for people who don't code. \noff the clock: clay, essays, and small games.",
   about: [
     "i graduated from mit in 2024 after studying biological engineering and education, earning my teaching license along the way, which deeply influenced how i think about people, empathy, and clarity. learning to teach reinforced the importance of meeting people where they are and designing with intention.‍",
-    "i currently work in a mixed role as a data scientist, data engineer, and software engineer, building systems that transform raw information into something usable and meaningful for non-technical audiences. drawing on my engineering and research background, i approach product design through the lens of solving problems. this blend of design, engineering, and research helps me create intuitive, seamless experiences that truly resonate with users.",
+    "i currently work in a mixed role as a data scientist, data engineer, and software engineer, building systems that transform raw information into something usable and meaningful for non-technical audiences. drawing on my engineering and research background, i approach product design through the lens of solving problems. in a previous role, i designed and implemented an internal automated underwriting tool for CRE lending, improving efficiency for investments team members in the due diligence process.",
     "outside of work, i explore design and creativity through a variety of mediums—writing, drawing, ceramics, code. for me, it’s a privilege to build things in any form, and i’m endlessly curious about how people interpret, feel, and connect with what’s been created.",
   ],
   location: "new york, ny",
   available: true,
 };
 
-/* empty until the case studies are written — WorkPage shows a placeholder and HomePage hides "selected work" */
-export const projects: Project[] = [];
+/* WorkPage shows a placeholder and HomePage hides "selected work" while this is empty */
+export const projects: Project[] = [
+  {
+    id: "social-energy-tracker",
+    featured: true,
+    year: "2026",
+    title: "social energy tracker",
+    tagline: "a tool for understanding your own social patterns over time.",
+    description:
+      "a mobile self-tracking app for young professionals: log a social interaction in under 10 seconds, then see which kinds drain or restore your energy.",
+    tags: ["ui/ux design", "data analysis", "self-reflection", "react", "capacitor"],
+  },
+];
 
 /* newest first; refresh with `npm run sync:substack` */
 export const posts: Post[] = substackPosts;
@@ -101,7 +119,7 @@ export const experience: Role[] = [
     notes: [
       "building AI-powered mortgage experiences around borrower and lending-team needs",
       "turning complex financial documents and underwriting requirements into clear, actionable next steps",
-      "using AI evaluations and product feedback to identify gaps and improve the lending experience",
+      "creating and using AI evaluations and product feedback to identify gaps and improve the lending experience",
     ],
   },
   {
@@ -109,9 +127,10 @@ export const experience: Role[] = [
     title: "senior analyst, data analytics & engineering",
     period: "2024 – 2026",
     notes: [
-      "building tools conscious of non-technical user needs", 
-      "translating complex data into clear narratives for cross-functional teams",
-      "collaborating closely with investments team to identify opportunities and inform strategy",
+      "designed mockups and created working prototypes of internal automated underwriting system for national CRE lending",
+      "built tools conscious of non-technical user needs", 
+      "translated complex data into clear narratives for cross-functional teams",
+      "collaborated closely with investments team to identify opportunities and inform strategy",
     ],
   },
   {
@@ -177,13 +196,21 @@ export const hobbies: HobbyCategory[] = [
   },
 ];
 
+/* What the site actually shows: gallery items without a photo are hidden, and a gallery
+   category with no photos at all is hidden entirely (pages, cards, nav). Add an `image`
+   or `images` to an item and it reappears. */
+const hasPhoto = (item: HobbyItem) => Boolean(item.image || item.images?.length);
+export const visibleHobbies: HobbyCategory[] = hobbies
+  .map((c) => (c.layout === "image" ? { ...c, items: c.items.filter(hasPhoto) } : c))
+  .filter((c) => c.items.length > 0);
+
 /* Rotating almanac marginalia — one is shown per visit (easter egg #11).*/
 export const marginNotes = [
   "on the pottery shelf: vases and useful home trinkets",
   "the garden grows slowly, and that's okay!",
   "currently reading: left on tenth by delia ephron.",
   "note to self: remember to water the plants.",
-  "lots of half-formed thoughts included-—more welcome!",
+  "lots of half-formed thoughts included—more welcome!",
 ];
 
 /* Chapter index — used on homepage to link to each section page */

@@ -8,7 +8,7 @@ import { Tag } from "../components/ui/Tag";
 import { SmallLeaf, Sprout } from "../components/decorative/Botanical";
 import { PageHero } from "../components/layout/PageHero";
 import { usePageTitle } from "../hooks/usePageTitle";
-import { projects } from "../lib/content";
+import { isTodo, projects } from "../lib/content";
 import { springPop } from "../lib/motion";
 
 export function WorkPage() {
@@ -66,7 +66,8 @@ export function WorkPage() {
 
                   <div className="flex items-center justify-between mb-6">
                     <Meta tone="text-clay-ink" className="uppercase">
-                      {project.year} — {String(i + 1).padStart(2, "0")}
+                      {!isTodo(project.year) && `${project.year} — `}
+                      {String(i + 1).padStart(2, "0")}
                     </Meta>
                   </div>
 

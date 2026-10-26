@@ -11,7 +11,7 @@ import { GalleryCard } from "../components/ui/GalleryCard";
 import { PostRow } from "../components/ui/PostRow";
 import { useLightbox } from "../hooks/useLightbox";
 import { usePageTitle } from "../hooks/usePageTitle";
-import { hobbies, type HobbyCategory } from "../lib/content";
+import { visibleHobbies, type HobbyCategory } from "../lib/content";
 import type { LightboxState } from "../components/ui/Lightbox";
 
 const PREVIEW_COUNT = 3;
@@ -128,7 +128,7 @@ export function HobbiesPage() {
 
       <Section>
         <Container>
-          {hobbies.map((category) => (
+          {visibleHobbies.map((category) => (
             <HobbySection key={category.id} category={category} onOpenLightbox={lightbox.open} />
           ))}
         </Container>

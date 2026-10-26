@@ -14,6 +14,9 @@ const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m
 const AboutPage = lazy(() => import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })));
 const WorkPage = lazy(() => import("./pages/WorkPage").then((m) => ({ default: m.WorkPage })));
 const ProjectDetailPage = lazy(() => import("./pages/ProjectDetailPage").then((m) => ({ default: m.ProjectDetailPage })));
+const SocialEnergyTrackerPage = lazy(() =>
+  import("./pages/case_studies/SocialEnergyTrackerPage").then((m) => ({ default: m.SocialEnergyTrackerPage }))
+);
 const HobbiesPage = lazy(() => import("./pages/HobbiesPage").then((m) => ({ default: m.HobbiesPage })));
 const HobbyDetailPage = lazy(() => import("./pages/HobbyDetailPage").then((m) => ({ default: m.HobbyDetailPage })));
 const WritingPage = lazy(() => import("./pages/WritingPage").then((m) => ({ default: m.WritingPage })));
@@ -37,6 +40,8 @@ function AnimatedRoutes() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/work" element={<WorkPage />} />
+          {/* hand-built case studies sit above the generic project route */}
+          <Route path="/work/social-energy-tracker" element={<SocialEnergyTrackerPage />} />
           <Route path="/work/:projectId" element={<ProjectDetailPage />} />
           <Route path="/hobbies" element={<HobbiesPage />} />
           <Route path="/hobbies/:hobbyId" element={<HobbyDetailPage />} />

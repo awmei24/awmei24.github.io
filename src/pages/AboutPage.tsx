@@ -53,7 +53,7 @@ export function AboutPage() {
                 <div className="flex items-center gap-2 mt-2">
                   <span className="w-2 h-2 rounded-full bg-sage motion-safe:animate-pulse" />
                   <span className="text-sm text-muted font-medium">
-                    {bio.available ? "open to opportunities" : "not currently available"}
+                    {bio.available ? "open to new work" : "not currently available"}
                   </span>
                 </div>
               </div>

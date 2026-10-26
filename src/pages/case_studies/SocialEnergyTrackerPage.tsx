@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Container } from "../../components/layout/Container";
@@ -7,6 +8,7 @@ import { PageTransition } from "../../components/motion/PageTransition";
 import { LeafSprig, FloralDivider, Sprout, SmallLeaf } from "../../components/decorative/Botanical";
 import { Tag } from "../../components/ui/Tag";
 import { fadeUp } from "../../lib/motion";
+import { isTodo } from "../../lib/content";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    MEDIA SLOTS
@@ -34,6 +36,9 @@ const JOURNAL_SCREENSHOTS: { src: string; caption: string }[] = [
 const DEMO_VIDEO = "";                              // `${BASE}/demo.mp4`
 const FLOW_PRELIMINARY = `${BASE}/prelim_flow.png`;
 const FLOW_UPDATED = `${BASE}/final_flow.png`;
+
+/* Opens the reflection; hidden until filled in */
+const OUTCOME = "this app is currently accessible through testflight, where a few of my original interview participants are using it to track their social energy. i’m continuing to iterate on the design and functionality based on their feedback. ";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Sub-components
@@ -180,6 +185,31 @@ function VideoSlot({ src, label }: { src: string; label: string }) {
         <span className="text-sage-light text-lg ml-1">▷</span>
       </div>
       <p className="text-xs text-sage-light font-light italic">{label}</p>
+    </div>
+  );
+}
+
+/* Flow diagram, or the dashed "coming soon" frame if the file isn't there (yet) */
+function FlowDiagram({ src, alt, tone }: { src: string; alt: string; tone: "stone" | "sage" }) {
+  const [missing, setMissing] = useState(!src);
+  const sprout = (
+    <div className={`absolute opacity-20 pointer-events-none ${tone === "stone" ? "bottom-4 left-4" : "top-4 right-4"}`}>
+      <Sprout size={40} color={`var(--color-${tone})`} />
+    </div>
+  );
+
+  if (missing) {
+    return (
+      <div className={`relative rounded-2xl border border-dashed ${tone === "stone" ? "border-stone" : "border-sage"} bg-cream dark:bg-night aspect-[16/7] flex items-center justify-center overflow-hidden`}>
+        <p className={`text-xs font-light italic ${tone === "stone" ? "text-stone/40" : "text-sage-light"}`}>flow diagram coming soon</p>
+        {sprout}
+      </div>
+    );
+  }
+  return (
+    <div className={`relative rounded-2xl overflow-hidden border ${tone === "stone" ? "border-stone" : "border-sage"}`}>
+      <img src={src} alt={alt} onError={() => setMissing(true)} className="w-full object-contain bg-cream dark:bg-night" />
+      {sprout}
     </div>
   );
 }
@@ -455,42 +485,14 @@ export function SocialEnergyTrackerPage() {
             {/* Preliminary flow */}
             <motion.div variants={fadeUp} className="flex flex-col gap-3">
               <p className="text-xs font-mono text-stone/50 tracking-widest uppercase">preliminary flow</p>
-              {FLOW_PRELIMINARY ? (
-                <div className="relative rounded-2xl overflow-hidden border border-stone">
-                  <img src={FLOW_PRELIMINARY} alt="preliminary user flow" className="w-full object-contain bg-cream dark:bg-night" />
-                  <div className="absolute bottom-4 left-4 opacity-20 pointer-events-none">
-                    <Sprout size={40} color="var(--color-stone)" />
-                  </div>
-                </div>
-              ) : (
-                <div className="relative rounded-2xl border border-stone bg-cream dark:bg-night aspect-[16/7] flex items-center justify-center overflow-hidden">
-                  <p className="text-xs text-stone/40 font-light italic">flow diagram coming soon</p>
-                  <div className="absolute bottom-4 left-4 opacity-20 pointer-events-none">
-                    <Sprout size={40} color="var(--color-stone)" />
-                  </div>
-                </div>
-              )}
+              <FlowDiagram src={FLOW_PRELIMINARY} alt="preliminary user flow" tone="stone" />
               <p className="text-xs text-stone/60 font-light italic">a redundant layer — users had to make a choice before doing anything.</p>
             </motion.div>
 
             {/* Updated flow */}
             <motion.div variants={fadeUp} className="flex flex-col gap-3">
               <p className="text-xs font-mono text-sage tracking-widest uppercase">updated flow</p>
-              {FLOW_UPDATED ? (
-                <div className="relative rounded-2xl overflow-hidden border border-sage">
-                  <img src={FLOW_UPDATED} alt="updated user flow" className="w-full object-contain bg-cream dark:bg-night" />
-                  <div className="absolute top-4 right-4 opacity-25 pointer-events-none">
-                    <Sprout size={40} color="var(--color-sage)" />
-                  </div>
-                </div>
-              ) : (
-                <div className="relative rounded-2xl border border-sage bg-cream dark:bg-night aspect-[16/7] flex items-center justify-center overflow-hidden">
-                  <p className="text-xs text-sage-light font-light italic">flow diagram coming soon</p>
-                  <div className="absolute top-4 right-4 opacity-25 pointer-events-none">
-                    <Sprout size={40} color="var(--color-sage)" />
-                  </div>
-                </div>
-              )}
+              <FlowDiagram src={FLOW_UPDATED} alt="updated user flow" tone="sage" />
               <p className="text-xs text-sage font-light italic">opens directly to analytics — logging always one tap away.</p>
             </motion.div>
           </StaggerGroup>
@@ -597,6 +599,11 @@ export function SocialEnergyTrackerPage() {
               <span className="italic text-stone">along the way.</span>
             </h2>
           </FadeIn>
+          {!isTodo(OUTCOME) && (
+            <FadeIn>
+              <p className="text-base text-stone font-light leading-relaxed max-w-2xl -mt-4 mb-10">{OUTCOME}</p>
+            </FadeIn>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <FadeIn>
               <div className="bg-cream dark:bg-night rounded-2xl p-7">
@@ -652,6 +659,8 @@ export function SocialEnergyTrackerPage() {
               <p className="text-sm text-stone font-light max-w-sm leading-relaxed">
                 the app is built as a mobile-first web app wrapped in capacitor for ios distribution.
               </p>
+              {/* links hidden until they're ready — fill in the hrefs, drop the
+                  opacity-50 / cursor-not-allowed / title, and uncomment
               <div className="flex flex-wrap gap-4 justify-center">
                 <a
                   href="#"
@@ -669,6 +678,7 @@ export function SocialEnergyTrackerPage() {
                 </a>
               </div>
               <p className="text-xs text-stone/50 font-light italic">links coming soon</p>
+              */}
               <Link to="/work" className="text-xs text-sage font-light link-sage mt-4">
                 ← back to work
               </Link>

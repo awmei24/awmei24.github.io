@@ -12,11 +12,11 @@ import { PillLink } from "../components/ui/PillLink";
 import { NotFound } from "../components/ui/NotFound";
 import { useLightbox } from "../hooks/useLightbox";
 import { usePageTitle } from "../hooks/usePageTitle";
-import { hobbies, socials } from "../lib/content";
+import { visibleHobbies, socials } from "../lib/content";
 
 export function HobbyDetailPage() {
   const { hobbyId } = useParams<{ hobbyId: string }>();
-  const category = hobbies.find((h) => h.id === hobbyId);
+  const category = visibleHobbies.find((h) => h.id === hobbyId);
   const lightbox = useLightbox();
   usePageTitle(category?.label ?? "not found");
 

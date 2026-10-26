@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import { hobbies } from "../../lib/content";
+import { visibleHobbies } from "../../lib/content";
 import { DARK_ROUTES } from "../../lib/routes";
 
 /* Nav text flips to a light tone when the bar sits over a dark section *and*
@@ -18,7 +18,7 @@ function useNavOverDark(menuOpen: boolean) {
 }
 
 /* only true sub-pages belong in the dropdown; "writing" is a top-level link */
-const hobbySubLinks = hobbies
+const hobbySubLinks = visibleHobbies
   .filter((h) => h.path.startsWith("/hobbies/"))
   .map((h) => ({ href: h.path, label: h.label }));
 
