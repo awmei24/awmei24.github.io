@@ -177,6 +177,13 @@ export const hobbies: HobbyCategory[] = [
         date: "2026",
         link: "/a-light-below/",
       },
+      {
+        id: "mapping-nyc",
+        title: "mapping nyc",
+        subtitle: "an interactive map of the city's 262 neighborhoods, each with a profile of who lives there and how it ranks.",
+        date: "2026",
+        link: "/mapping-nyc/",
+      },
     ],
   },
   {
