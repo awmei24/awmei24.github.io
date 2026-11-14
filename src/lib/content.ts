@@ -81,10 +81,7 @@ export const isTodo = (value: string | undefined) => !value || value.startsWith(
 export const bio = {
   name: "amanda wang mei",
   /* shown under the name in the home hero, e.g. the job title you're applying for */
-  role: "software engineer and product designer",
-  tagline: "quietly building thoughtful things.",
-  intro:
-    "i build data tools for people who don't code. \noff the clock: clay, essays, and small games.",
+  role: "product engineer building thoughtful experiences for people",
   about: [
     "i graduated from mit in 2024 after studying biological engineering and education, earning my teaching license along the way, which deeply influenced how i think about people, empathy, and clarity. learning to teach reinforced the importance of meeting people where they are and designing with intention.‍",
     "i currently work in a mixed role as a data scientist, data engineer, and software engineer, building systems that transform raw information into something usable and meaningful for non-technical audiences. drawing on my engineering and research background, i approach product design through the lens of solving problems. in a previous role, i designed and implemented an internal automated underwriting tool for CRE lending, improving efficiency for investments team members in the due diligence process.",

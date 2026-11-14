@@ -122,28 +122,17 @@ export function HomePage() {
               >
                 {firstName}
                 <br />
-                {middleNames} <span className="text-clay">{lastName}</span>
+                {middleNames} {lastName}
               </motion.h1>
 
               {!isTodo(bio.role) && (
-                <motion.div variants={heroFadeUp}>
-                  <SectionLabel className="mb-5!">{bio.role}</SectionLabel>
-                </motion.div>
+                <motion.p
+                  variants={heroFadeUp}
+                  className="font-normal text-[16px] md:text-[21px] text-muted leading-relaxed"
+                >
+                  {bio.role}
+                </motion.p>
               )}
-
-              <motion.p
-                variants={heroFadeUp}
-                className="font-normal text-[18px] md:text-[27px] text-muted leading-relaxed"
-              >
-                {bio.tagline}
-              </motion.p>
-
-              <motion.p
-                variants={heroFadeUp}
-                className="mt-4 text-[15px] md:text-base text-muted dark:text-sage-light leading-relaxed max-w-md whitespace-pre-line"
-              >
-                {bio.intro}
-              </motion.p>
             </motion.div>
 
             <motion.div

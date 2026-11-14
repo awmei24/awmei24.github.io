@@ -32,7 +32,7 @@ interface SectionLabelProps {
 export function SectionLabel({ children, className = "", onDark = false }: SectionLabelProps) {
   return (
     <p
-      className={`text-[13px] md:text-xs font-normal tracking-[0.22em] uppercase ${onDark ? "text-sage" : "text-sage-ink"} mb-8 ${className}`}
+      className={`text-[15px] md:text-sm font-normal ${onDark ? "text-sage" : "text-sage-ink"} mb-8 ${className}`}
     >
       <span aria-hidden="true" className="block w-7 border-t border-sage mb-2.5" />
       {children}

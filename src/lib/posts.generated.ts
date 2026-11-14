@@ -3,6 +3,14 @@ import type { Post } from "./content";
 
 export const substackPosts: Post[] = [
   {
+    "id": "sept-oct-2026",
+    "title": "sept + oct 2026",
+    "date": "nov 2026",
+    "readTime": "5 min",
+    "excerpt": "as the water freezes ... ",
+    "link": "https://amandawangmei.substack.com/p/sept-oct-2026"
+  },
+  {
     "id": "untitled-1",
     "title": "untitled #1",
     "date": "oct 2026",

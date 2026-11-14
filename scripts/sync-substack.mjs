@@ -8,20 +8,27 @@ import { fileURLToPath } from "node:url";
 
 const PUBLICATION = "https://amandawangmei.substack.com";
 const OUT_FILE = fileURLToPath(new URL("../src/lib/posts.generated.ts", import.meta.url));
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 25; // substack rejects limit > 25
 const WORDS_PER_MINUTE = 250;
 
 async function fetchAllPosts() {
   const all = [];
-  for (let offset = 0; ; offset += PAGE_SIZE) {
-    const url = `${PUBLICATION}/api/v1/archive?sort=new&offset=${offset}&limit=${PAGE_SIZE}`;
+  // substack's archive API is cursor-paginated: { posts, nextCursor }
+  let cursor = null;
+  do {
+    let url = `${PUBLICATION}/api/v1/archive?sort=new&limit=${PAGE_SIZE}`;
+    if (cursor) url += `&cursor=${encodeURIComponent(cursor)}`;
     const res = await fetch(url, { headers: { Accept: "application/json" } });
-    if (!res.ok) throw new Error(`substack returned ${res.status} for ${url}`);
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(`substack returned ${res.status} for ${url}\n${body}`);
+    }
     const page = await res.json();
-    if (!Array.isArray(page)) throw new Error(`unexpected response shape from ${url}`);
-    all.push(...page);
-    if (page.length < PAGE_SIZE) return all;
-  }
+    if (!Array.isArray(page?.posts)) throw new Error(`unexpected response shape from ${url}`);
+    all.push(...page.posts);
+    cursor = page.nextCursor;
+  } while (cursor);
+  return all;
 }
 
 /* "2026-09-01T15:02:52Z" -> "sep 2026", matching the site's lowercase style */
