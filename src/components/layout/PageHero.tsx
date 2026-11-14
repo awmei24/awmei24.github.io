@@ -20,7 +20,7 @@ interface PageHeroProps {
 /* The one back-link style, shared by page heroes, placeholders and NotFound */
 export function BackLink({ to, children, className = "" }: { to: string; children: ReactNode; className?: string }) {
   return (
-    <Link to={to} className={`font-mono text-xs text-sage-ink link-sage inline-block py-1.5 ${className}`}>
+    <Link to={to} className={`text-xs text-sage-ink link-sage inline-block py-1.5 ${className}`}>
       ← {children}
     </Link>
   );
@@ -55,7 +55,7 @@ export function PageHero({
         </FadeIn>
         <FadeIn delay={back ? 0.08 : 0.06}>
           <h1
-            className={`font-serif font-normal text-5xl md:text-7xl tracking-[-0.02em] text-ink dark:text-cream leading-[0.95] mt-4 ${titleClassName}`}
+            className={`font-normal text-5xl md:text-7xl tracking-[-0.02em] text-ink dark:text-cream leading-[0.95] mt-4 ${titleClassName}`}
           >
             {title}
           </h1>

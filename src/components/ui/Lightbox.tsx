@@ -145,7 +145,7 @@ function LightboxPanel({
         {/* Caption + dots */}
         <div className="flex flex-col items-center gap-2 text-center">
           <p className="text-sm font-medium text-cream leading-snug">{title}</p>
-          {subtitle && <p className="text-xs text-sage-light italic">{subtitle}</p>}
+          {subtitle && <p className="text-xs text-sage-light">{subtitle}</p>}
           {images.length > 1 && (
             <div className="flex gap-1.5 mt-1">
               {images.map((_, i) => (

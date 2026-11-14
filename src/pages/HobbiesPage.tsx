@@ -31,17 +31,17 @@ function HobbySection({
     <div className="py-12 md:py-16 border-b border-hairline dark:border-night-raised first:pt-0 last:border-0">
       <FadeIn>
         <div className="flex items-baseline justify-between mb-3">
-          <h2 className="font-serif font-normal text-2xl md:text-3xl text-ink dark:text-cream tracking-tight">
+          <h2 className="font-normal text-2xl md:text-3xl text-ink dark:text-cream tracking-tight">
             {category.label}
           </h2>
           <Link
             to={category.path}
-            className="font-mono text-xs text-sage-ink link-sage whitespace-nowrap py-1.5"
+            className="text-xs text-sage-ink link-sage whitespace-nowrap py-1.5"
           >
             see all →
           </Link>
         </div>
-        <p className="font-serif italic text-sm text-muted font-normal mb-8">
+        <p className="text-sm text-muted font-normal mb-8">
           {category.description}
         </p>
       </FadeIn>
@@ -96,7 +96,7 @@ export function HobbiesPage() {
         title={
           <>
             the rest of<br />
-            <span className="italic text-muted">the garden.</span>
+            <span className="text-muted">the garden.</span>
           </>
         }
         titleClassName="max-w-xl"
@@ -139,7 +139,7 @@ export function HobbiesPage() {
           <FadeIn>
             <div className="flex flex-col items-center gap-4 text-center">
               <FloralDivider color="var(--color-sage-light)" />
-              <p className="font-serif italic text-sm text-muted">
+              <p className="text-sm text-muted">
                 always adding more to the collection ✦
               </p>
             </div>

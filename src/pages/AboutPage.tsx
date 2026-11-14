@@ -47,7 +47,7 @@ export function AboutPage() {
 
               <div className="mt-10 flex flex-col gap-4">
                 <FloralDivider color="var(--color-sage-light)" />
-                <p className="font-serif italic text-sm text-muted tracking-wide leading-relaxed">
+                <p className="text-sm text-muted tracking-wide leading-relaxed">
                   "growth requires just a little tlc."
                 </p>
                 <div className="flex items-center gap-2 mt-2">
@@ -92,8 +92,8 @@ export function AboutPage() {
                 <SectionLabel>experience</SectionLabel>
               </FadeIn>
               <FadeIn delay={0.05}>
-                <h2 className="font-serif font-normal text-3xl md:text-4xl text-ink dark:text-cream tracking-tight leading-tight mt-4 mb-8">
-                  so <span className="italic text-muted">far.</span>
+                <h2 className="font-normal text-3xl md:text-4xl text-ink dark:text-cream tracking-tight leading-tight mt-4 mb-8">
+                  so <span className="text-muted">far.</span>
                 </h2>
               </FadeIn>
               <FadeIn delay={0.1}>
@@ -117,7 +117,7 @@ export function AboutPage() {
                     <Meta tone="text-sage-ink" className="block uppercase mb-1">
                       {role.company}
                     </Meta>
-                    <h3 className="font-serif font-medium text-lg text-ink dark:text-cream mb-3">
+                    <h3 className="font-medium text-lg text-ink dark:text-cream mb-3">
                       {role.title}
                     </h3>
                     <ul className="flex flex-col gap-1.5">
@@ -137,7 +137,7 @@ export function AboutPage() {
                   href="https://drive.google.com/file/d/1-IuUadJVuTOqIphv52uRCMod4t4RsStx/view?usp=drive_link"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 font-mono text-[13px] text-muted dark:text-sage-light link-sage"
+                  className="inline-flex items-center gap-2 text-[13px] text-muted dark:text-sage-light link-sage"
                 >
                   view my résumé
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -156,7 +156,7 @@ export function AboutPage() {
           <FadeIn>
             <div className="text-center flex flex-col items-center gap-6">
               <FloralDivider color="var(--color-sage-light)" />
-              <p className="font-serif italic text-lg text-muted">
+              <p className="text-lg text-muted">
                 want to see what i've built?
               </p>
               <PillLink to="/work" size="lg">

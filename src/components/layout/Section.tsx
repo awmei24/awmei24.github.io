@@ -32,7 +32,7 @@ interface SectionLabelProps {
 export function SectionLabel({ children, className = "", onDark = false }: SectionLabelProps) {
   return (
     <p
-      className={`font-mono text-[13px] md:text-xs font-normal tracking-[0.22em] uppercase ${onDark ? "text-sage" : "text-sage-ink"} mb-8 ${className}`}
+      className={`text-[13px] md:text-xs font-normal tracking-[0.22em] uppercase ${onDark ? "text-sage" : "text-sage-ink"} mb-8 ${className}`}
     >
       <span aria-hidden="true" className="block w-7 border-t border-sage mb-2.5" />
       {children}
@@ -48,7 +48,7 @@ interface MetaProps extends HTMLAttributes<HTMLSpanElement> {
 /* Small mono metadata — dates, years, read times, companies. No rule. */
 export function Meta({ children, className = "", tone = "text-muted", ...rest }: MetaProps) {
   return (
-    <span {...rest} className={`font-mono text-[11px] tracking-[0.06em] ${tone} ${className}`}>
+    <span {...rest} className={`text-[11px] tracking-[0.06em] ${tone} ${className}`}>
       {children}
     </span>
   );

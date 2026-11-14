@@ -19,7 +19,7 @@ export function WritingPage() {
         title={
           <>
             notes from<br />
-            <span className="italic text-muted">the margins.</span>
+            <span className="text-muted">the margins.</span>
           </>
         }
         titleClassName="max-w-lg"

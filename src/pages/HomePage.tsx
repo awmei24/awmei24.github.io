@@ -24,9 +24,9 @@ function ChapterRow({ chapter }: { chapter: typeof chapters[number] }) {
         to={chapter.path}
         className="group grid grid-cols-[40px_1fr_30px] sm:grid-cols-[64px_200px_1fr_30px] items-baseline gap-2 px-2 py-5 border-b border-hairline dark:border-night-raised transition-colors duration-200 hover:bg-parchment dark:hover:bg-night-raised"
       >
-        <span className="font-mono text-[13px] text-clay-ink">{chapter.index}</span>
+        <span className="text-[13px] text-clay-ink">{chapter.index}</span>
         <span>
-          <span className="block font-serif font-medium text-[19px] md:text-2xl text-ink dark:text-cream group-hover:text-sage-ink transition-colors duration-200">
+          <span className="block font-medium text-[19px] md:text-2xl text-ink dark:text-cream group-hover:text-sage-ink transition-colors duration-200">
             {chapter.label}
           </span>
           <span className="block sm:hidden text-[13px] text-muted font-normal leading-snug mt-1">
@@ -61,10 +61,10 @@ function FeaturedCard({ project }: { project: typeof projects[number] }) {
               {project.year}
             </Meta>
           )}
-          <h3 className="font-serif text-[26px] font-medium text-ink dark:text-cream mb-2 leading-snug group-hover:text-sage-ink transition-colors duration-200">
+          <h3 className="text-[26px] font-medium text-ink dark:text-cream mb-2 leading-snug group-hover:text-sage-ink transition-colors duration-200">
             {project.title}
           </h3>
-          <p className="font-serif italic text-base text-muted font-normal mb-5">
+          <p className="text-base text-muted font-normal mb-5">
             {project.tagline}
           </p>
         </div>
@@ -118,11 +118,11 @@ export function HomePage() {
 
               <motion.h1
                 variants={heroFadeUp}
-                className="font-serif font-normal text-[52px] md:text-[88px] tracking-[-0.02em] text-ink dark:text-cream leading-[0.92] mb-7"
+                className="font-normal text-[52px] md:text-[88px] tracking-[-0.02em] text-ink dark:text-cream leading-[0.92] mb-7"
               >
                 {firstName}
                 <br />
-                {middleNames} <span className="italic text-clay">{lastName}</span>
+                {middleNames} <span className="text-clay">{lastName}</span>
               </motion.h1>
 
               {!isTodo(bio.role) && (
@@ -133,7 +133,7 @@ export function HomePage() {
 
               <motion.p
                 variants={heroFadeUp}
-                className="font-serif italic font-normal text-[18px] md:text-[27px] text-muted leading-relaxed"
+                className="font-normal text-[18px] md:text-[27px] text-muted leading-relaxed"
               >
                 {bio.tagline}
               </motion.p>
@@ -156,7 +156,7 @@ export function HomePage() {
                 <PillLink to="/work" variant="solid">
                   view work ↓
                 </PillLink>
-                <p className="ml-10 font-mono text-xs text-muted dark:text-sage-light">
+                <p className="ml-10 text-xs text-muted dark:text-sage-light">
                   <Link to="/about" className="link-sage inline-block py-1.5 hover:text-ink dark:hover:text-cream">
                     about me
                   </Link>
@@ -212,7 +212,7 @@ export function HomePage() {
               animate={{ scaleY: 1 }}
               transition={{ delay: 2, duration: 0.6 }}
             />
-            <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-sage-ink">scroll</span>
+            <span className="text-[10px] tracking-[0.22em] uppercase text-sage-ink">scroll</span>
           </motion.div>
         </Container>
       </section>
@@ -227,8 +227,8 @@ export function HomePage() {
         <Container>
           <FadeIn>
             <div className="flex items-baseline justify-between mb-8">
-              <h2 className="font-serif font-normal text-3xl md:text-4xl text-ink dark:text-cream tracking-tight">
-                a few places <span className="italic text-muted">to wander.</span>
+              <h2 className="font-normal text-3xl md:text-4xl text-ink dark:text-cream tracking-tight">
+                a few places <span className="text-muted">to wander.</span>
               </h2>
               <Meta tone="text-sage-ink" className="uppercase" aria-hidden>
                 index
@@ -272,7 +272,7 @@ export function HomePage() {
           <FadeIn delay={0.2}>
             <div className="mt-10 flex items-center gap-4">
               <div className="flex-1 h-px bg-hairline dark:bg-night" />
-              <Link to="/work" className="link-sage font-mono text-xs text-muted dark:text-sage-light whitespace-nowrap">
+              <Link to="/work" className="link-sage text-xs text-muted dark:text-sage-light whitespace-nowrap">
                 all projects →
               </Link>
             </div>

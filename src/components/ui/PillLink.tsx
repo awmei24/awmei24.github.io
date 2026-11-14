@@ -39,7 +39,7 @@ export function PillLink({
   className = "",
 }: PillLinkProps) {
   const variantClasses = VARIANT[variant === "outline" && onDark ? "outlineDark" : variant];
-  const classes = `inline-block rounded-full font-mono text-[13px] tracking-wide ${variantClasses} ${SIZE[size]} ${className}`;
+  const classes = `inline-block rounded-full text-[13px] tracking-wide ${variantClasses} ${SIZE[size]} ${className}`;
 
   if (to) {
     return (

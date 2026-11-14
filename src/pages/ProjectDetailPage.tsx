@@ -31,7 +31,7 @@ export function ProjectDetailPage() {
         titleClassName="max-w-2xl"
         back={{ to: "/work", label: "work" }}
         description={project.tagline}
-        descriptionClassName="font-serif italic text-lg text-muted mt-4 max-w-md leading-relaxed"
+        descriptionClassName="text-lg text-muted mt-4 max-w-md leading-relaxed"
       >
         <FadeIn delay={0.16}>
           <div className="flex flex-wrap gap-2 mt-5">
@@ -71,7 +71,7 @@ export function ProjectDetailPage() {
                     <motion.div key={section.label} variants={fadeUp}>
                       <div className="mb-4">
                         <FloralDivider color="var(--color-sage-light)" />
-                        <h2 className="font-mono text-xs text-sage-ink tracking-[0.22em] uppercase mt-3">
+                        <h2 className="text-xs text-sage-ink tracking-[0.22em] uppercase mt-3">
                           {section.label}
                         </h2>
                       </div>

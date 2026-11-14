@@ -30,11 +30,11 @@ export function PostRow({ href, title, description, date, meta, size = "lg" }: P
         className="group flex justify-between items-baseline gap-4 py-4 border-b border-hairline dark:border-night-raised last:border-0"
       >
         <div className="min-w-0">
-          <p className="font-serif font-medium text-base text-ink dark:text-cream group-hover:text-sage-ink transition-colors duration-200 leading-snug">
+          <p className="font-medium text-base text-ink dark:text-cream group-hover:text-sage-ink transition-colors duration-200 leading-snug">
             {title}
           </p>
           {description && (
-            <p className="text-xs text-muted font-normal italic mt-0.5">{description}</p>
+            <p className="text-xs text-muted font-normal mt-0.5">{description}</p>
           )}
         </div>
         {meta ?? dateSpan}
@@ -51,7 +51,7 @@ export function PostRow({ href, title, description, date, meta, size = "lg" }: P
       className="group flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 py-7 border-b border-hairline dark:border-night-raised last:border-0"
     >
       <div className="flex-1 min-w-0">
-        <h3 className="font-serif font-medium text-lg md:text-xl text-ink dark:text-cream group-hover:text-sage-ink transition-colors duration-200 leading-snug mb-1.5">
+        <h3 className="font-medium text-lg md:text-xl text-ink dark:text-cream group-hover:text-sage-ink transition-colors duration-200 leading-snug mb-1.5">
           {title}
         </h3>
         {description && (

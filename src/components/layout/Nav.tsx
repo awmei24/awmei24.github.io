@@ -79,7 +79,7 @@ function NavItem({ link, overDark }: { link: NavLink; overDark: boolean }) {
     return (
       <Link
         to={link.href}
-        className={`link-sage font-mono text-xs tracking-[0.06em] py-1.5 transition-colors duration-200 ${linkColor}`}
+        className={`link-sage text-xs tracking-[0.06em] py-1.5 transition-colors duration-200 ${linkColor}`}
       >
         {link.label}
       </Link>
@@ -102,7 +102,7 @@ function NavItem({ link, overDark }: { link: NavLink; overDark: boolean }) {
         to={link.href}
         aria-expanded={open}
         aria-haspopup="true"
-        className={`link-sage font-mono text-xs tracking-[0.06em] py-1.5 transition-colors duration-200 flex items-center gap-1 ${linkColor}`}
+        className={`link-sage text-xs tracking-[0.06em] py-1.5 transition-colors duration-200 flex items-center gap-1 ${linkColor}`}
       >
         {link.label}
         <motion.span
@@ -130,7 +130,7 @@ function NavItem({ link, overDark }: { link: NavLink; overDark: boolean }) {
                 <Link
                   key={sub.href}
                   to={sub.href}
-                  className={`font-mono text-xs tracking-[0.06em] py-1.5 px-2 link-sage transition-colors duration-150 ${
+                  className={`text-xs tracking-[0.06em] py-1.5 px-2 link-sage transition-colors duration-150 ${
                     location.pathname === sub.href
                       ? "text-sage-ink"
                       : "text-muted dark:text-sage-light"
@@ -214,7 +214,7 @@ export function Nav() {
             className="w-9 h-9 object-contain group-hover:opacity-80 transition-opacity duration-200"
           />
           <span
-            className={`font-serif text-lg transition-colors duration-300 ${
+            className={`text-lg transition-colors duration-300 ${
               overDark ? "text-cream" : "text-ink dark:text-cream"
             }`}
           >
@@ -274,7 +274,7 @@ export function Nav() {
                 to={link.href}
                 onClick={() => setMenuOpen(false)}
                 tabIndex={menuOpen ? 0 : -1}
-                className={`link-sage ${"sub" in link && link.sub ? "font-mono text-lg tracking-[0.06em] text-muted dark:text-sage-light pl-4" : "font-serif text-3xl text-ink dark:text-cream"}`}
+                className={`link-sage ${"sub" in link && link.sub ? "text-lg tracking-[0.06em] text-muted dark:text-sage-light pl-4" : "text-3xl text-ink dark:text-cream"}`}
               >
                 {link.label.trim()}
               </Link>

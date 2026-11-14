@@ -30,8 +30,8 @@ export function ContactPage() {
           </FadeIn>
 
           <FadeIn delay={0.06}>
-            <h1 className="font-serif font-normal text-5xl md:text-7xl text-cream tracking-[-0.02em] leading-[0.95] mb-6">
-              say <span className="italic text-sage-light">hello.</span>
+            <h1 className="font-normal text-5xl md:text-7xl text-cream tracking-[-0.02em] leading-[0.95] mb-6">
+              say <span className="text-sage-light">hello.</span>
             </h1>
           </FadeIn>
 
@@ -54,7 +54,7 @@ export function ContactPage() {
                       href={href}
                       target="_blank"
                       rel="noreferrer"
-                      className="py-1.5 text-sage-light hover:text-sage transition-colors duration-200 font-mono text-xs tracking-[0.06em] link-sage"
+                      className="py-1.5 text-sage-light hover:text-sage transition-colors duration-200 text-xs tracking-[0.06em] link-sage"
                     >
                       {label}
                     </a>
@@ -70,10 +70,10 @@ export function ContactPage() {
 
           <FadeIn delay={0.3}>
             <div className="mt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <p className="font-mono text-[11px] tracking-[0.06em] text-sage-light/70">
+              <p className="text-[11px] tracking-[0.06em] text-sage-light/70">
                 © 2026 {bio.name} — handcrafted with care
               </p>
-              <p className="font-serif italic text-sm text-sage">
+              <p className="text-sm text-sage">
                 designed & built in the garden ✦
               </p>
             </div>

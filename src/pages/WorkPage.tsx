@@ -21,7 +21,7 @@ export function WorkPage() {
         title={
           <>
             selected<br />
-            <span className="italic text-muted">work.</span>
+            <span className="text-muted">work.</span>
           </>
         }
         titleClassName="max-w-lg"
@@ -71,10 +71,10 @@ export function WorkPage() {
                     </Meta>
                   </div>
 
-                  <h3 className="font-serif text-2xl md:text-[26px] font-medium text-ink dark:text-cream leading-snug mb-2">
+                  <h3 className="text-2xl md:text-[26px] font-medium text-ink dark:text-cream leading-snug mb-2">
                     {project.title}
                   </h3>
-                  <p className="font-serif italic text-base text-muted mb-4">{project.tagline}</p>
+                  <p className="text-base text-muted mb-4">{project.tagline}</p>
                   <p className="text-sm text-muted leading-relaxed mb-6">{project.description}</p>
 
                   <div className="flex flex-wrap gap-2">

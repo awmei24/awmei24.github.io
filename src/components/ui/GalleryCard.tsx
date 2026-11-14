@@ -68,9 +68,9 @@ export function GalleryCard({ item, variant = "full", onOpenLightbox }: GalleryC
         </>
       ) : (
         <div className="mt-2">
-          <p className="font-serif font-medium text-base text-ink dark:text-cream leading-snug">{item.title}</p>
+          <p className="font-medium text-base text-ink dark:text-cream leading-snug">{item.title}</p>
           {item.subtitle && (
-            <p className="font-serif italic text-xs text-muted font-normal mt-0.5">{item.subtitle}</p>
+            <p className="text-xs text-muted font-normal mt-0.5">{item.subtitle}</p>
           )}
           {item.date && <Meta tone="text-muted dark:text-sage-light" className="block mt-1">{item.date}</Meta>}
         </div>

@@ -60,7 +60,7 @@ export function PotteryWheel({ className = "" }: { className?: string }) {
       </span>
       {/* out of flow and centred under the wheel, so the label swap never resizes
           the button and nudges the wheel sideways */}
-      <span className="absolute top-full left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] tracking-[0.18em] uppercase opacity-0 group-hover:opacity-70 group-focus-visible:opacity-70 transition-opacity duration-200">
+      <span className="absolute top-full left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] tracking-[0.18em] uppercase opacity-0 group-hover:opacity-70 group-focus-visible:opacity-70 transition-opacity duration-200">
         {thrown ? "a little pot ✦" : "throw a pot"}
       </span>
     </button>

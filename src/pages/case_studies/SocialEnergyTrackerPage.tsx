@@ -54,7 +54,7 @@ function SectionDivider() {
 
 function CaseLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-mono text-sage tracking-widest uppercase mb-3">
+    <p className="text-xs text-sage tracking-widest uppercase mb-3">
       {children}
     </p>
   );
@@ -63,7 +63,7 @@ function CaseLabel({ children }: { children: React.ReactNode }) {
 function Callout({ children }: { children: React.ReactNode }) {
   return (
     <div className="border-l-2 border-sage pl-6 py-1 my-8">
-      <p className="text-base md:text-lg font-light text-ink dark:text-cream leading-relaxed italic">
+      <p className="text-base md:text-lg font-light text-ink dark:text-cream leading-relaxed">
         {children}
       </p>
     </div>
@@ -73,7 +73,7 @@ function Callout({ children }: { children: React.ReactNode }) {
 function Quote({ text, attribution }: { text: string; attribution: string }) {
   return (
     <div className="bg-parchment dark:bg-night-raised rounded-2xl px-7 py-6 my-2">
-      <p className="text-sm text-stone font-light italic leading-relaxed mb-3">"{text}"</p>
+      <p className="text-sm text-stone font-light leading-relaxed mb-3">"{text}"</p>
       <p className="text-xs text-sage font-medium tracking-wide">— {attribution}</p>
     </div>
   );
@@ -103,10 +103,10 @@ function InterviewCard({
         </div>
         <div>
           <p className="text-sm font-medium text-ink dark:text-cream">{role}</p>
-          <p className="text-xs text-stone font-light italic">{context}</p>
+          <p className="text-xs text-stone font-light">{context}</p>
         </div>
       </div>
-      <p className="text-sm text-stone font-light leading-relaxed italic">
+      <p className="text-sm text-stone font-light leading-relaxed">
         "{quote}"
       </p>
       <div className="pt-3 border-t border-parchment dark:border-night-raised">
@@ -147,7 +147,7 @@ function MobileFrame({ src, caption }: { src: string; caption: string }) {
           </div>
         </div>
       </div>
-      <p className="text-xs text-stone font-light italic text-center">{caption}</p>
+      <p className="text-xs text-stone font-light text-center">{caption}</p>
     </div>
   );
 }
@@ -165,7 +165,7 @@ function MobilePlaceholder({ label }: { label: string }) {
           </div>
         </div>
       </div>
-      <p className="text-xs text-stone/50 font-light italic text-center">{label}</p>
+      <p className="text-xs text-stone/50 font-light text-center">{label}</p>
     </div>
   );
 }
@@ -184,7 +184,7 @@ function VideoSlot({ src, label }: { src: string; label: string }) {
       <div className="w-14 h-14 rounded-full border-2 border-sage-light/50 flex items-center justify-center">
         <span className="text-sage-light text-lg ml-1">▷</span>
       </div>
-      <p className="text-xs text-sage-light font-light italic">{label}</p>
+      <p className="text-xs text-sage-light font-light">{label}</p>
     </div>
   );
 }
@@ -201,7 +201,7 @@ function FlowDiagram({ src, alt, tone }: { src: string; alt: string; tone: "ston
   if (missing) {
     return (
       <div className={`relative rounded-2xl border border-dashed ${tone === "stone" ? "border-stone" : "border-sage"} bg-cream dark:bg-night aspect-[16/7] flex items-center justify-center overflow-hidden`}>
-        <p className={`text-xs font-light italic ${tone === "stone" ? "text-stone/40" : "text-sage-light"}`}>flow diagram coming soon</p>
+        <p className={`text-xs font-light ${tone === "stone" ? "text-stone/40" : "text-sage-light"}`}>flow diagram coming soon</p>
         {sprout}
       </div>
     );
@@ -257,11 +257,11 @@ export function SocialEnergyTrackerPage() {
           <FadeIn delay={0.08}>
             <h1 className="text-5xl md:text-7xl font-light tracking-tight text-ink dark:text-cream leading-[0.95] mt-4 max-w-2xl">
               social energy<br />
-              <span className="italic text-stone">tracker</span>
+              <span className="text-stone">tracker</span>
             </h1>
           </FadeIn>
           <FadeIn delay={0.14}>
-            <p className="text-base italic text-sage font-light mt-5 max-w-md leading-relaxed">
+            <p className="text-base text-sage font-light mt-5 max-w-md leading-relaxed">
               a tool for understanding your own social patterns over time.
             </p>
           </FadeIn>
@@ -276,7 +276,7 @@ export function SocialEnergyTrackerPage() {
                 { label: "tools", value: "react, vite, figma, capacitor" },
               ].map(({ label, value }) => (
                 <div key={label}>
-                  <p className="text-xs font-mono text-sage tracking-widest uppercase mb-1">{label}</p>
+                  <p className="text-xs text-sage tracking-widest uppercase mb-1">{label}</p>
                   <p className="text-sm text-stone font-light leading-snug">{value}</p>
                 </div>
               ))}
@@ -334,7 +334,7 @@ export function SocialEnergyTrackerPage() {
                 <CaseLabel>problem definition</CaseLabel>
                 <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2">
                   the invisible<br />
-                  <span className="italic text-stone">pattern.</span>
+                  <span className="text-stone">pattern.</span>
                 </h2>
               </FadeIn>
               <FadeIn delay={0.08}>
@@ -346,13 +346,13 @@ export function SocialEnergyTrackerPage() {
             <div className="md:col-span-8">
               <StaggerGroup className="flex flex-col gap-5 pt-2">
                 <motion.div variants={fadeUp}>
-                  <p className="text-xs font-mono text-sage tracking-widest uppercase mb-2">user</p>
+                  <p className="text-xs text-sage tracking-widest uppercase mb-2">user</p>
                   <p className="text-sm text-stone font-light leading-relaxed">
                     socially drained young professionals who don't know why they feel the way they do after social interactions.
                   </p>
                 </motion.div>
                 <motion.div variants={fadeUp}>
-                  <p className="text-xs font-mono text-sage tracking-widest uppercase mb-2">problem</p>
+                  <p className="text-xs text-sage tracking-widest uppercase mb-2">problem</p>
                   <p className="text-sm text-stone font-light leading-relaxed">
                     people lack awareness of which types of social interactions affect their energy — positively or negatively.
                     without data, patterns stay invisible and behavior can't change.
@@ -381,7 +381,7 @@ export function SocialEnergyTrackerPage() {
             <CaseLabel>research</CaseLabel>
             <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2 mb-3">
               three interviews.<br />
-              <span className="italic text-stone">one clear signal.</span>
+              <span className="text-stone">one clear signal.</span>
             </h2>
             <p className="text-sm text-stone font-light max-w-lg leading-relaxed mb-10">
               i conducted semi-structured interviews across different professional contexts, probing on current behavior,
@@ -416,17 +416,17 @@ export function SocialEnergyTrackerPage() {
           {/* Synthesis */}
           <FadeIn>
             <div className="border border-sage-light/30 rounded-2xl p-8 max-w-2xl">
-              <p className="text-xs font-mono text-sage tracking-widest uppercase mb-5">synthesis</p>
+              <p className="text-xs text-sage tracking-widest uppercase mb-5">synthesis</p>
               <div className="flex flex-col gap-5">
                 <div className="flex gap-4 items-start">
-                  <span className="text-sage font-mono text-sm shrink-0 mt-0.5">01</span>
+                  <span className="text-sage text-sm shrink-0 mt-0.5">01</span>
                   <div>
                     <p className="text-sm font-medium text-ink dark:text-cream mb-1">speed is the primary adoption lever</p>
                     <p className="text-sm text-stone font-light leading-relaxed">all three participants were open to the concept but would drop off if logging felt effortful. the threshold is roughly: no interaction should require more than 10 seconds.</p>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
-                  <span className="text-sage font-mono text-sm shrink-0 mt-0.5">02</span>
+                  <span className="text-sage text-sm shrink-0 mt-0.5">02</span>
                   <div>
                     <p className="text-sm font-medium text-ink dark:text-cream mb-1">the "why" is unclear to users</p>
                     <p className="text-sm text-stone font-light leading-relaxed">nobody could easily articulate why certain interactions drained them. the app doesn't need to tell them — it needs to show them patterns they can interpret themselves.</p>
@@ -446,7 +446,7 @@ export function SocialEnergyTrackerPage() {
             <CaseLabel>design principles</CaseLabel>
             <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2 mb-10">
               every decision<br />
-              <span className="italic text-stone">flowed from these.</span>
+              <span className="text-stone">flowed from these.</span>
             </h2>
           </FadeIn>
           <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
@@ -478,22 +478,22 @@ export function SocialEnergyTrackerPage() {
             <CaseLabel>user flow</CaseLabel>
             <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2 mb-10">
               removing friction<br />
-              <span className="italic text-stone">at every step.</span>
+              <span className="text-stone">at every step.</span>
             </h2>
           </FadeIn>
           <StaggerGroup className="flex flex-col gap-8">
             {/* Preliminary flow */}
             <motion.div variants={fadeUp} className="flex flex-col gap-3">
-              <p className="text-xs font-mono text-stone/50 tracking-widest uppercase">preliminary flow</p>
+              <p className="text-xs text-stone/50 tracking-widest uppercase">preliminary flow</p>
               <FlowDiagram src={FLOW_PRELIMINARY} alt="preliminary user flow" tone="stone" />
-              <p className="text-xs text-stone/60 font-light italic">a redundant layer — users had to make a choice before doing anything.</p>
+              <p className="text-xs text-stone/60 font-light">a redundant layer — users had to make a choice before doing anything.</p>
             </motion.div>
 
             {/* Updated flow */}
             <motion.div variants={fadeUp} className="flex flex-col gap-3">
-              <p className="text-xs font-mono text-sage tracking-widest uppercase">updated flow</p>
+              <p className="text-xs text-sage tracking-widest uppercase">updated flow</p>
               <FlowDiagram src={FLOW_UPDATED} alt="updated user flow" tone="sage" />
-              <p className="text-xs text-sage font-light italic">opens directly to analytics — logging always one tap away.</p>
+              <p className="text-xs text-sage font-light">opens directly to analytics — logging always one tap away.</p>
             </motion.div>
           </StaggerGroup>
         </Container>
@@ -507,7 +507,7 @@ export function SocialEnergyTrackerPage() {
             <CaseLabel>solution</CaseLabel>
             <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2 mb-14">
               three screens.<br />
-              <span className="italic text-stone">one clear loop.</span>
+              <span className="text-stone">one clear loop.</span>
             </h2>
           </FadeIn>
 
@@ -515,7 +515,7 @@ export function SocialEnergyTrackerPage() {
           <div className="mb-20">
             <FadeIn>
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs font-mono text-cream bg-sage px-2.5 py-1 rounded-full tracking-widest">01</span>
+                <span className="text-xs text-cream bg-sage px-2.5 py-1 rounded-full tracking-widest">01</span>
                 <h3 className="text-xl font-light text-ink dark:text-cream">logging flow</h3>
               </div>
               <p className="text-sm text-stone font-light leading-relaxed max-w-lg mb-2">
@@ -556,7 +556,7 @@ export function SocialEnergyTrackerPage() {
           <div className="mb-20">
             <FadeIn>
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs font-mono text-cream bg-sage px-2.5 py-1 rounded-full tracking-widest">02</span>
+                <span className="text-xs text-cream bg-sage px-2.5 py-1 rounded-full tracking-widest">02</span>
                 <h3 className="text-xl font-light text-ink dark:text-cream">analytics</h3>
               </div>
               <p className="text-sm text-stone font-light leading-relaxed max-w-lg mb-2">
@@ -573,7 +573,7 @@ export function SocialEnergyTrackerPage() {
           <div className="mb-6">
             <FadeIn>
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs font-mono text-cream bg-sage px-2.5 py-1 rounded-full tracking-widest">03</span>
+                <span className="text-xs text-cream bg-sage px-2.5 py-1 rounded-full tracking-widest">03</span>
                 <h3 className="text-xl font-light text-ink dark:text-cream">digital journal</h3>
               </div>
               <p className="text-sm text-stone font-light leading-relaxed max-w-lg mb-2">
@@ -596,7 +596,7 @@ export function SocialEnergyTrackerPage() {
             <CaseLabel>reflection</CaseLabel>
             <h2 className="text-3xl md:text-4xl font-light text-ink dark:text-cream tracking-tight leading-tight mt-2 mb-10">
               what i learned<br />
-              <span className="italic text-stone">along the way.</span>
+              <span className="text-stone">along the way.</span>
             </h2>
           </FadeIn>
           {!isTodo(OUTCOME) && (
@@ -607,7 +607,7 @@ export function SocialEnergyTrackerPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <FadeIn>
               <div className="bg-cream dark:bg-night rounded-2xl p-7">
-                <p className="text-xs font-mono text-sage tracking-widest uppercase mb-5">what worked</p>
+                <p className="text-xs text-sage tracking-widest uppercase mb-5">what worked</p>
                 <ul className="flex flex-col gap-4">
                   {[
                     "the tap-first logging flow genuinely hits the <10s target — early testing confirmed users didn't feel burdened.",
@@ -624,7 +624,7 @@ export function SocialEnergyTrackerPage() {
             </FadeIn>
             <FadeIn delay={0.06}>
               <div className="bg-cream dark:bg-night rounded-2xl p-7">
-                <p className="text-xs font-mono text-sage tracking-widest uppercase mb-5">what i'd explore next</p>
+                <p className="text-xs text-sage tracking-widest uppercase mb-5">what i'd explore next</p>
                 <ul className="flex flex-col gap-4">
                   {[
                     { title: "patterns over time", detail: "a calendar heatmap or weekly rhythm view — the current analytics shows totals, not 'why am i drained every thursday?'" },
@@ -633,7 +633,7 @@ export function SocialEnergyTrackerPage() {
                     { title: "multi-user / cloud", detail: "scoped to local storage for now. cloud sync would unlock cross-device use and optional sharing." },
                   ].map(({ title, detail }, i) => (
                     <li key={i} className="flex gap-3 items-start">
-                      <span className="text-sage font-mono text-xs mt-1 shrink-0">→</span>
+                      <span className="text-sage text-xs mt-1 shrink-0">→</span>
                       <div>
                         <p className="text-sm font-medium text-ink dark:text-cream">{title}</p>
                         <p className="text-xs text-stone font-light leading-relaxed mt-0.5">{detail}</p>
@@ -677,7 +677,7 @@ export function SocialEnergyTrackerPage() {
                   testflight / app store →
                 </a>
               </div>
-              <p className="text-xs text-stone/50 font-light italic">links coming soon</p>
+              <p className="text-xs text-stone/50 font-light">links coming soon</p>
               */}
               <Link to="/work" className="text-xs text-sage font-light link-sage mt-4">
                 ← back to work

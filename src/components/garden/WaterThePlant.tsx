@@ -218,7 +218,7 @@ export function GardenPlant({ className = "" }: { className?: string }) {
 
       {/* hint appears on approach (hover/focus); the bloomed thanks stays visible */}
       <span
-        className={`font-serif italic text-xs whitespace-nowrap mb-1 select-none transition duration-300 ${
+        className={`text-xs whitespace-nowrap mb-1 select-none transition duration-300 ${
           stage === 2
             ? "text-sage-ink opacity-100"
             : "text-muted dark:text-sage-light/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100"

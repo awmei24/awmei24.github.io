@@ -22,9 +22,13 @@
   --color-sage-ink:     #5E7251;  /* 4.6:1 on cream & parchment */
   --color-clay-ink:     #AB5439;  /* clay under 24px; 4.5:1 on parchment */
 
-  --font-sans:  "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-serif: "Newsreader", Georgia, serif;
-  --font-mono:  "Space Mono", ui-monospace, SFMono-Regular, monospace;
+  /* One typeface everywhere. serif/mono alias to it so stray utilities can't
+     pull in a second face. */
+  /* Gaegu has no Chinese characters, so the browser falls through to
+     ZCOOL KuaiLe for those (Google Fonts only downloads the slices used) */
+  --font-sans:  "Gaegu", "ZCOOL KuaiLe", system-ui, sans-serif;
+  --font-serif: var(--font-sans);
+  --font-mono:  var(--font-sans);
 }
 
 /* ─── Base ───────────────────────────────────────────────────────────────── */
@@ -35,6 +39,10 @@
 
 html {
   font-family: var(--font-sans);
+  /* Gaegu's x-height is only 0.34em, so it reads ~30% smaller than a typical
+     sans at the same size. This scales every glyph up (px and rem sizes alike)
+     without touching layout spacing. Raise/lower to taste. */
+  font-size-adjust: 0.44;
   background-color: var(--color-cream);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
@@ -45,6 +53,11 @@ html {
 body {
   margin: 0;
   min-height: 100dvh;
+}
+
+/* No italics anywhere (covers <em>/<i> in synced posts too) */
+em, i, cite, dfn, var, address {
+  font-style: normal;
 }
 
 /* ─── Dark Mode ──────────────────────────────────────────────────────────── */
