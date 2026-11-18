@@ -37,7 +37,7 @@ export function ContactPage() {
 
           <FadeIn delay={0.12}>
             <p className="text-base text-sage-light font-normal leading-relaxed mb-12 max-w-md">
-              tell me about a data problem, a classroom, or a pot you made.
+              tell me about something you made.
             </p>
           </FadeIn>
 

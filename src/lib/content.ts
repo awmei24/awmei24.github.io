@@ -159,13 +159,13 @@ export const hobbies: HobbyCategory[] = [
     path: "/hobbies/dev-lab",
     layout: "post",
     items: [
-      /* each served from its repo's own github pages site */
+      /* newest first; each served from its repo's own github pages site */
       {
-        id: "weather-buddy",
-        title: "weather buddy",
-        subtitle: "a little animated desktop friend that changes with the weather.",
+        id: "mapping-nyc",
+        title: "mapping nyc",
+        subtitle: "an interactive map of the city's 262 neighborhoods, each with a profile of who lives there and how it ranks.",
         date: "2026",
-        link: "/weather-buddy/",
+        link: "/mapping-nyc/",
       },
       {
         id: "a-light-below",
@@ -175,11 +175,11 @@ export const hobbies: HobbyCategory[] = [
         link: "/a-light-below/",
       },
       {
-        id: "mapping-nyc",
-        title: "mapping nyc",
-        subtitle: "an interactive map of the city's 262 neighborhoods, each with a profile of who lives there and how it ranks.",
+        id: "weather-buddy",
+        title: "weather buddy",
+        subtitle: "a little animated desktop friend that changes with the weather.",
         date: "2026",
-        link: "/mapping-nyc/",
+        link: "/weather-buddy/",
       },
     ],
   },
