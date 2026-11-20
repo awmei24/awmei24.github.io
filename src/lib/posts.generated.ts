@@ -11,12 +11,12 @@ export const substackPosts: Post[] = [
     "link": "https://amandawangmei.substack.com/p/sept-oct-2026"
   },
   {
-    "id": "untitled-1",
-    "title": "untitled #1",
+    "id": "on-hanging-out",
+    "title": "on “hanging out”",
     "date": "oct 2026",
     "readTime": "5 min",
     "excerpt": "i’m not really that much of a foodie ...",
-    "link": "https://amandawangmei.substack.com/p/untitled-1"
+    "link": "https://amandawangmei.substack.com/p/on-hanging-out"
   },
   {
     "id": "jul-aug-2026",
